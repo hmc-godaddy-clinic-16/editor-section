@@ -4,7 +4,7 @@
   "description": "From the site visit",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server -d",
+    "start": "webpack-dev-server -d --host 0.0.0.0",
     "build": "webpack -d",
     "test": "mocha --compilers js:babel-core/register ./test/**/*.spec.js",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha ./test/**/*.spec.js"
@@ -29,6 +29,8 @@
   },
   "dependencies": {
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0"
   }
 }

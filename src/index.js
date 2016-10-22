@@ -1,21 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import InputBox from "./inputbox.js";
-import Button from "./button.js";
+import {createStore, combineReducers} from 'redux';
+import {Provider} from "react-redux";
+import App from "./components/app.js";
+import title from "./reducers/title.js";
 
-class Display extends React.Component {
-	render() {
-		return (
-			<div>
-				<p>Title</p>
-				<InputBox />
-				<p>Text</p>
-				<InputBox />
-				<p><Button /></p>
-			</div>);
-	}
-}
 
-// TODO: store input when submit button is clicked.
+// The app redux store contains all of the app's data
+const store = createStore(combineReducers({
+  title
+}), {
+  title: "This is a test title"
+},
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
-ReactDOM.render(<Display />, document.getElementById("app"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
+  document.getElementById("app")
+);
