@@ -1,0 +1,25 @@
+import React from 'react';
+
+class InputField extends React.Component {
+  constructor () {
+    super();
+    this.state = {
+      text: ""
+    };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange (event) {
+    this.setState({text: event.target.value});
+  }
+
+  render () {
+    return (
+      <div>
+        <input type="text" value={this.state.text} onChange={this.onChange}/>
+      </div>
+    )
+  }
+}
+
+export default InputField;
