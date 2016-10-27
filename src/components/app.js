@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
+import RichTextEditor from "./richtexteditor";
 import {updateTitle} from "../actions/title";
 
 export class App extends React.Component {
@@ -22,6 +23,8 @@ export class App extends React.Component {
     	<InputBox text={this.props.title} onEdit={this.props.changeTitle}/>
     	<p>Text</p>
     	<InputBox text=""/>
+      <p>Rich Text</p>
+      <RichTextEditor />
       </div>
     )
   }
