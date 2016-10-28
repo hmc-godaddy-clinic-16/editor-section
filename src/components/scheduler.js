@@ -48,7 +48,7 @@ class Scheduler extends React.Component
 				End Date: <Datetime viewMode='days' defaultValue={this.state.enddatetime}/>
 
 				<h3>Version C</h3>
-				Would require modfication to a 3rd party module 
+				Would require modfication to a 3rd party module <br/>
 				Start Date: <Datetime viewMode='days' className="datepicker" defaultValue={this.state.startdatetime}/>
 				Time: <Datetime viewMode='time' className="timepicker" defaultValue={this.state.startdatetime}/>
 				End Date: <Datetime viewMode='days' className="datepicker" defaultValue={this.state.enddatetime}/>
