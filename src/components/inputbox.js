@@ -11,7 +11,7 @@ class InputBox extends React.Component {
 
   onChange(event) {
     this.setState({text: event.target.value});
-    this.props.onEdit(this.state.text);
+    this.props.onEdit(event.target.value);
   }
 
   render() {
