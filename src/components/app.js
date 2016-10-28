@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle} from "../actions/title";
+import Scheduler from "./scheduler";
 
 export class App extends React.Component {
   constructor () {
@@ -18,10 +19,11 @@ export class App extends React.Component {
   render () {
     return (
       <div>
-     	<p>Title</p>
-    	<InputBox text={this.props.title} onEdit={this.props.changeTitle}/>
-    	<p>Text</p>
-    	<InputBox text=""/>
+       	<p>Title</p>
+      	<InputBox text={this.props.title} onEdit={this.props.changeTitle}/>
+      	<p>Text</p>
+      	<InputBox text=""/>
+        <Scheduler/>
       </div>
     )
   }
