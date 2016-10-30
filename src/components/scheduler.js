@@ -1,60 +1,68 @@
 import React from 'react';
 import moment from 'moment';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import TimePicker from 'rc-time-picker';
-import 'rc-time-picker/assets/index.css';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 
 class Scheduler extends React.Component 
 {
-	  constructor() {
-	    super();    
+	  constructor(props) {
+	    super(props);    
 	    this.state = {
-	      date: moment(),
-	      time: moment(),
-	      datetime: moment(),
-	      startdatetime: moment(),
-	      enddatetime: moment()
+	    	datetime: ""
 	    };
 	    this.onChange = this.onChange.bind(this);
-    }
-
-     onTimeChange(event) {
-	    this.setState({date: event});
-	    //this.props.onEdit(this.state.date);
-    }
-
-    onDateChange(event) {
-    	this.setState({time: event});
+	    this.isValidDate = this.isValidDate.bind(this);
+	    this.render = this.render.bind(this);
     }
 
     onChange(event) {
 
+    	this.setState ({datetime: event.target.value});
+    	this.props.onEdit(event.target.value);
+
+    }
+
+    isValidDate(selectedDate) {	
+
+    	if (this.props.startDate == null ) {
+    		if (selectedDate.isAfter(moment())) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	} else {
+    		if ( selectedDate.isAfter(moment()) && selectedDate.isAfter(this.props.startDate)) {
+    			return true;
+    		} else {
+    			return false;
+    		}
+    	}
+    }
+
+    sameDay(date) {
+    	
     }
 
 	render() {
-	    return (
-			<div>
-				<h3>Version A</h3> 
-				Start Date: <DatePicker selected={this.state.date} onChange={this.onChange}/>
-				Time: <TimePicker defaultValue={this.state.time} onChange={this.onChange} />
-				End Date: <DatePicker selected={this.state.date} onChange={this.onChange}/>
-				Time: <TimePicker defaultValue={this.state.time} onChange={this.onChange} />
-		
-				<h3>Version B</h3>
-				Start Date: <Datetime viewMode='days' defaultValue={this.state.startdatetime}/>
-				End Date: <Datetime viewMode='days' defaultValue={this.state.enddatetime}/>
+		var dateTimePicker;
 
-				<h3>Version C</h3>
-				Would require modfication to a 3rd party module <br/>
-				Start Date: <Datetime viewMode='days' className="datepicker" defaultValue={this.state.startdatetime}/>
-				Time: <Datetime viewMode='time' className="timepicker" defaultValue={this.state.startdatetime}/>
-				End Date: <Datetime viewMode='days' className="datepicker" defaultValue={this.state.enddatetime}/>
-				Time: <Datetime viewMode='time' className="timepicker" defaultValue={this.state.enddatetime}/>
-			</div>
-	    );
+		if (this.props.same) {
+			dateTimePicker = (
+				<div> 
+					<Datetime viewMode='days' defaultValue={this.state.datetime} onChange={this.onChange} isValidDate={this.isValidDate}/>
+				</div> 
+			);
+		} else {
+			dateTimePicker = (
+
+				<div> 
+					<Datetime viewMode='days' defaultValue={this.state.datetime} timeFormat ="" onChange={this.onChange} isValidDate={this.isValidDate}/>
+					<Datetime viewMode='time' defaultValue={this.state.datetime} dateFormat ="" onChange={this.onChange} isValidDate={this.isValidDate}/>
+				</div> 
+			);
+		}
+
+	    return dateTimePicker;
     }
 }
 
