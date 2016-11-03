@@ -13,7 +13,7 @@ const store = createStore(combineReducers({
   editor: {
   	title: "Example Title",
   	content: "Content", 
-  	image: "image url", 
+  	imgUrl: "image url", 
   	startDate: null,
   	endDate: null
   } 

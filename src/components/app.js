@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl} from "../actions/editor";
 import Scheduler from "./scheduler";
 
 export class App extends React.Component {
@@ -11,7 +11,8 @@ export class App extends React.Component {
       editor: {
         title:"a different test title",
         startDate: "some date",
-        endDate: "some date"
+        endDate: "some date",
+        imgUrl: "some image url",
       }, 
       dateTimeSameField: true
     };
@@ -29,6 +30,10 @@ export class App extends React.Component {
     this.props.changeEndDate(date);
   }
 
+  changeImageUrl(imgUrl) {
+    this.props.changeImageUrl(imgUrl);
+  }
+
   render () {
     return (
       <div>
@@ -38,6 +43,8 @@ export class App extends React.Component {
       	<InputBox text=""/>
         Start: <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
         End: <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
+        <p>Image Url</p>
+        <InputBox text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
       </div>
     )
   }
@@ -47,11 +54,13 @@ App.propTypes = {
   changeTitle: React.PropTypes.func.isRequired,
   changeStartDate: React.PropTypes.func.isRequired,
   changeEndDate: React.PropTypes.func.isRequired,
+  changeImageUrl: React.PropTypes.func.isRequired,
   
   editor: React.PropTypes.shape({
     title: React.PropTypes.string.isRequired,
     startDate: React.PropTypes.instanceOf(Date),
-    endDate: React.PropTypes.instanceOf(Date)
+    endDate: React.PropTypes.instanceOf(Date),
+    imgUrl: React.PropTypes.string.isRequired,
   }).isRequired 
 
 };
@@ -75,6 +84,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeEndDate: (date) => {
       return dispatch(updateEndDate(date))
+    },
+    changeImageUrl: (imgUrl) => {
+      return dispatch(updateImageUrl(imgUrl))
     }
   };
 }

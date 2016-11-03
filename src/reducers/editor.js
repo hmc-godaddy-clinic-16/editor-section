@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL} from '../constants';
 
 export default (state = "", action) => {
 	switch (action.type) {
@@ -18,6 +18,12 @@ export default (state = "", action) => {
 			console.log("updated end date");
 			return Object.assign ( {}, state, {
 				endDate: action.date
+			});
+
+		case UPDATE_IMAGE_URL:
+			console.log("updated image url");
+			return Object.assign ( {}, state, {
+				imgUrl: action.imgUrl
 			});
 	}
 
