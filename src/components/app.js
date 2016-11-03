@@ -1,13 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle} from "../actions/title";
+import {updateTitle, updateStartDate, updateEndDate} from "../actions/editor";
+import Scheduler from "./scheduler";
 
 export class App extends React.Component {
   constructor () {
     super();
     this.state = {
-    	title:"a different test title"
+      editor: {
+        title:"a different test title",
+        startDate: "some date",
+        endDate: "some date"
+      }, 
+      dateTimeSameField: true
     };
   }
 
@@ -15,13 +21,23 @@ export class App extends React.Component {
   	this.props.changeTitle(text);
   }
 
+  changeStartDate(date) {
+    this.props.changeStartDate(date);
+  }
+
+  changeEndDate(date) {
+    this.props.changeEndDate(date);
+  }
+
   render () {
     return (
       <div>
-     	<p>Title</p>
-    	<InputBox text={this.props.title} onEdit={this.props.changeTitle}/>
-    	<p>Text</p>
-    	<InputBox text=""/>
+       	<p>Title</p>
+      	<InputBox text={this.props.editor.title} onEdit={this.props.changeTitle}/>
+      	<p>Text</p>
+      	<InputBox text=""/>
+        Start: <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
+        End: <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
       </div>
     )
   }
@@ -29,7 +45,15 @@ export class App extends React.Component {
 
 App.propTypes = {
   changeTitle: React.PropTypes.func.isRequired,
-  title: React.PropTypes.string.isRequired
+  changeStartDate: React.PropTypes.func.isRequired,
+  changeEndDate: React.PropTypes.func.isRequired,
+  
+  editor: React.PropTypes.shape({
+    title: React.PropTypes.string.isRequired,
+    startDate: React.PropTypes.instanceOf(Date),
+    endDate: React.PropTypes.instanceOf(Date)
+  }).isRequired 
+
 };
 
 
@@ -37,7 +61,7 @@ App.propTypes = {
 // the communication between the Redux store and React
 function mapStateToProps (state) {
   return {
-    title: state.title
+    editor: state.editor
   }
 }
 
@@ -45,6 +69,12 @@ function mapDispatchToProps (dispatch) {
   return {
     changeTitle: (text) => {
       return dispatch(updateTitle(text))
+    }, 
+    changeStartDate: (date) => {
+      return dispatch(updateStartDate(date))
+    },
+    changeEndDate: (date) => {
+      return dispatch(updateEndDate(date))
     }
   };
 }
