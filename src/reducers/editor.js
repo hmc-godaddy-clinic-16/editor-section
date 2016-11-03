@@ -11,13 +11,13 @@ export default (state = "", action) => {
 		case UPDATE_START_DATE:
 			console.log("updated start date");
 			return Object.assign ( {}, state, {
-				startDate: action.startDate
+				startDate: action.date
 			});
 
 		case UPDATE_END_DATE:
 			console.log("updated end date");
 			return Object.assign ( {}, state, {
-				endDate: action.endDate
+				endDate: action.date
 			});
 	}
 

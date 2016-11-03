@@ -15,14 +15,18 @@ class Scheduler extends React.Component
 	    this.render = this.render.bind(this);
     }
 
-    onChange(event) {
-
-    	this.setState ({datetime: event.target.value});
-    	this.props.onEdit(event.target.value);
+    onChange(moment) {
+    	console.log("in onChange");
+    	console.log(moment);
+    	this.setState ({datetime: moment});
+    	console.log("todate", moment.toDate());
+    	this.props.onEdit(moment.toDate());
 
     }
 
     isValidDate(selectedDate) {	
+
+    	// add isValidDate={this.isValidDate}/>
 
     	if (this.props.startDate == null ) {
     		if (selectedDate.isAfter(moment())) {
@@ -49,15 +53,15 @@ class Scheduler extends React.Component
 		if (this.props.same) {
 			dateTimePicker = (
 				<div> 
-					<Datetime viewMode='days' defaultValue={this.state.datetime} onChange={this.onChange} isValidDate={this.isValidDate}/>
+					<Datetime viewMode='days' onChange={this.onChange} value={this.state.datetime}/>
 				</div> 
 			);
 		} else {
 			dateTimePicker = (
 
 				<div> 
-					<Datetime viewMode='days' defaultValue={this.state.datetime} timeFormat ="" onChange={this.onChange} isValidDate={this.isValidDate}/>
-					<Datetime viewMode='time' defaultValue={this.state.datetime} dateFormat ="" onChange={this.onChange} isValidDate={this.isValidDate}/>
+					<Datetime viewMode='days' onChange={this.onChange} value={this.state.datetime} timeFormat =""/>
+					<Datetime viewMode='time' onChange={this.onChange} value={this.state.datetime} dateFormat =""/>
 				</div> 
 			);
 		}

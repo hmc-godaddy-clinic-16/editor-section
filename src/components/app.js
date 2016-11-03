@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import actions from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate} from "../actions/editor";
 import Scheduler from "./scheduler";
 
 export class App extends React.Component {
@@ -11,7 +11,7 @@ export class App extends React.Component {
       editor: {
         title:"a different test title",
         startDate: "some date",
-        endDate: null
+        endDate: "some date"
       }, 
       dateTimeSameField: true
     };
@@ -50,8 +50,8 @@ App.propTypes = {
   
   editor: React.PropTypes.shape({
     title: React.PropTypes.string.isRequired,
-    startDate: React.PropTypes.instanceOf(Date()),
-    endDate: React.PropTypes.instanceOf(Date())
+    startDate: React.PropTypes.instanceOf(Date),
+    endDate: React.PropTypes.instanceOf(Date)
   }).isRequired 
 
 };
@@ -71,10 +71,10 @@ function mapDispatchToProps (dispatch) {
       return dispatch(updateTitle(text))
     }, 
     changeStartDate: (date) => {
-      return dispatch(changeStartDate(date))
+      return dispatch(updateStartDate(date))
     },
     changeEndDate: (date) => {
-      return dispatch(changeEndDate(date))
+      return dispatch(updateEndDate(date))
     }
   };
 }
