@@ -31,6 +31,7 @@ class InputBox extends React.Component {
 
     return (
       <div style={divStyle}>
+        <p>{this.props.label}</p>
         <input
           type="text"
           style={boxStyle} 

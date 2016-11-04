@@ -67,14 +67,11 @@ export class App extends React.Component {
         </div>
 
         <div style={editorStyle}>
-         	<p>Title</p>
-        	 <InputBox text={this.props.editor.title} onEdit={this.props.changeTitle}/>
-        	<p>Body</p>
-          	<InputBox text=""/>
-            Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
-            End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
-          <p>Image URL</p>
-            <InputBox text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
+          <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
+          <InputBox label="Body" text=""/>
+          Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
+          End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
+          <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
         </div>
       </div>
     )
