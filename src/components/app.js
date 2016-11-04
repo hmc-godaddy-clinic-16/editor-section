@@ -35,16 +35,44 @@ export class App extends React.Component {
   }
 
   render () {
+    var previewStyle = {
+      'width': '60%',
+      'height': '100vh',
+      'padding': '20px',
+      'float': 'left',
+      'borderStyle': 'solid',
+      'borderColor': 'black',
+      'backgroundColor': '#202121'
+    };
+
+    // TO DO: Dynamically place editor underneath
+    // preview section when window becomes smaller
+
+    var editorStyle = {
+      'width': '40%',
+      'height': '100vh',
+      'padding': '20px',
+      'overflow': 'hidden',
+      'borderStyle': 'solid',
+      'borderColor': 'black',
+      'backgroundColor': '#2e2f2e',
+      'fontFamily': 'Arial, sans-serif',
+      'fontSize': '14px',
+      'color': 'white'
+    };
+
     return (
       <div>
-       	<p>Title</p>
-      	<InputBox text={this.props.editor.title} onEdit={this.props.changeTitle}/>
-      	<p>Text</p>
-      	<InputBox text=""/>
-        Start: <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
-        End: <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
-        <p>Image Url</p>
-        <InputBox text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
+        <div style={previewStyle}>
+        </div>
+
+        <div style={editorStyle}>
+          <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
+          <InputBox label="Body" text=""/>
+          Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
+          End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
+          <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
+        </div>
       </div>
     )
   }
