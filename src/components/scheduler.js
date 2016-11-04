@@ -50,16 +50,20 @@ class Scheduler extends React.Component
 	render() {
 		var dateTimePicker;
 
+        var divStyle = {
+            'paddingBottom': '30px',
+            'color': 'black'
+        }
+
 		if (this.props.same) {
 			dateTimePicker = (
-				<div> 
+				<div style={divStyle}> 
 					<Datetime viewMode='days' onChange={this.onChange} value={this.state.datetime}/>
 				</div> 
 			);
 		} else {
 			dateTimePicker = (
-
-				<div> 
+				<div style={divStyle}> 
 					<Datetime viewMode='days' onChange={this.onChange} value={this.state.datetime} timeFormat =""/>
 					<Datetime viewMode='time' onChange={this.onChange} value={this.state.datetime} dateFormat =""/>
 				</div> 
