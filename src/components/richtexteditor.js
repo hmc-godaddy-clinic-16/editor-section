@@ -1,22 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Editor, EditorState, RichUtils} from 'draft-js';
+import './RichTextEditor.css';
 
-// var editor_styles = {
-// 	border: '1px',
-// 	padding: '6px'
-
-// };
 
 class RichTextEditor extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {editorState: EditorState.createEmpty()};
+
+		this.focus = () => this.refs.editor.focus();
 		this.onChange = (editorState) => this.setState({editorState});
+		this.onTab = (e) => this._onTab(e);
+		this.toggleBlockType = (type) => this._toggleBlockType(type);
+		this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 	}
+
 	handleKeyCommand(command) {
-		const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+		const {editorState} = this.state;
+		const newState = RichUtils.handleKeyCommand(editorState, command);
 		if (newState) {
 			this.onChange(newState);
 			return 'handled';
@@ -24,29 +28,142 @@ class RichTextEditor extends React.Component {
 		return 'not-handled';
 	}
 
-	_onBoldClick() {
-		this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+	_onTab(e) {
+		const maxDepth = 4;
+		this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
 	}
 
-	_onItalicClick() {
-		this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
+	_toggleBlockType(blockType) {
+		this.onChange(
+			RichUtils.toggleBlockType(
+				this.state.editorState,
+				blockType
+				)
+			);
+	}
+
+	_toggleInlineStyle(inlineStyle) {
+		this.onChange(
+			RichUtils.toggleInlineStyle(
+				this.state.editorState,
+				inlineStyle
+				)
+			);
 	}
 
 	render() {
+		const {editorState} = this.state;
+
+		let className = 'RichTextEditor-editor';
+		var contentState = editorState.getCurrentContent();
+
 		return (
-			<div>
-				<button onClick={this._onBoldClick.bind(this)}>Bold</button>
-				<button onClick={this._onItalicClick.bind(this)}>Italic</button>
+			<div className = "RichEditor-root">
+
+	            <BlockStyleControls
+	                editorState={editorState}
+	                onToggle={this.toggleBlockType}
+	            />
+	            <InlineStyleControls
+	                editorState={editorState}
+	                onToggle={this.toggleInlineStyle}
+	            />
+
 				<div>
 				<Editor
-					editorState={this.state.editorState}
+					editorState={editorState}
+					// blockStyleFn={getBlockStyle} //todo ??
 					handleKeyCommand = {this.handleKeyCommand}
 					onChange={this.onChange}
+					onTab= {this.onTab}
+					// placeholder = "Your text here..."
+					ref='editor'
 				/>
 				</div>
 			</div>
 		);
 	}
 }
+
+      function getBlockStyle(block) {
+        switch (block.getType()) {
+          case 'blockquote': return 'RichEditor-blockquote';
+          default: return null;
+        }
+      }
+
+      class StyleButton extends React.Component {
+        constructor() {
+          super();
+          this.onToggle = (e) => {
+            e.preventDefault();
+            this.props.onToggle(this.props.style);
+          };
+        }
+
+        render() {
+          let className = 'RichEditor-styleButton';
+          if (this.props.active) {
+            className += ' RichEditor-activeButton';
+          }
+
+          return (
+            <span className={className} onMouseDown={this.onToggle}>
+              {this.props.label}
+            </span>
+          );
+        }
+      }
+
+      const BLOCK_TYPES = [
+        {label: 'UL', style: 'unordered-list-item'},
+        {label: 'OL', style: 'ordered-list-item'},
+      ];
+
+      const BlockStyleControls = (props) => {
+        const {editorState} = props;
+        const selection = editorState.getSelection();
+        const blockType = editorState
+          .getCurrentContent()
+          .getBlockForKey(selection.getStartKey())
+          .getType();
+
+        return (
+          <div className="RichEditor-controls">
+            {BLOCK_TYPES.map((type) =>
+              <StyleButton
+                key={type.label}
+                active={type.style === blockType}
+                label={type.label}
+                onToggle={props.onToggle}
+                style={type.style}
+              />
+            )}
+          </div>
+        );
+      };
+
+      var INLINE_STYLES = [
+        {label: 'Bold', style: 'BOLD'},
+        {label: 'Italic', style: 'ITALIC'},
+        {label: 'Underline', style: 'UNDERLINE'},
+      ];
+
+      const InlineStyleControls = (props) => {
+        var currentStyle = props.editorState.getCurrentInlineStyle();
+        return (
+          <div className="RichEditor-controls">
+            {INLINE_STYLES.map(type =>
+              <StyleButton
+                key={type.label}
+                active={currentStyle.has(type.style)}
+                label={type.label}
+                onToggle={props.onToggle}
+                style={type.style}
+              />
+            )}
+          </div>
+        );
+      };
 
 module.exports = RichTextEditor;
