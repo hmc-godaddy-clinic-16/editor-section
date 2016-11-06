@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT} from '../constants';
 
 export default (state = "", action) => {
 	switch (action.type) {
@@ -25,6 +25,12 @@ export default (state = "", action) => {
 			return Object.assign ( {}, state, {
 				imgUrl: action.imgUrl
 			});
+
+		case UPDATE_BODY_TEXT:
+			console.log("updated body text");
+			return Object.assign ( {}, state, {
+				text: action.text
+			})
 	}
 
 	return state;

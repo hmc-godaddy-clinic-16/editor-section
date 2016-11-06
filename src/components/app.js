@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl} from "../actions/editor";
 import Scheduler from "./scheduler";
+import RichTextEditor from "./richtexteditor.js";
 
 export class App extends React.Component {
   constructor () {
@@ -68,7 +69,7 @@ export class App extends React.Component {
 
         <div style={editorStyle}>
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
-          <InputBox label="Body" text=""/>
+          Body <RichTextEditor/>
           Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
           End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
           <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
@@ -83,6 +84,7 @@ App.propTypes = {
   changeStartDate: React.PropTypes.func.isRequired,
   changeEndDate: React.PropTypes.func.isRequired,
   changeImageUrl: React.PropTypes.func.isRequired,
+  changeBodyText: React.PropTypes.func.isRequired,
   
   editor: React.PropTypes.shape({
     title: React.PropTypes.string.isRequired,
@@ -115,6 +117,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeImageUrl: (imgUrl) => {
       return dispatch(updateImageUrl(imgUrl))
+    },
+    changeBodyText: (text) => {
+      return dispath(updateBodyText(text))
     }
   };
 }
