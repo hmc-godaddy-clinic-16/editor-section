@@ -4,6 +4,8 @@ import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl} from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
+import Announcement from "./announcement.js";
+import * as constants from './constants.js';
 
 export class App extends React.Component {
   constructor () {
@@ -62,9 +64,22 @@ export class App extends React.Component {
       'color': 'white'
     };
 
+    // mock mode
+    var mode = constants.EDIT;
+
+    // mock data
+    var announcementData = {
+      title: "BUY ONE DOZEN GET ONE DOZEN FREE",
+      content: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
+      image: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg", 
+      startDate: "2016-06-27T09:00:00.000Z",
+      endDate: "2017-11-05T10:00:00.000Z"
+    };
+
     return (
       <div>
         <div style={previewStyle}>
+          <Announcement data={announcementData} mode={mode}/>
         </div>
 
         <div style={editorStyle}>
