@@ -28,3 +28,10 @@ export function updateImageUrl (imgUrl) {
         imgUrl
     }
 }
+
+export function updateBodyText (text) {
+	return {
+		type: UPDATE_BODY_TEXT,
+		text
+	}
+}
