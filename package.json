@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "css-loader": "^0.25.0",
+    "draft-js-export-html": "^0.5.1",
     "moment": "^2.15.2",
     "react": "^15.3.2",
     "react-datetime": "^2.6.2",

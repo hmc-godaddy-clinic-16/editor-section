@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_LINK} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK} from '../constants';
 
 // Redux action to edit/update the title of an anncouncement
 export function updateTitle (title) {
@@ -29,10 +29,10 @@ export function updateImageUrl (imgUrl) {
     }
 }
 
-export function updateBodyText (text) {
+export function updateBodyText (bodyText) {
 	return {
 		type: UPDATE_BODY_TEXT,
-		text
+		bodyText
 	}
 }
 

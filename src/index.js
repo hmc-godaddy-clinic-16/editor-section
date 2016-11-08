@@ -16,6 +16,7 @@ const store = createStore(combineReducers({
   	imgUrl: "image url", 
   	startDate: null,
   	endDate: null,
+    bodyText: "Some text",
     link: "Optional link"
   } 
 },
