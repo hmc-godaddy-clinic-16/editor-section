@@ -7,6 +7,7 @@ class Announcement extends React.Component {
 	render () {
 		var image = this.props.data.image;
 
+		// in-line styling to display background image
 		var announcementStyle = {
 			'padding': '10px',
 			'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',		
