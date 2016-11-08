@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate, updateImageUrl} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText} from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
@@ -16,6 +16,7 @@ export class App extends React.Component {
         startDate: "some date",
         endDate: "some date",
         imgUrl: "some image url",
+        bodyText: "some body text",
       }, 
       dateTimeSameField: true
     };
@@ -35,6 +36,10 @@ export class App extends React.Component {
 
   changeImageUrl(imgUrl) {
     this.props.changeImageUrl(imgUrl);
+  }
+
+  changeBodyText(text) {
+    this.props.changeBodyText(text);
   }
 
   render () {
@@ -84,7 +89,7 @@ export class App extends React.Component {
 
         <div style={editorStyle}>
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
-          Body <RichTextEditor/>
+          Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
           Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
           End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
           <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
@@ -106,6 +111,7 @@ App.propTypes = {
     startDate: React.PropTypes.instanceOf(Date),
     endDate: React.PropTypes.instanceOf(Date),
     imgUrl: React.PropTypes.string.isRequired,
+    bodyText: React.PropTypes.string.isRequired
   }).isRequired 
 
 };
@@ -121,8 +127,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    changeTitle: (text) => {
-      return dispatch(updateTitle(text))
+    changeTitle: (title) => {
+      return dispatch(updateTitle(title))
     }, 
     changeStartDate: (date) => {
       return dispatch(updateStartDate(date))
@@ -133,8 +139,8 @@ function mapDispatchToProps (dispatch) {
     changeImageUrl: (imgUrl) => {
       return dispatch(updateImageUrl(imgUrl))
     },
-    changeBodyText: (text) => {
-      return dispath(updateBodyText(text))
+    changeBodyText: (bodyText) => {
+      return dispatch(updateBodyText(bodyText))
     }
   };
 }

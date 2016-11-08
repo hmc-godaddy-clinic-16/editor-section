@@ -29,7 +29,7 @@ export default (state = "", action) => {
 		case UPDATE_BODY_TEXT:
 			console.log("updated body text");
 			return Object.assign ( {}, state, {
-				text: action.text
+				bodyText: action.bodyText
 			})
 	}
 

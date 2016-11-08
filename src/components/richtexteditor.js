@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import './RichTextEditor.css';
+import {stateToHTML} from 'draft-js-export-html';
 
 
 class RichTextEditor extends React.Component {
@@ -11,11 +12,19 @@ class RichTextEditor extends React.Component {
 		this.state = {editorState: EditorState.createEmpty()};
 
 		this.focus = () => this.refs.editor.focus();
-		this.onChange = (editorState) => this.setState({editorState});
+		this.onChange = this.onChange.bind(this);
 		this.onTab = (e) => this._onTab(e);
 		this.toggleBlockType = (type) => this._toggleBlockType(type);
 		this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
+	}
+
+	onChange(editorState) {
+		this.setState({editorState});
+		var contentState = editorState.getCurrentContent();
+		let html = stateToHTML(contentState);
+		this.props.onEdit(html);
+
 	}
 
 	handleKeyCommand(command) {
@@ -56,10 +65,11 @@ class RichTextEditor extends React.Component {
 
 		let className = 'RichTextEditor-editor';
 		var contentState = editorState.getCurrentContent();
+		let html = stateToHTML(contentState);
 
 		return (
 			<div className = "RichEditor-root">
-
+				{html}
 	            <BlockStyleControls
 	                editorState={editorState}
 	                onToggle={this.toggleBlockType}
