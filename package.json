@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server -d --host 0.0.0.0",
     "build": "webpack -d",
-    "test": "mocha --compilers js:babel-core/register ./test/**/*.spec.js",
+    "test": "mocha --compilers js:babel-core/register ./test/**/*.spec.js --require ./tools/testHelper.js 'src/**/*-spec.@(js|jsx)'",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha ./test/**/*.spec.js"
   },
   "author": "",
@@ -21,6 +21,7 @@
     "chai": "^3.5.0",
     "draft-js-plugins-editor": "^2.0.0-beta1",
     "enzyme": "^2.4.1",
+    "ignore-styles": "^5.0.1",
     "jsdom-global": "^2.1.0",
     "mocha": "^3.1.1",
     "react-addons-test-utils": "^15.3.2",
