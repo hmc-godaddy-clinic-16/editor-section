@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate, updateImageUrl} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateLink} from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
@@ -16,6 +16,7 @@ export class App extends React.Component {
         startDate: "some date",
         endDate: "some date",
         imgUrl: "some image url",
+        link: "some link"
       }, 
       dateTimeSameField: true
     };
@@ -35,6 +36,10 @@ export class App extends React.Component {
 
   changeImageUrl(imgUrl) {
     this.props.changeImageUrl(imgUrl);
+  }
+
+  changeLink(link) {
+    this.props.changeLink(link);
   }
 
   render () {
@@ -73,7 +78,8 @@ export class App extends React.Component {
       content: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
       image: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg", 
       startDate: "2016-06-27T09:00:00.000Z",
-      endDate: "2017-11-05T10:00:00.000Z"
+      endDate: "2017-11-05T10:00:00.000Z",
+      link: "http://www.thedonutmanca.com/"
     };
 
     return (
@@ -88,6 +94,7 @@ export class App extends React.Component {
           Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
           End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
           <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
+          <InputBox label="Link" text={this.props.editor.link} onEdit={this.props.changeLink}/>
         </div>
       </div>
     )
@@ -100,12 +107,14 @@ App.propTypes = {
   changeEndDate: React.PropTypes.func.isRequired,
   changeImageUrl: React.PropTypes.func.isRequired,
   changeBodyText: React.PropTypes.func.isRequired,
+  changeLink: React.PropTypes.func.isRequired,
   
   editor: React.PropTypes.shape({
     title: React.PropTypes.string.isRequired,
     startDate: React.PropTypes.instanceOf(Date),
     endDate: React.PropTypes.instanceOf(Date),
     imgUrl: React.PropTypes.string.isRequired,
+    link: React.PropTypes.string.isRequired
   }).isRequired 
 
 };
@@ -135,6 +144,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeBodyText: (text) => {
       return dispath(updateBodyText(text))
+    },
+    changeLink: (link) => {
+      return dispatch(updateLink(link))
     }
   };
 }
