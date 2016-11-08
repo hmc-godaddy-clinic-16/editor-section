@@ -49,7 +49,7 @@ export class App extends React.Component {
       'padding': '20px',
       'float': 'left',
       'borderStyle': 'solid',
-      'borderColor': 'black',
+      'borderColor': '#323333',
       'backgroundColor': '#202121'
     };
 
@@ -62,7 +62,7 @@ export class App extends React.Component {
       'padding': '20px',
       'overflow': 'hidden',
       'borderStyle': 'solid',
-      'borderColor': 'black',
+      'borderColor': '#202121',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
       'fontSize': '14px',
@@ -75,7 +75,7 @@ export class App extends React.Component {
     // mock data
     var announcementData = {
       title: "BUY ONE DOZEN GET ONE DOZEN FREE",
-      content: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
+      content: "<p> <b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply. </p>",
       image: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg", 
       startDate: "2016-06-27T09:00:00.000Z",
       endDate: "2017-11-05T10:00:00.000Z",
