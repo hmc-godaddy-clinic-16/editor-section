@@ -20,6 +20,21 @@ class InputBox extends React.Component {
       'paddingBottom': '30px'
     };
 
+
+
+    // TO DO: Change glow from blue to white
+    // when box is clicked
+    var boxStyle = {
+      'width': '99%',
+      'padding': '10px',
+      'backgroundColor': '#434445', 
+      'border': 'solid 1px #787878',
+      'borderRadius': '3px'
+    };
+
+    
+
+
     return (
       <div style={divStyle}>
         <p>{this.props.label}</p>

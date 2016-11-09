@@ -94,6 +94,11 @@ export class App extends React.Component {
         </div>
 
         <div style={editorStyle}>
+          <p> <h4> Announcement </h4> </p>
+
+  
+
+
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
           Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>

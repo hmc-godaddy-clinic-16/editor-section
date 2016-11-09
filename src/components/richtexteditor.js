@@ -1,9 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Editor, EditorState, RichUtils} from 'draft-js';
+import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 import './RichTextEditor.css';
 import {stateToHTML} from 'draft-js-export-html';
 
+const richButtonsPlugin = createRichButtonsPlugin();
+
+const {    
+  // inline buttons 
+  ItalicButton, BoldButton, UnderlineButton,
+  // block buttons 
+   OLButton, ULButton,
+} = richButtonsPlugin;
 
 class RichTextEditor extends React.Component {
 
@@ -60,6 +69,9 @@ class RichTextEditor extends React.Component {
 			);
 	}
 
+
+
+
 	render() {
 		const {editorState} = this.state;
 
@@ -69,15 +81,19 @@ class RichTextEditor extends React.Component {
 
 		return (
 			<div className = "RichEditor-root">
-	            <BlockStyleControls
+	            
+              <ul>
+              <li> <InlineStyleControls
+                  editorState={editorState}
+                  onToggle={this.toggleInlineStyle}
+              /> </li>
+          
+	            <li> <BlockStyleControls
 	                editorState={editorState}
 	                onToggle={this.toggleBlockType}
-	            />
-	            <InlineStyleControls
-	                editorState={editorState}
-	                onToggle={this.toggleInlineStyle}
-	            />
-
+	            /> </li>
+	            
+              </ul>
 				<div>
 				<Editor
 					editorState={editorState}
@@ -122,6 +138,7 @@ class RichTextEditor extends React.Component {
         }
       }
 
+
       const BLOCK_TYPES = [
         {label: 'UL', style: 'unordered-list-item'},
         {label: 'OL', style: 'ordered-list-item'},
@@ -151,9 +168,9 @@ class RichTextEditor extends React.Component {
       };
 
       var INLINE_STYLES = [
-        {label: 'Bold', style: 'BOLD'},
-        {label: 'Italic', style: 'ITALIC'},
-        {label: 'Underline', style: 'UNDERLINE'},
+        {label: 'B', style: 'BOLD'},
+        {label: 'I', style: 'ITALIC'},
+        {label: 'U', style: 'UNDERLINE'},
       ];
 
       const InlineStyleControls = (props) => {
