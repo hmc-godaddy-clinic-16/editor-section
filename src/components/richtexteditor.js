@@ -69,7 +69,6 @@ class RichTextEditor extends React.Component {
 
 		return (
 			<div className = "RichEditor-root">
-				{html}
 	            <BlockStyleControls
 	                editorState={editorState}
 	                onToggle={this.toggleBlockType}
