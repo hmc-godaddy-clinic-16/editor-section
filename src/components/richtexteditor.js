@@ -81,19 +81,15 @@ class RichTextEditor extends React.Component {
 
 		return (
 			<div className = "RichEditor-root">
-	            
-              <ul>
-              <li> <InlineStyleControls
+	            <nav>
+               <InlineStyleControls
                   editorState={editorState}
                   onToggle={this.toggleInlineStyle}
-              /> </li>
-          
-	            <li> <BlockStyleControls
+              /> <BlockStyleControls
 	                editorState={editorState}
 	                onToggle={this.toggleBlockType}
-	            /> </li>
-	            
-              </ul>
+	            /> 
+              </nav>
 				<div>
 				<Editor
 					editorState={editorState}
@@ -153,7 +149,7 @@ class RichTextEditor extends React.Component {
           .getType();
 
         return (
-          <div className="RichEditor-controls">
+          <span className="RichEditor-controls">
             {BLOCK_TYPES.map((type) =>
               <StyleButton
                 key={type.label}
@@ -163,7 +159,7 @@ class RichTextEditor extends React.Component {
                 style={type.style}
               />
             )}
-          </div>
+          </span>
         );
       };
 
@@ -176,7 +172,7 @@ class RichTextEditor extends React.Component {
       const InlineStyleControls = (props) => {
         var currentStyle = props.editorState.getCurrentInlineStyle();
         return (
-          <div className="RichEditor-controls">
+          <span className="RichEditor-controls">
             {INLINE_STYLES.map(type =>
               <StyleButton
                 key={type.label}
@@ -186,7 +182,7 @@ class RichTextEditor extends React.Component {
                 style={type.style}
               />
             )}
-          </div>
+          </span>
         );
       };
 

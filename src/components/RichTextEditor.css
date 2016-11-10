@@ -67,21 +67,10 @@
   color: #ffffff;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #434445;
+nav {
     border-bottom: solid 1px #787878;
 }
 
-li {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-}
 
 
 
