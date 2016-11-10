@@ -5,14 +5,7 @@ import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 import './RichTextEditor.css';
 import {stateToHTML} from 'draft-js-export-html';
 
-const richButtonsPlugin = createRichButtonsPlugin();
 
-const {    
-  // inline buttons 
-  ItalicButton, BoldButton, UnderlineButton,
-  // block buttons 
-   OLButton, ULButton,
-} = richButtonsPlugin;
 
 class RichTextEditor extends React.Component {
 
@@ -82,18 +75,19 @@ class RichTextEditor extends React.Component {
 		return (
 			<div className = "RichEditor-root">
 	            
-              <ul>
-              <li> <InlineStyleControls
-                  editorState={editorState}
-                  onToggle={this.toggleInlineStyle}
-              /> </li>
-          
-	            <li> <BlockStyleControls
-	                editorState={editorState}
-	                onToggle={this.toggleBlockType}
-	            /> </li>
-	            
-              </ul>
+          <ul>
+          <li> <InlineStyleControls
+              editorState={editorState}
+              onToggle={this.toggleInlineStyle} />
+              </li>
+         
+          <li> <BlockStyleControls
+              editorState={editorState}
+              onToggle={this.toggleBlockType} />
+              </li>
+         
+          </ul>
+
 				<div>
 				<Editor
 					editorState={editorState}

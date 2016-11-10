@@ -17,7 +17,7 @@ class InputBox extends React.Component {
 
   render() {
     var divStyle = {
-      'paddingBottom': '30px'
+      'paddingBottom': '40px'
     };
 
 
@@ -29,7 +29,7 @@ class InputBox extends React.Component {
       'padding': '10px',
       'backgroundColor': '#434445', 
       'border': 'solid 1px #787878',
-      'borderRadius': '3px'
+      'borderRadius': '3px',
     };
 
     

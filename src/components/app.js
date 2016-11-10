@@ -7,10 +7,15 @@ import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import * as constants from './constants.js';
 
+
+
 export class App extends React.Component {
   constructor () {
     super();
+    this.onMouseHover = this.onMouseHover.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
     this.state = {
+      hover: false,
       editor: {
         title:"a different test title",
         startDate: "some date",
@@ -21,6 +26,14 @@ export class App extends React.Component {
       }, 
       dateTimeSameField: true
     };
+  }
+
+  onMouseHover() {
+    this.setState({ hover:true });
+  }
+
+  onMouseOut() {
+    this.setState({ hover:false });
   }
 
   changeTitle (text) {
@@ -48,6 +61,14 @@ export class App extends React.Component {
   }
 
   render () {
+
+    var linkStyle;
+    if (this.state.hover) {
+      linkStyle = {'backgroundColor': 'red'}
+    } else {
+      linkStyle = {'backgroundColor': 'green'}
+    }
+
     var previewStyle = {
       'width': '60%',
       'height': '100vh',
@@ -89,15 +110,14 @@ export class App extends React.Component {
 
     return (
       <div>
+
+
         <div style={previewStyle}>
           <Announcement data={announcementData} mode={mode}/>
         </div>
 
         <div style={editorStyle}>
           <p> <h4> Announcement </h4> </p>
-
-  
-
 
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
