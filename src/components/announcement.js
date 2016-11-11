@@ -5,7 +5,7 @@ import './link.css';
 
 class Announcement extends React.Component {
 	render () {
-		var image = this.props.data.image;
+		var image = this.props.data.imgUrl;
 
 		// in-line styling to display background image
 		var announcementStyle = {
