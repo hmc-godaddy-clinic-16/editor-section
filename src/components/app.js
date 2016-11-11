@@ -86,7 +86,7 @@ export class App extends React.Component {
         </div>
 
         <div style={editorStyle}>
-          <p> <h4> Announcement </h4> </p>
+          <h4> Announcement </h4>
 
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
