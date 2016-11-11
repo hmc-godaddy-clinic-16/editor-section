@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Datetime from 'react-datetime';
-import 'react-datetime/css/react-datetime.css';
+import './scheduler.css';
 
 class Scheduler extends React.Component 
 {
@@ -49,7 +49,8 @@ class Scheduler extends React.Component
 
         var divStyle = {
             'paddingBottom': '30px',
-            'color': 'black'
+            'color': 'black',
+            
         }
 
 		if (this.props.same) {

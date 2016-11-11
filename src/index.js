@@ -15,7 +15,9 @@ const store = createStore(combineReducers({
   	content: "Content", 
   	imgUrl: "image url", 
   	startDate: null,
-  	endDate: null
+  	endDate: null,
+    bodyText: "Some text",
+    link: "Optional link"
   } 
 },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
