@@ -11,7 +11,7 @@ class Content extends React.Component {
 			// TO DO: Change appearance of announcement on link hover
 			<div style={contentStyle}>
 				<h1 id="title">{this.props.data.title}</h1>
-				<div id="content" span dangerouslySetInnerHTML={{ __html: this.props.data.content}} />
+				<div id="content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
 			</div>
 	)}
 }
