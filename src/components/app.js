@@ -19,7 +19,7 @@ export class App extends React.Component {
         bodyText: "some body text",
         link: "some link"
       }, 
-      dateTimeSameField: true
+      dateTimeSameField: false
     };
   }
 

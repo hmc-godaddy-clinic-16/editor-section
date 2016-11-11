@@ -90,7 +90,7 @@ class RichTextEditor extends React.Component {
 	                onToggle={this.toggleBlockType}
 	            /> 
               </nav>
-				<div>
+				<div classname = "RichEditor-content">
 				<Editor
 					editorState={editorState}
 					handleKeyCommand = {this.handleKeyCommand}
