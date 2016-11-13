@@ -16,7 +16,7 @@ const store = createStore(combineReducers({
     startDate: null,
     endDate: null,
     imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg",
-    link: "Optional link"
+    link: "http://www.thedonutmanca.com/"
   } 
 },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
