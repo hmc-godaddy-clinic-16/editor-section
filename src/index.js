@@ -11,12 +11,11 @@ const store = createStore(combineReducers({
   editor
 }), {
   editor: {
-  	title: "Example Title",
-  	content: "Content", 
-  	imgUrl: "image url", 
-  	startDate: null,
-  	endDate: null,
-    bodyText: "Some text",
+    title:"BUY ONE DOZEN GET ONE DOZEN FREE",
+    bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
+    startDate: null,
+    endDate: null,
+    imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg",
     link: "Optional link"
   } 
 },

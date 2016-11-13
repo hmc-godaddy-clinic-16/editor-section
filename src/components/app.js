@@ -19,7 +19,7 @@ export class App extends React.Component {
         bodyText: "some body text",
         link: "some link"
       }, 
-      dateTimeSameField: true
+      dateTimeSameField: true,
     };
   }
 
@@ -48,6 +48,8 @@ export class App extends React.Component {
   }
 
   render () {
+    console.log("rendered!");
+
     var previewStyle = {
       'width': '60%',
       'height': '100vh',
@@ -77,27 +79,14 @@ export class App extends React.Component {
     // mock mode
     var mode = constants.EDIT;
 
-    // mock data
-    var announcementData = {
-      title: "BUY ONE DOZEN GET ONE DOZEN FREE",
-      content: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
-      image: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg", 
-      startDate: "2016-06-27T09:00:00.000Z",
-      endDate: "2017-11-05T10:00:00.000Z",
-      link: "http://www.thedonutmanca.com/"
-    };
-
     return (
       <div>
         <div style={previewStyle}>
-          <Announcement data={announcementData} mode={mode}/>
+          <Announcement data={this.props.editor} mode={mode}/>
         </div>
 
         <div style={editorStyle}>
-          <p> <h4> Announcement </h4> </p>
-
-  
-
+          <h4> Announcement </h4>
 
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
@@ -125,7 +114,7 @@ App.propTypes = {
     endDate: React.PropTypes.instanceOf(Date),
     imgUrl: React.PropTypes.string.isRequired,
     bodyText: React.PropTypes.string.isRequired,
-    link: React.PropTypes.string.isRequired
+    link: React.PropTypes.string.isRequired,
   }).isRequired 
 
 };
