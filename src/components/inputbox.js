@@ -1,11 +1,12 @@
 import React from "react";
 import './inputbox.css';
 
-class InputBox extends React.Component {
-  constructor() {
-    super();    
+class InputBox extends React.Component
+{
+  constructor(props) {
+    super(props); 
     this.state = {
-      text: ""
+      text: this.props.text
     };
     this.onChange = this.onChange.bind(this);
   }
