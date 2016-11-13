@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink, fetchAnnouncement} from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
@@ -47,7 +47,15 @@ export class App extends React.Component {
     this.props.changeLink(link);
   }
 
+  fetchAnnouncement(announcementid) {
+    this.props.fetchAnnouncement(announcementid);
+  }
+
   render () {
+
+    // Grab the sample announcement from the database
+    fetchAnnouncement("581e9c24ac07af4076d82dc2");    
+
     var previewStyle = {
       'width': '60%',
       'height': '100vh',
@@ -158,6 +166,13 @@ function mapDispatchToProps (dispatch) {
     },
     changeLink: (link) => {
       return dispatch(updateLink(link))
+    },
+    fetchAnnouncement: (announcementid) => {
+      return dispatch(fetchAnnouncement(announcementid))
+      .then(() => 
+          console.log("Fetched announcement of id ")
+        )
+      
     }
   };
 }

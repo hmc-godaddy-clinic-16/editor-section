@@ -26,3 +26,23 @@ console.log('Listening on port 3000...');
 
 var mongo = require('mongodb');
 
+var Server = mongo.Server,
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
+
+var server = new Server('localhost', 27017, {auto_reconnect: true});
+db = new Db('announcementdb', server);
+
+db.open(function(err, db) {
+    if(!err) {
+        console.log("Connected to 'announcementdb' database");
+        db.collection('announcements', {strict:true}, function(err, collection) {
+            if (err) {
+                console.log("The 'announcements' collection doesn't exist. Creating it with sample data...");
+                populateDB();
+            }
+        });
+    }
+});
+
+

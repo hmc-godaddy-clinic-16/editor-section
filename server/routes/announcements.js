@@ -1,29 +1,15 @@
+
 var mongo = require('mongodb');
-
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
-
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('announcementdb', server);
-
-db.open(function(err, db) {
-    if(!err) {
-        console.log("Connected to 'announcementdb' database");
-        db.collection('announcements', {strict:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'announcements' collection doesn't exist. Creating it with sample data...");
-                populateDB();
-            }
-        });
-    }
-});
+var BSON = require('mongodb').BSONPure;
+var ObjectId = require('mongodb').ObjectID;
 
 exports.findById = function(req, res) {
     var id = req.params.id;
     console.log('Retrieving announcement: ' + id);
     db.collection('announcements', function(err, collection) {
-        collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item) {
+        console.log("Right before findone call");
+        collection.findOne({'_id': new ObjectId(id)}, function(err, item) {
+            console.log("In findone");
             res.send(item);
         });
     });
@@ -58,7 +44,7 @@ exports.updateAnnouncement = function(req, res) {
     console.log('Updating announcement: ' + id);
     console.log(JSON.stringify(announcement));
     db.collection('announcements', function(err, collection) {
-        collection.update({'_id':new BSON.ObjectID(id)}, wine, {safe:true}, function(err, result) {
+        collection.update({'_id':new BSON.ObjectID(id)}, announcement, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating announcement: ' + err);
                 res.send({'error':'An error has occurred'});
