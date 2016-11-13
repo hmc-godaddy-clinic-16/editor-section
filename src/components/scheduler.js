@@ -48,9 +48,7 @@ class Scheduler extends React.Component
 		var dateTimePicker;
 
         var divStyle = {
-            'paddingBottom': '30px',
-            'color': 'black',
-            
+            'paddingBottom': '15px'            
         }
 
 		if (this.props.same) {
