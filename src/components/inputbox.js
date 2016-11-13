@@ -18,7 +18,7 @@ class InputBox extends React.Component
 
   render() {
     var divStyle = {
-      'paddingBottom': '30px'
+      'paddingBottom': '15px'
     };
 
 

@@ -1,11 +1,10 @@
 .RichEditor-root {
   background: #434445;
   border: 1px solid #787878;
-  font-family: 'Georgia', serif;
+  font-family: 'Arial', sans-serif;
   font-size: 14px;
-  padding-bottom: 50px;
   border-radius: 3px;
-
+  margin-bottom: 15px;
 }
 
 .RichEditor-editor {
@@ -13,6 +12,10 @@
   cursor: text;
   font-size: 16px;
   margin-top: 10px;
+}
+
+.public-DraftEditor-content {
+    padding: 10px;
 }
 
 .RichEditor-editor .public-DraftEditorPlaceholder-root,
