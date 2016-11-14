@@ -21,10 +21,6 @@ class InputBox extends React.Component
       'paddingBottom': '15px'
     };
 
-
-
-    // TO DO: Change glow from blue to white
-    // when box is clicked
     var boxStyle = {
       'width': '99%',
       'padding': '10px',
@@ -32,9 +28,6 @@ class InputBox extends React.Component
       'border': 'solid 1px #787878',
       'borderRadius': '3px'
     };
-
-    
-
 
     return (
       <div style={divStyle}>
@@ -48,6 +41,5 @@ class InputBox extends React.Component
     );
   }
 }
-
 
 export default InputBox;
