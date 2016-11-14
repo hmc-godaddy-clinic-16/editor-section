@@ -50,26 +50,20 @@ export class App extends React.Component {
   render () {
     console.log("rendered!");
 
-    var previewStyle = {
-      'width': '60%',
+    var containerStyle = {
+      'backgroundColor': '#202121',
       'height': '100vh',
-      'padding': '20px',
-      'float': 'left',
       'borderStyle': 'solid',
-      'borderColor': '#323333',
-      'backgroundColor': '#202121'
+      'borderColor': 'black'
+    }
+
+    var previewStyle = {
+      'padding': '20px'
     };
 
-    // TO DO: Dynamically place editor underneath
-    // preview section when window becomes smaller
-
     var editorStyle = {
-      'width': '40%',
       'height': '100vh',
       'padding': '20px',
-      'overflow': 'hidden',
-      'borderStyle': 'solid',
-      'borderColor': '#202121',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
       'fontSize': '14px',
@@ -80,12 +74,12 @@ export class App extends React.Component {
     var mode = constants.EDIT;
 
     return (
-      <div>
-        <div style={previewStyle}>
+      <div className="row" style={containerStyle}>
+        <div className="col-sm-6" style={previewStyle}>
           <Announcement data={this.props.editor} mode={mode}/>
         </div>
 
-        <div style={editorStyle}>
+        <div className="col-sm-6" style={editorStyle}>
           <h4> Announcement </h4>
 
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
