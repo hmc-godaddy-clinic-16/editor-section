@@ -53,18 +53,16 @@ export class App extends React.Component {
 
   render () {
     // Grab the sample announcement from the database
-    this.fetchAnnouncement("581e9c24ac07af4076d82dc2");    
-
-    var previewStyle = {
-      'width': '60%',
+    this.fetchAnnouncement("581e9c24ac07af4076d82dc2");   
     console.log("rendered!");
+
 
     var containerStyle = {
       'backgroundColor': '#202121',
       'height': '100vh',
       'borderStyle': 'solid',
       'borderColor': 'black'
-    }
+    };
 
     var previewStyle = {
       'padding': '20px'
