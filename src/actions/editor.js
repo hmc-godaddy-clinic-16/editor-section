@@ -77,27 +77,58 @@ export function receiveAnnouncement (json) {
 // Async dispatch
 // a thunk (a function that returns a function)
 // This is not an action - it is a "thunk object"
+// export function fetchAnnouncement(announcementid) {
+// 	console.log("In fetch announcement");
+// 	return function (dispatch) {
+// 		console.log("here in thunk stuff");
+
+// 		dispatch(requestAnnouncement(announcementid));
+
+// 		fetch(`localhost:3000/announcements/581e9c24ac07af4076d82dc2`)//${announcementid}`)//`${SERVER_URL}/announcement:${announcementid}`)
+// 			.then( 
+// 				response => response.json())
+// 			.catch(err => {
+// 				console.log("AN ERROR OCCURRED");
+// 			})
+// 			.then( json => dispatch(receiveAnnouncement(json)))
+// 			.catch(err => {
+// 				console.log("AN ERROR OCCURRED")
+// 			});
+
+// 		console.log("After");
+
+// 		return null;
+// 	}
+// }
+
+export function makeASandwich(forPerson, secretSauce) {
+  return {
+    type: 'MAKE_SANDWICH',
+    forPerson,
+    secretSauce
+  };
+}
+
+function apologize(fromPerson, toPerson, error) {
+  return {
+    type: 'APOLOGIZE',
+    fromPerson,
+    toPerson,
+    error
+  };
+}
+
 export function fetchAnnouncement(announcementid) {
-	console.log("In fetch announcement");
-	return function (dispatch) {
-		console.log("here in thunk stuff");
 
-		dispatch(requestAnnouncement(announcementid));
+  // Invert control!
+  // Return a function that accepts `dispatch` so we can dispatch later.
+  // Thunk middleware knows how to turn thunk async actions into actions.
 
-		fetch(`localhost:3000/announcements/581e9c24ac07af4076d82dc2`)//${announcementid}`)//`${SERVER_URL}/announcement:${announcementid}`)
-			.then( 
-				response => response.json())
-			.catch(err => {
-				console.log("AN ERROR OCCURRED");
-			})
-			.then( json => dispatch(receiveAnnouncement(json)))
-			.catch(err => {
-				console.log("AN ERROR OCCURRED")
-			});
-
-		console.log("After");
-
-		return null;
-	}
+  return function (dispatch) {
+    return fetch('http://localhost:3000/announcements/581e9c24ac07af4076d82dc2').then(
+      sauce => dispatch(makeASandwich(forPerson, sauce)),
+      error => dispatch(apologize('The Sandwich Shop', forPerson, error))
+    );
+  };
 }
 

@@ -54,7 +54,7 @@ export class App extends React.Component {
   render () {
 
     // Grab the sample announcement from the database
-    fetchAnnouncement("581e9c24ac07af4076d82dc2");    
+    this.fetchAnnouncement("581e9c24ac07af4076d82dc2");    
 
     var previewStyle = {
       'width': '60%',
