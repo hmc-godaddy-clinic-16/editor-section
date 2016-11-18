@@ -1,11 +1,12 @@
 import React from "react";
 import './inputbox.css';
 
-class InputBox extends React.Component {
-  constructor() {
-    super();    
+class InputBox extends React.Component
+{
+  constructor(props) {
+    super(props); 
     this.state = {
-      text: ""
+      text: this.props.text
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -17,13 +18,9 @@ class InputBox extends React.Component {
 
   render() {
     var divStyle = {
-      'paddingBottom': '30px'
+      'paddingBottom': '15px'
     };
 
-
-
-    // TO DO: Change glow from blue to white
-    // when box is clicked
     var boxStyle = {
       'width': '99%',
       'padding': '10px',
@@ -31,9 +28,6 @@ class InputBox extends React.Component {
       'border': 'solid 1px #787878',
       'borderRadius': '3px'
     };
-
-    
-
 
     return (
       <div style={divStyle}>
@@ -47,6 +41,5 @@ class InputBox extends React.Component {
     );
   }
 }
-
 
 export default InputBox;
