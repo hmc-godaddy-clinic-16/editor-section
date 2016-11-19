@@ -6,6 +6,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider} from "react-redux";
 import App from "./components/app.js";
 import editor from "./reducers/editor.js";
+import {fetchAnnouncement} from './actions/editor.js';
 
 // The app redux store contains all of the app's data
 const store = createStore(combineReducers({
@@ -13,7 +14,7 @@ const store = createStore(combineReducers({
 }),
  {
   editor: {
-    title:"BUY ONE DOZEN GET ONE DOZEN FREE",
+    title:"BUY ONE DOZEN GET ONE DOZEN FREE - DEFAULT",
     bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
     startDate: null,
     endDate: null,
@@ -26,6 +27,9 @@ const store = createStore(combineReducers({
   ),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+
+store.dispatch(fetchAnnouncement("581e9c24ac07af4076d82dc2"));   
+
 
 ReactDOM.render(
   <Provider store={store}>

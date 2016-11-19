@@ -40,7 +40,17 @@ export default (state = "", action) => {
 
 		case RECEIVE_ANNOUNCEMENT:
 			console.log("Received annoucement");
-			return announcement;
+			console.log(action.json);
+			console.log("After announcement console log statement");
+			//return action.json;
+
+			return Object.assign( {}, state, {
+				title: action.json.title,
+				startDate: Date(action.json.startDate),
+				endDate: Date(action.json.endDate),
+				imgUrl: action.json.imgUrl,
+				link: action.json.link
+			});
 	}
 
 	return state;

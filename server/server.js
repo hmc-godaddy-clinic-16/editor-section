@@ -14,6 +14,15 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
+app.all('/*', function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+  res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+
+  next();
+});
+
+
 app.get('/announcements', announcement.findAll);
 app.get('/announcements/:id', announcement.findById);
 app.post('/announcements', announcement.addAnnouncement);

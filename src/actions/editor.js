@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, RECEIVE_ANNOUNCEMENT} from '../constants';
 import fetch from 'isomorphic-fetch';
 
 // Redux action to edit/update the title of an anncouncement
@@ -55,80 +55,56 @@ export function updateLink (link) {
 // TODO: Add more actions once the basic ones are working
 
 // Placeholder announcement id: 581e9c24ac07af4076d82dc2
-export const SERVER_URL = "localhost:6000";
+export const SERVER_URL = "http://134.173.43.36:3000/";
 
-export const REQUEST_ANNOUNCEMENT = 'REQUEST_ANNOUNCEMENT'
-export function requestAnnouncement (announcementid) {
-	return {
-		type: REQUEST_ANNOUNCEMENT,
-		announcementid
-	}
-}
-
-export const RECEIVE_ANNOUNCEMENT = 'RECEIVE_ANNOUNCEMENT'
 export function receiveAnnouncement (json) {
 	console.log("In receive announcement");
+	console.log(json);
 	return {
 		type: RECEIVE_ANNOUNCEMENT,
 		json
 	}
 } 
 
-// Async dispatch
-// a thunk (a function that returns a function)
-// This is not an action - it is a "thunk object"
-// export function fetchAnnouncement(announcementid) {
-// 	console.log("In fetch announcement");
-// 	return function (dispatch) {
-// 		console.log("here in thunk stuff");
 
-// 		dispatch(requestAnnouncement(announcementid));
-
-// 		fetch(`localhost:3000/announcements/581e9c24ac07af4076d82dc2`)//${announcementid}`)//`${SERVER_URL}/announcement:${announcementid}`)
-// 			.then( 
-// 				response => response.json())
-// 			.catch(err => {
-// 				console.log("AN ERROR OCCURRED");
-// 			})
-// 			.then( json => dispatch(receiveAnnouncement(json)))
-// 			.catch(err => {
-// 				console.log("AN ERROR OCCURRED")
-// 			});
-
-// 		console.log("After");
-
-// 		return null;
-// 	}
-// }
-
-export function makeASandwich(forPerson, secretSauce) {
-  return {
-    type: 'MAKE_SANDWICH',
-    forPerson,
-    secretSauce
-  };
-}
-
-function apologize(fromPerson, toPerson, error) {
-  return {
-    type: 'APOLOGIZE',
-    fromPerson,
-    toPerson,
-    error
-  };
+function requestError(announcementid, message) {
+	console.log("ERROR OCCURRED");
+	return {
+		type: REQUEST_ERROR,
+		announcementid,
+		message
+	}
 }
 
 export function fetchAnnouncement(announcementid) {
-
-  // Invert control!
-  // Return a function that accepts `dispatch` so we can dispatch later.
-  // Thunk middleware knows how to turn thunk async actions into actions.
-
+	console.log("in fetch announcemnt");
   return function (dispatch) {
-    return fetch('http://localhost:3000/announcements/581e9c24ac07af4076d82dc2').then(
-      sauce => dispatch(makeASandwich(forPerson, sauce)),
-      error => dispatch(apologize('The Sandwich Shop', forPerson, error))
-    );
+  	console.log("HEHREHRHE");
+    return fetch( 'http://134.173.43.36:3000/announcements/581e9c24ac07af4076d82dc2')///`${SERVER_URL}announcements/${announcementid}`)
+       .then(response => response.json())
+       .then(json =>
+
+        // We can dispatch many times!
+        // Here, we update the app state with the results of the API call.
+
+        dispatch(receiveAnnouncement(json))
+      )
+
   };
 }
 
+
+// export function putAnnouncement(announcement) {
+
+//   return function (dispatch) {
+//     return fetch(`${SERVER_URL}announcements/581e9c24ac07af4076d82dc2`, 
+//     		{
+//     			method: "PUT",
+//     			body: JSON.stringify(announcement),
+//     		}
+//     	)
+//       .then(
+//      	 error => dispatch(requestError(announcement._id, error))
+//        );
+//   };
+// }

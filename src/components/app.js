@@ -47,14 +47,14 @@ export class App extends React.Component {
     this.props.changeLink(link);
   }
 
-  fetchAnnouncement(announcementid) {
-    this.props.fetchAnnouncement(announcementid);
-  }
+  // fetchAnnouncement(announcementid) {
+  //   this.props.fetchAnnouncement(announcementid);
+  // }
 
   render () {
     // Grab the sample announcement from the database
-    this.fetchAnnouncement("581e9c24ac07af4076d82dc2");   
-    console.log("rendered!");
+   // this.fetchAnnouncement("581e9c24ac07af4076d82dc2");   
+  //  console.log("rendered!");
 
 
     var containerStyle = {
@@ -149,13 +149,13 @@ function mapDispatchToProps (dispatch) {
     changeLink: (link) => {
       return dispatch(updateLink(link))
     },
-    fetchAnnouncement: (announcementid) => {
-      return dispatch(fetchAnnouncement(announcementid))
-      .then(() => 
-          console.log("Fetched announcement of id ")
-        )
+    // fetchAnnouncement: (announcementid) => {
+    //   return dispatch(fetchAnnouncement(announcementid))
+    //   .then(() => 
+    //       console.log("Fetched announcement of id ")
+    //     )
       
-    }
+    // }
   };
 }
 
