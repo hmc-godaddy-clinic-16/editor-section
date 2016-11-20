@@ -15,6 +15,7 @@ const {
    OLButton, ULButton,
 } = richButtonsPlugin;
 
+// Creates the text box for the body of the announcement and relies on DraftJS
 class RichTextEditor extends React.Component {
 
 	constructor(props) {

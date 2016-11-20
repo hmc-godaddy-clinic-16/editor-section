@@ -3,6 +3,8 @@ import Content from "./content.js";
 import * as constants from './constants.js';
 import './link.css';
 
+
+// The Announcement component handles displaying a preview of the announcement
 class Announcement extends React.Component {
 	constructor () {
 		super();
@@ -83,11 +85,11 @@ class Announcement extends React.Component {
 		}
 
 		// debugging
-		console.log("Start: " + start);
-		console.log("End: " + end);
-		console.log("Current: " + current);
-		console.log("Display: " + displayAnnouncement);
-		console.log("\n");
+		// console.log("Start: " + start);
+		// console.log("End: " + end);
+		// console.log("Current: " + current);
+		// console.log("Display: " + displayAnnouncement);
+		// console.log("\n");
 
 		return announcement;
 	}

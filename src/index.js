@@ -1,17 +1,38 @@
+import 'babel-polyfill';
+import thunkMiddleware from 'redux-thunk';
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider} from "react-redux";
 import App from "./components/app.js";
 import editor from "./reducers/editor.js";
+import {fetchAnnouncement, putAnnouncement} from './actions/editor.js';
+import {DEFAULT_ID} from './constants.js'
 
+
+
+const reducers = combineReducers({
+    editor
+});
+
+// Acts on any action so we can make a call to the API and update the database
+const finalReducer = (state = reducers(), action) => {
+    const nextState = reducers(state, action);
+
+    // Update the database
+    putAnnouncement(nextState, DEFAULT_ID);
+
+    return nextState;
+};
 
 // The app redux store contains all of the app's data
-const store = createStore(combineReducers({
-  editor
-}), {
+const store = createStore(
+  finalReducer,
+ {
   editor: {
-    title:"BUY ONE DOZEN GET ONE DOZEN FREE",
+    _id: DEFAULT_ID,
+    gotAnnouncement: false,
+    title:"BUY ONE DOZEN GET ONE DOZEN FREE - DEFAULT",
     bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
     startDate: null,
     endDate: null,
@@ -19,8 +40,14 @@ const store = createStore(combineReducers({
     link: "http://www.thedonutmanca.com/"
   } 
 },
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  applyMiddleware(
+    thunkMiddleware // lets us dispatch() functions (as well as actions)
+  ),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
+
+// Get the announcement data from the database
+store.dispatch(fetchAnnouncement(DEFAULT_ID));
 
 ReactDOM.render(
   <Provider store={store}>

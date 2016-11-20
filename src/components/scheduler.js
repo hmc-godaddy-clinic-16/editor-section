@@ -3,6 +3,12 @@ import moment from 'moment';
 import Datetime from 'react-datetime';
 import './scheduler.css';
 
+// Scheduler provides a UI for picking a date and time 
+// Relies on the third party node module react-datetitme to provide the date
+// and time picking
+// The "same" parameter passed in via props determines which version of 
+// the date time picker is displayed.
+// If the date should be after a certain date, a startDate is passed in
 class Scheduler extends React.Component 
 {
 	  constructor(props) {
@@ -44,6 +50,7 @@ class Scheduler extends React.Component
     	}
     }
 
+    // renders a different date/time picker UI dependending on the value of props.same
 	render() {
 		var dateTimePicker;
 

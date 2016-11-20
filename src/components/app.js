@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink, fetchAnnouncement} from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
@@ -13,8 +13,8 @@ export class App extends React.Component {
     this.state = {
       editor: {
         title:"a different test title",
-        startDate: "some date",
-        endDate: "some date",
+        startDate: null,
+        endDate: null,
         imgUrl: "some image url",
         bodyText: "some body text",
         link: "some link"
@@ -47,15 +47,15 @@ export class App extends React.Component {
     this.props.changeLink(link);
   }
 
+
   render () {
-    console.log("rendered!");
 
     var containerStyle = {
       'backgroundColor': '#202121',
       'height': '100vh',
       'borderStyle': 'solid',
       'borderColor': 'black'
-    }
+    };
 
     var previewStyle = {
       'padding': '20px'
