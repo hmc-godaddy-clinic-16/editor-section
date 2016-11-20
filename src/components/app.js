@@ -13,8 +13,8 @@ export class App extends React.Component {
     this.state = {
       editor: {
         title:"a different test title",
-        startDate: "some date",
-        endDate: "some date",
+        startDate: null,
+        endDate: null,
         imgUrl: "some image url",
         bodyText: "some body text",
         link: "some link"
@@ -47,15 +47,8 @@ export class App extends React.Component {
     this.props.changeLink(link);
   }
 
-  // fetchAnnouncement(announcementid) {
-  //   this.props.fetchAnnouncement(announcementid);
-  // }
 
   render () {
-    // Grab the sample announcement from the database
-   // this.fetchAnnouncement("581e9c24ac07af4076d82dc2");   
-  //  console.log("rendered!");
-
 
     var containerStyle = {
       'backgroundColor': '#202121',
@@ -148,14 +141,7 @@ function mapDispatchToProps (dispatch) {
     },
     changeLink: (link) => {
       return dispatch(updateLink(link))
-    },
-    // fetchAnnouncement: (announcementid) => {
-    //   return dispatch(fetchAnnouncement(announcementid))
-    //   .then(() => 
-    //       console.log("Fetched announcement of id ")
-    //     )
-      
-    // }
+    }
   };
 }
 

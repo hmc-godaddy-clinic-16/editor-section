@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, RECEIVE_ANNOUNCEMENT} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, RECEIVE_ANNOUNCEMENT, SERVER_URL, REQUEST_ERROR} from '../constants';
 import fetch from 'isomorphic-fetch';
 
 // Redux action to edit/update the title of an anncouncement
@@ -46,20 +46,8 @@ export function updateLink (link) {
 
 
 
-// SERVER REQUESTS 
-// May need to have a parameter passed like
-// the other actions
-// TODO: Move constants to constants.js
-// TODO: Figure out how to import w/o 
-// explicity importing specific things
-// TODO: Add more actions once the basic ones are working
-
-// Placeholder announcement id: 581e9c24ac07af4076d82dc2
-export const SERVER_URL = "http://134.173.43.36:3000/";
-
+// Communication with the RESTful API ------------------------
 export function receiveAnnouncement (json) {
-	console.log("In receive announcement");
-	console.log(json);
 	return {
 		type: RECEIVE_ANNOUNCEMENT,
 		json
@@ -76,35 +64,45 @@ function requestError(announcementid, message) {
 	}
 }
 
+// Get the announcement from the database
 export function fetchAnnouncement(announcementid) {
-	console.log("in fetch announcemnt");
+
+	console.log("In fetch announcement");
+
   return function (dispatch) {
-  	console.log("HEHREHRHE");
-    return fetch( 'http://134.173.43.36:3000/announcements/581e9c24ac07af4076d82dc2')///`${SERVER_URL}announcements/${announcementid}`)
-       .then(response => response.json())
-       .then(json =>
-
-        // We can dispatch many times!
-        // Here, we update the app state with the results of the API call.
-
-        dispatch(receiveAnnouncement(json))
-      )
+  	console.log("in fetch announcement dispatch");
+    return fetch( `${SERVER_URL}/announcements/${announcementid}`, {
+    	method: "GET"
+    })
+       .then(
+       //	response => console.log(response),
+       	response => response.json()
+      		)
+       .then(json => dispatch(receiveAnnouncement(json)))
 
   };
 }
 
 
-// export function putAnnouncement(announcement) {
+export function putAnnouncement(announcement, announcementid) {
+	console.log("announcement", announcement);
 
-//   return function (dispatch) {
-//     return fetch(`${SERVER_URL}announcements/581e9c24ac07af4076d82dc2`, 
-//     		{
-//     			method: "PUT",
-//     			body: JSON.stringify(announcement),
-//     		}
-//     	)
-//       .then(
-//      	 error => dispatch(requestError(announcement._id, error))
-//        );
-//   };
-// }
+	if (announcement.editor.gotAnnouncement = false) {
+		return;
+	}
+
+	announcement.editor.gotAnnouncement = false;
+    return fetch(`${SERVER_URL}/announcements/${announcementid}`, 
+    		{  	headers: {
+    				'Accept': 'application/json',
+    				'Content-Type': 'application/json'
+
+    			},
+    			method: "PUT",
+    			body: JSON.stringify(announcement.editor),
+    		}
+    	)
+      .then(
+     	 error => console.log(error)
+       );
+}

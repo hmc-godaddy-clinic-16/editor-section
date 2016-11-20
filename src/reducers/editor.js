@@ -39,15 +39,16 @@ export default (state = "", action) => {
 			});
 
 		case RECEIVE_ANNOUNCEMENT:
-			console.log("Received annoucement");
+			console.log("Received annoucement in reducer");
 			console.log(action.json);
 			console.log("After announcement console log statement");
-			//return action.json;
 
 			return Object.assign( {}, state, {
+				_id: action.json._id,
+				gotAnnouncement: true,
 				title: action.json.title,
-				startDate: Date(action.json.startDate),
-				endDate: Date(action.json.endDate),
+				startDate: new Date(action.json.startDate),
+				endDate: new Date(action.json.endDate),
 				imgUrl: action.json.imgUrl,
 				link: action.json.link
 			});

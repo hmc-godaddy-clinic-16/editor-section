@@ -1,9 +1,7 @@
-// Not using ES6 syntax currently - ask about that?
+// Not using ES6 syntax currently
 
 var express = require('express');
 var announcement = require('./routes/announcements');
-//var announcement = require('./routes/announcements');
-
 
 var app = express();
 
@@ -11,15 +9,17 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.all('/*', function(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
   res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 
-  next();
+  if (req.url != '/favicon.ico') { 
+    next();
+  }
 });
 
 
@@ -54,4 +54,19 @@ db.open(function(err, db) {
     }
 });
 
+var populateDB = function() {
+  var announcements = [
+    {
+      title: "BUY ONE DOZEN GET ONE DOZEN FREE",
+      content: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply. See <a href=\"http:www.krispykreme.com\">here<a> for more details.",
+      imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg", 
+      startDate: "2016-06-27T09:00:00.000Z",
+      endDate: "2016-11-05T10:00:00.000Z",
+      link: "http://google.com"
+    }
+  ];
 
+    db.collection('announcements', function(err, collection) {
+        collection.insert(announcements, {safe:true}, function(err, result) {});
+    });
+};
