@@ -46,33 +46,8 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
-
-// // The app redux store contains all of the app's data
-// const store = createStore(combineReducers({
-//   editor
-// }),
-//  {
-//   editor: {
-//     _id: DEFAULT_ID,
-//     title:"BUY ONE DOZEN GET ONE DOZEN FREE - DEFAULT",
-//     bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
-//     startDate: null,
-//     endDate: null,
-//     imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg",
-//     link: "http://www.thedonutmanca.com/"
-//   } 
-// },
-//   applyMiddleware(
-//     thunkMiddleware // lets us dispatch() functions (as well as actions)
-//   ),
-//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-// );
-
 // Get the announcement data from the database
 store.dispatch(fetchAnnouncement(DEFAULT_ID));
-
-// Update the announcement in the database   
-//store.subscribe( () => store.dispatch(putAnnouncement(store.getState(), DEFAULT_ID)));
 
 ReactDOM.render(
   <Provider store={store}>

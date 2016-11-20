@@ -3,6 +3,8 @@ import Content from "./content.js";
 import * as constants from './constants.js';
 import './link.css';
 
+
+// The Announcement component handles displaying a preview of the announcement
 class Announcement extends React.Component {
 	constructor () {
 		super();

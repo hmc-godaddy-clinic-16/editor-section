@@ -1,4 +1,6 @@
 // Not using ES6 syntax currently
+// Run this file by running node server.js 
+// Requires that mongodb be properly installed and running locally to work
 
 var express = require('express');
 var announcement = require('./routes/announcements');
@@ -22,7 +24,9 @@ app.all('/*', function(req, res, next) {
   }
 });
 
-
+// The API 
+// Currently provides more functionallity than the client side code
+// makes use of
 app.get('/announcements', announcement.findAll);
 app.get('/announcements/:id', announcement.findById);
 app.post('/announcements', announcement.addAnnouncement);
@@ -33,6 +37,8 @@ app.delete('/announcements/:id', announcement.deleteAnnouncement);
 app.listen(3000);
 console.log('Listening on port 3000...');
 
+
+// Handle the connection to the database
 var mongo = require('mongodb');
 
 var Server = mongo.Server,
@@ -54,6 +60,8 @@ db.open(function(err, db) {
     }
 });
 
+// If the given database doesn't have anything in the announcements collection,
+//  populate with some basic information
 var populateDB = function() {
   var announcements = [
     {
@@ -62,7 +70,7 @@ var populateDB = function() {
       imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg", 
       startDate: "2016-06-27T09:00:00.000Z",
       endDate: "2016-11-05T10:00:00.000Z",
-      link: "http://google.com"
+      link: "http://www.thedonutmanca.com/"
     }
   ];
 

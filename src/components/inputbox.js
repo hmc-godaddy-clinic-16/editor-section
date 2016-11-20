@@ -1,6 +1,8 @@
 import React from "react";
 import './inputbox.css';
 
+// InputBox is a basic text input field. 
+// onEdit updates the store
 class InputBox extends React.Component
 {
   constructor(props) {

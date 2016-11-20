@@ -1,5 +1,6 @@
 import React from "react";
 
+// Content handles rendering the content in the body of the announcement
 class Content extends React.Component {
 	render () {
 		var contentStyle = {

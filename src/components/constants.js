@@ -1,3 +1,5 @@
+// Constants for the announcement preview
+
 // mode
 export const EDIT = 'EDIT';
 export const PUBLISH = 'PUBLISH';

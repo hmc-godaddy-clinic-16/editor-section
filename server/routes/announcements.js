@@ -3,6 +3,10 @@ var mongo = require('mongodb');
 var BSON = require('mongodb').BSONPure;
 var ObjectId = require('mongodb').ObjectID;
 
+// This file defines what the API does/ what the routes do (see server.js). findById
+// and updateAnnouncement have been tested and are in use. Other methods may become more
+// helpful if multiple announcements are supported
+
 exports.findById = function(req, res) {
     var id = req.params.id;
     console.log('Retrieving announcement: ' + id);

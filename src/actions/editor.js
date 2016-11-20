@@ -44,25 +44,16 @@ export function updateLink (link) {
 	}
 }
 
+// Communication with the RESTful API
 
-
-// Communication with the RESTful API ------------------------
+// Action for when we get the announcement back from
+// the database
 export function receiveAnnouncement (json) {
 	return {
 		type: RECEIVE_ANNOUNCEMENT,
 		json
 	}
 } 
-
-
-function requestError(announcementid, message) {
-	console.log("ERROR OCCURRED");
-	return {
-		type: REQUEST_ERROR,
-		announcementid,
-		message
-	}
-}
 
 // Get the announcement from the database
 export function fetchAnnouncement(announcementid) {
@@ -75,7 +66,6 @@ export function fetchAnnouncement(announcementid) {
     	method: "GET"
     })
        .then(
-       //	response => console.log(response),
        	response => response.json()
       		)
        .then(json => dispatch(receiveAnnouncement(json)))
@@ -83,7 +73,7 @@ export function fetchAnnouncement(announcementid) {
   };
 }
 
-
+// Update the database with the user-input announcement data
 export function putAnnouncement(announcement, announcementid) {
 	console.log("announcement", announcement);
 

@@ -39,9 +39,7 @@ export default (state = "", action) => {
 			});
 
 		case RECEIVE_ANNOUNCEMENT:
-			console.log("Received annoucement in reducer");
-			console.log(action.json);
-			console.log("After announcement console log statement");
+			console.log("received annoucement from database");
 
 			return Object.assign( {}, state, {
 				_id: action.json._id,
