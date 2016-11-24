@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, RECEIVE_ANNOUNCEMENT} from '../constants';
 
 export default (state = "", action) => {
 	switch (action.type) {
@@ -36,6 +36,19 @@ export default (state = "", action) => {
 			console.log("updated link");
 			return Object.assign ( {}, state, {
 				link: action.link
+			});
+
+		case RECEIVE_ANNOUNCEMENT:
+			console.log("received annoucement from database");
+
+			return Object.assign( {}, state, {
+				_id: action.json._id,
+				gotAnnouncement: true,
+				title: action.json.title,
+				startDate: new Date(action.json.startDate),
+				endDate: new Date(action.json.endDate),
+				imgUrl: action.json.imgUrl,
+				link: action.json.link
 			});
 	}
 

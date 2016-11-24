@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink, fetchAnnouncement} from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
@@ -13,13 +13,13 @@ export class App extends React.Component {
     this.state = {
       editor: {
         title:"a different test title",
-        startDate: "some date",
-        endDate: "some date",
+        startDate: null,
+        endDate: null,
         imgUrl: "some image url",
         bodyText: "some body text",
         link: "some link"
       }, 
-      dateTimeSameField: false
+      dateTimeSameField: true,
     };
   }
 
@@ -47,27 +47,23 @@ export class App extends React.Component {
     this.props.changeLink(link);
   }
 
+
   render () {
-    var previewStyle = {
-      'width': '60%',
+
+    var containerStyle = {
+      'backgroundColor': '#202121',
       'height': '100vh',
-      'padding': '20px',
-      'float': 'left',
       'borderStyle': 'solid',
-      'borderColor': '#323333',
-      'backgroundColor': '#202121'
+      'borderColor': 'black'
     };
 
-    // TO DO: Dynamically place editor underneath
-    // preview section when window becomes smaller
+    var previewStyle = {
+      'padding': '20px'
+    };
 
     var editorStyle = {
-      'width': '40%',
       'height': '100vh',
       'padding': '20px',
-      'overflow': 'hidden',
-      'borderStyle': 'solid',
-      'borderColor': '#202121',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
       'fontSize': '14px',
@@ -77,27 +73,14 @@ export class App extends React.Component {
     // mock mode
     var mode = constants.EDIT;
 
-    // mock data
-    var announcementData = {
-      title: "BUY ONE DOZEN GET ONE DOZEN FREE",
-      content: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
-      image: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg", 
-      startDate: "2016-06-27T09:00:00.000Z",
-      endDate: "2017-11-05T10:00:00.000Z",
-      link: "http://www.thedonutmanca.com/"
-    };
-
     return (
-      <div>
-        <div style={previewStyle}>
-          <Announcement data={announcementData} mode={mode}/>
+      <div className="row" style={containerStyle}>
+        <div className="col-sm-6" style={previewStyle}>
+          <Announcement data={this.props.editor} mode={mode}/>
         </div>
 
-        <div style={editorStyle}>
-          <p> <h4> Announcement </h4> </p>
-
-  
-
+        <div className="col-sm-6" style={editorStyle}>
+          <h4> Announcement </h4>
 
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
@@ -125,7 +108,7 @@ App.propTypes = {
     endDate: React.PropTypes.instanceOf(Date),
     imgUrl: React.PropTypes.string.isRequired,
     bodyText: React.PropTypes.string.isRequired,
-    link: React.PropTypes.string.isRequired
+    link: React.PropTypes.string.isRequired,
   }).isRequired 
 
 };

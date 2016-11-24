@@ -4,6 +4,7 @@ import {Editor, EditorState, RichUtils} from 'draft-js';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
 import './RichTextEditor.css';
 import {stateToHTML} from 'draft-js-export-html';
+import {stateFromHTML} from 'draft-js-import-html';
 
 const richButtonsPlugin = createRichButtonsPlugin();
 
@@ -14,11 +15,14 @@ const {
    OLButton, ULButton,
 } = richButtonsPlugin;
 
+// Creates the text box for the body of the announcement and relies on DraftJS
 class RichTextEditor extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {editorState: EditorState.createEmpty()};
+		let html = this.props.text;
+		let contentState = stateFromHTML(html);
+		this.state = {editorState: EditorState.createWithContent(contentState)};
 
 		this.focus = () => this.refs.editor.focus();
 		this.onChange = this.onChange.bind(this);

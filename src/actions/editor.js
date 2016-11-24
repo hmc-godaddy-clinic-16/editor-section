@@ -1,4 +1,5 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, RECEIVE_ANNOUNCEMENT, SERVER_URL, REQUEST_ERROR} from '../constants';
+import fetch from 'isomorphic-fetch';
 
 // Redux action to edit/update the title of an anncouncement
 export function updateTitle (title) {
@@ -41,4 +42,57 @@ export function updateLink (link) {
 		type: UPDATE_LINK,
 		link
 	}
+}
+
+// Communication with the RESTful API
+
+// Action for when we get the announcement back from
+// the database
+export function receiveAnnouncement (json) {
+	return {
+		type: RECEIVE_ANNOUNCEMENT,
+		json
+	}
+} 
+
+// Get the announcement from the database
+export function fetchAnnouncement(announcementid) {
+
+	console.log("In fetch announcement");
+
+  return function (dispatch) {
+  	console.log("in fetch announcement dispatch");
+    return fetch( `${SERVER_URL}/announcements/${announcementid}`, {
+    	method: "GET"
+    })
+       .then(
+       	response => response.json()
+      		)
+       .then(json => dispatch(receiveAnnouncement(json)))
+
+  };
+}
+
+// Update the database with the user-input announcement data
+export function putAnnouncement(announcement, announcementid) {
+	console.log("announcement", announcement);
+
+	if (announcement.editor.gotAnnouncement = false) {
+		return;
+	}
+
+	announcement.editor.gotAnnouncement = false;
+    return fetch(`${SERVER_URL}/announcements/${announcementid}`, 
+    		{  	headers: {
+    				'Accept': 'application/json',
+    				'Content-Type': 'application/json'
+
+    			},
+    			method: "PUT",
+    			body: JSON.stringify(announcement.editor),
+    		}
+    	)
+      .then(
+     	 error => console.log(error)
+       );
 }
