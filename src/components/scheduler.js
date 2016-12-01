@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import Datetime from 'react-datetime';
 import './scheduler.css';
+import DateTimePicker from './datetimepicker.js';
 
 // Scheduler provides a UI for picking a date and time 
 // Relies on the third party node module react-datetitme to provide the date
@@ -14,35 +15,73 @@ class Scheduler extends React.Component
 	  constructor(props) {
 	    super(props);    
 	    this.state = {
-	    	datetime: ""
+	    	datetime: null,
+            prev: null,
+            checkBox: false
 	    };
-	    this.onChange = this.onChange.bind(this);
+	    this.onDateChange = this.onDateChange.bind(this);
+        this.onCheckbox = this.onCheckbox.bind(this);
 	    this.isValidDate = this.isValidDate.bind(this);
 	    this.render = this.render.bind(this);
     }
 
-    onChange(moment) {
+    onDateChange(moment) {
+        console.log(moment);
     	if (this.isValidDate(moment)) {
     		this.setState ({datetime: moment});
-    		this.props.onEdit(moment.toDate());
-    	}
+            this.setState ({prev: this.state.datetime});
+            if (this.state.datetime != null) {
+    		    this.props.onEdit(this.state.datetime.toDate());
+            } else {
+                this.props.onEdit(null);
+            }
+    	} else {
+            this.setState({datetime: this.state.prev});
+        }
+
+        this.setState({checkBox: false});
+    }
+
+    onCheckbox(event) {
+
+        // Start now 
+        if (this.props.isStart == true) {
+            var now = new moment();
+            if (event == false) {
+                this.setState({datetime: now});
+                this.props.onEdit(now.toDate());
+            } else {
+                this.setState({datetime: this.state.prev});
+
+                if (this.state.prev != null) {
+                    this.props.onEdit(this.state.prev.toDate());
+                } else {
+                    this.props.onEdit(this.state.prev);
+                }
+            }   
+
+        } else { // End never
+            if (event == false) {
+                this.setState({datetime: null});
+                this.props.onEdit(null);
+            } else {
+                this.setState({datetime: this.state.prev});
+
+                if (this.state.prev != null) {
+                    this.props.onEdit(this.state.prev.toDate());
+                } else {
+                    this.props.onEdit(this.state.prev);
+                }
+            }
+        }
     }
 
     isValidDate(selectedDate) {	
-    	// Date validation
-  		var d = moment(selectedDate, "DD MMM YYYY HH:mm");
-       	if (d == null || !d.isValid()) {
-    		return false;
-    	}
-
+        // Ensure that the end date is after the start date
     	if (this.props.startDate == null ) {
-    		if (selectedDate.isAfter(moment())) {
-    			return true;
-    		} else {
-    			return false;
-    		}
+            return true;
     	} else {
-    		if ( selectedDate.isAfter(moment()) && selectedDate.isAfter(this.props.startDate)) {
+    		if ( selectedDate.isSameOrAfter(this.props.startDate)) {
     			return true;
     		} else {
     			return false;
@@ -56,23 +95,56 @@ class Scheduler extends React.Component
 
         var divStyle = {
             'paddingTop': '6px',
-            'paddingBottom': '15px'
+            'paddingBottom': '15px',
         }
 
-		if (this.props.same) {
-			dateTimePicker = (
-				<div style={divStyle} > 
-					<Datetime viewMode='days' onChange={this.onChange} value={this.state.datetime} isValidDate={this.isValidDate}/>
-				</div> 
-			);
-		} else {
-			dateTimePicker = (
-				<div className="row" style={divStyle}> 
-					<div className="col-sm-6"><Datetime viewMode='days' onChange={this.onChange} value={this.state.datetime} timeFormat ="" isValidDate={this.isValidDate}/></div>
-					<div className="col-sm-6"><Datetime viewMode='time' onChange={this.onChange} value={this.state.datetime} dateFormat ="" isValidDate={this.isValidDate}/></div>
-				</div> 
-			);
-		}
+        var buttonStyle = {
+            'zIndex': '-1',
+        };
+
+        var checkboxText; // Text to display 
+
+        // This is the end-date picker
+        if (this.props.isStart == true ) {
+            checkboxText = "Start Now";
+        } else { // this is the start-date picker
+            checkboxText = "End Never";
+        }
+
+		dateTimePicker = (
+			<div className="row" style={divStyle}> 
+
+				<div className="col-sm-6">
+                    <DateTimePicker
+                        viewMode='days' 
+                        onChange={this.onDateChange} 
+                        datetime={this.state.datetime} 
+                        timeFormat =""
+                        dateFormat = "MM DD YYYY" 
+                        isValidDate={this.isValidDate}
+                    />
+                </div>
+
+				<div className="col-sm-6">
+                    <DateTimePicker 
+                        viewMode='time' 
+                        onChange={this.onDateChange} 
+                        datetime={this.state.datetime} 
+                        dateFormat ="" 
+                        timeFormat = "h:mm A"
+                        isValidDate={this.isValidDate}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="datecheckbox">
+                        <input type="checkBox" id="datecheckbox" value={this.state.checkBox} onChange={this.onCheckbox}/>
+                        {checkboxText}
+                    </label>
+                </div>
+
+			</div> 
+		);
 
 	    return dateTimePicker;
     }

@@ -18,8 +18,7 @@ export class App extends React.Component {
         imgUrl: "some image url",
         bodyText: "some body text",
         link: "some link"
-      }, 
-      dateTimeSameField: true,
+      }
     };
   }
 
@@ -84,8 +83,8 @@ export class App extends React.Component {
 
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
-          Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
-          End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
+          Start <Scheduler isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+          End <Scheduler isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
           <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
           <InputBox label="Link" text={this.props.editor.link} onEdit={this.props.changeLink}/>
         </div>
