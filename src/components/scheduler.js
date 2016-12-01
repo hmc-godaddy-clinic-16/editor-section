@@ -16,7 +16,6 @@ class Scheduler extends React.Component
 	    super(props);    
 	    this.state = {
 	    	datetime: null,
-            prev: null,
             checkBox: false
 	    };
 	    this.onDateChange = this.onDateChange.bind(this);
@@ -26,54 +25,37 @@ class Scheduler extends React.Component
     }
 
     onDateChange(moment) {
-        console.log(moment);
     	if (this.isValidDate(moment)) {
     		this.setState ({datetime: moment});
-            this.setState ({prev: this.state.datetime});
+
             if (this.state.datetime != null) {
     		    this.props.onEdit(this.state.datetime.toDate());
             } else {
                 this.props.onEdit(null);
             }
-    	} else {
-            this.setState({datetime: this.state.prev});
-        }
+    	}
 
-        this.setState({checkBox: false});
+        // Uncheck the checkbox
+        if (this.state.checkbox) {
+            this.setState({checkbox: !this.state.checkbox});
+        }
     }
 
-    onCheckbox(event) {
+    onCheckbox() {
 
-        // Start now 
-        if (this.props.isStart == true) {
-            var now = new moment();
-            if (event == false) {
+        if (!this.state.checkbox) {
+            if (this.props.isStart) { // start now
+                var now = new moment();
                 this.setState({datetime: now});
                 this.props.onEdit(now.toDate());
-            } else {
-                this.setState({datetime: this.state.prev});
 
-                if (this.state.prev != null) {
-                    this.props.onEdit(this.state.prev.toDate());
-                } else {
-                    this.props.onEdit(this.state.prev);
-                }
-            }   
-
-        } else { // End never
-            if (event == false) {
+            } else { // End never
                 this.setState({datetime: null});
                 this.props.onEdit(null);
-            } else {
-                this.setState({datetime: this.state.prev});
-
-                if (this.state.prev != null) {
-                    this.props.onEdit(this.state.prev.toDate());
-                } else {
-                    this.props.onEdit(this.state.prev);
-                }
             }
         }
+
+        this.setState({checkbox: !this.state.checkbox});
     }
 
     isValidDate(selectedDate) {	
@@ -105,7 +87,7 @@ class Scheduler extends React.Component
         var checkboxText; // Text to display 
 
         // This is the end-date picker
-        if (this.props.isStart == true ) {
+        if (this.props.isStart) {
             checkboxText = "Start Now";
         } else { // this is the start-date picker
             checkboxText = "End Never";
@@ -138,7 +120,7 @@ class Scheduler extends React.Component
 
                 <div>
                     <label htmlFor="datecheckbox">
-                        <input type="checkBox" id="datecheckbox" value={this.state.checkBox} onChange={this.onCheckbox}/>
+                        <input type="checkBox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
                         {checkboxText}
                     </label>
                 </div>
