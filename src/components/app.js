@@ -5,6 +5,7 @@ import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyT
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
+import NavigationBar from "./navbar.js";
 import * as constants from './constants.js';
 
 export class App extends React.Component {
@@ -58,11 +59,16 @@ export class App extends React.Component {
     };
 
     var previewStyle = {
-      'padding': '20px'
+      'padding-top': '50px',
+      'padding-left': '50px',
+      'padding-right': '50px',
+      'width': '1000px'
     };
 
     var editorStyle = {
+      'float': 'right',
       'height': '100vh',
+      'width': '340px',
       'padding': '20px',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
@@ -70,11 +76,24 @@ export class App extends React.Component {
       'color': 'white'
     };
 
+    var navbarStyle = {
+      'float': 'top',
+      'padding-left': '550px',
+      'padding-right': '15px',
+      'height': '60px',
+      'backgroundColor': '#2e2f2e',
+      'border-bottom': '1px solid #232323'
+      
+    }
+
     // mock mode
     var mode = constants.EDIT;
 
     return (
       <div className="row" style={containerStyle}>
+        <div style={navbarStyle}>
+        <NavigationBar mode={mode}/>
+        </div>
         <div className="col-sm-6" style={previewStyle}>
           <Announcement data={this.props.editor} mode={mode}/>
         </div>

@@ -16,6 +16,7 @@
     "babel-core": "^6.14.0",
     "babel-istanbul": "^0.11.0",
     "babel-loader": "^6.2.5",
+    "babel-plugin-transform-react-jsx-img-import": "^0.1.3",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.16.0",
@@ -29,6 +30,7 @@
     "jsdom-global": "^2.1.0",
     "mocha": "^3.1.1",
     "react-addons-test-utils": "^15.3.2",
+    "redux-thunk": "^2.1.0",
     "sinon": "^1.17.6",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
@@ -38,6 +40,7 @@
     "body-parser": "^1.15.2",
     "css-loader": "^0.25.0",
     "draft-js-export-html": "^0.5.1",
+    "draft-js-import-html": "^0.3.2",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.15.2",
