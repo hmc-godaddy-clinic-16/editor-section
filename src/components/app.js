@@ -12,6 +12,7 @@ export class App extends React.Component {
     super();
     this.state = {
       editor: {
+        gotAnnouncement: false,
         title:"a different test title",
         startDate: null,
         endDate: null,
@@ -49,6 +50,7 @@ export class App extends React.Component {
 
   render () {
 
+
     var containerStyle = {
       'backgroundColor': '#202121',
       'height': '100vh',
@@ -69,6 +71,14 @@ export class App extends React.Component {
       'color': 'white'
     };
 
+    var datey = new Date();
+
+    var datey2 = new Date(datey);
+
+    var startDate = new Date(this.props.editor.startDate);
+    var endDate = new Date(this.props.editor.endDate);
+    var dateDisplayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric'};
+
     // mock mode
     var mode = constants.EDIT;
 
@@ -80,11 +90,14 @@ export class App extends React.Component {
 
         <div className="col-sm-6" style={editorStyle}>
           <h4> Announcement </h4>
+          <p> {this.props.editor.title}, {datey.toLocaleString()}, {datey2.toLocaleString()} </p>
 
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
-          Start <Scheduler isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
-          End <Scheduler isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
+          <p> Your announcement is scheduled to begin displaying on {startDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+          Start <Scheduler thisDate = {this.props.editor.startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+          <p> Your announcement is scheduled to stop displaying on {endDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+          End <Scheduler thisDate = {this.props.editor.endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
           <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
           <InputBox label="Link" text={this.props.editor.link} onEdit={this.props.changeLink}/>
         </div>

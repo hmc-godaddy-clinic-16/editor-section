@@ -13,9 +13,12 @@ import DateTimePicker from './datetimepicker.js';
 class Scheduler extends React.Component 
 {
 	  constructor(props) {
-	    super(props);    
+	    super(props);
+        var thisDate = new Date(this.props.thisDate);
+        var thisMoment = moment(thisDate);
+
 	    this.state = {
-	    	datetime: null,
+	    	datetime: thisMoment,
             checkBox: false
 	    };
 	    this.onDateChange = this.onDateChange.bind(this);
@@ -26,6 +29,7 @@ class Scheduler extends React.Component
 
     onDateChange(moment) {
     	if (this.isValidDate(moment)) {
+
     		this.setState ({datetime: moment});
 
             if (this.state.datetime != null) {
@@ -85,6 +89,8 @@ class Scheduler extends React.Component
         };
 
         var checkboxText; // Text to display 
+
+
 
         // This is the end-date picker
         if (this.props.isStart) {
