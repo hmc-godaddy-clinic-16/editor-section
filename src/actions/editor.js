@@ -58,10 +58,8 @@ export function receiveAnnouncement (json) {
 // Get the announcement from the database
 export function fetchAnnouncement(announcementid) {
 
-	console.log("In fetch announcement");
-
   return function (dispatch) {
-  	console.log("in fetch announcement dispatch");
+  	
     return fetch( `${SERVER_URL}/announcements/${announcementid}`, {
     	method: "GET"
     })
@@ -75,7 +73,6 @@ export function fetchAnnouncement(announcementid) {
 
 // Update the database with the user-input announcement data
 export function putAnnouncement(announcement, announcementid) {
-	console.log("announcement", announcement);
 
 	if (announcement.editor.gotAnnouncement = false) {
 		return;
