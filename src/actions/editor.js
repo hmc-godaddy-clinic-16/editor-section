@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, RECEIVE_ANNOUNCEMENT, SERVER_URL, REQUEST_ERROR} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, REQUEST_ANNOUNCEMENT, RECEIVE_ANNOUNCEMENT, SERVER_URL, REQUEST_ERROR} from '../constants';
 import fetch from 'isomorphic-fetch';
 
 // Redux action to edit/update the title of an anncouncement
@@ -46,6 +46,13 @@ export function updateLink (link) {
 
 // Communication with the RESTful API
 
+export function requestAnnouncement (announcementid) {
+	return {
+		type: REQUEST_ANNOUNCEMENT,
+		announcementid
+	}
+}
+
 // Action for when we get the announcement back from
 // the database
 export function receiveAnnouncement (json) {
@@ -59,6 +66,8 @@ export function receiveAnnouncement (json) {
 export function fetchAnnouncement(announcementid) {
 
   return function (dispatch) {
+
+  	dispatch(requestAnnouncement(announcementid))
   	
     return fetch( `${SERVER_URL}/announcements/${announcementid}`, {
     	method: "GET"

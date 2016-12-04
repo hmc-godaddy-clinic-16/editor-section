@@ -7,14 +7,14 @@ class InputBox extends React.Component
 {
   constructor(props) {
     super(props); 
-    this.state = {
-      text: this.props.text
-    };
+    // this.state = {
+    //   text: this.props.text
+    // };
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(event) {
-    this.setState({text: event.target.value});
+    // this.setState({text: event.target.value});
     this.props.onEdit(event.target.value);
   }
 
@@ -36,7 +36,7 @@ class InputBox extends React.Component
         <p>{this.props.label}</p>
         <input
           type="text"
-          value={this.state.text}
+          value={this.props.text}
           onChange={this.onChange}
         />
       </div>

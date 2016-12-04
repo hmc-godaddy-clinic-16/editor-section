@@ -20,9 +20,7 @@ class RichTextEditor extends React.Component {
 
 	constructor(props) {
 		super(props);
-		let html = this.props.text;
-		let contentState = stateFromHTML(html);
-		this.state = {editorState: EditorState.createWithContent(contentState)};
+    this.getStateFromProps(props);
 
 		this.focus = () => this.refs.editor.focus();
 		this.onChange = this.onChange.bind(this);
@@ -31,6 +29,12 @@ class RichTextEditor extends React.Component {
 		this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
 		this.handleKeyCommand = this.handleKeyCommand.bind(this);
 	}
+
+  getStateFromProps(props) {
+    let html = this.props.text;
+    let contentState = stateFromHTML(html);
+    this.state = {editorState: EditorState.createWithContent(contentState)};
+  }
 
 	onChange(editorState) {
 		this.setState({editorState});
@@ -77,6 +81,7 @@ class RichTextEditor extends React.Component {
 
 
 	render() {
+    this.getStateFromProps(this.props);
 		const {editorState} = this.state;
 
 		let className = 'RichTextEditor-editor';

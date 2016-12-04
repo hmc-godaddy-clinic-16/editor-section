@@ -1,4 +1,4 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, RECEIVE_ANNOUNCEMENT} from '../constants';
+import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK,REQUEST_ANNOUNCEMENT, RECEIVE_ANNOUNCEMENT} from '../constants';
 
 export default (state = "", action) => {
 	switch (action.type) {
@@ -30,7 +30,7 @@ export default (state = "", action) => {
 			console.log("updated body text");
 			return Object.assign ( {}, state, {
 				bodyText: action.bodyText
-			})
+			});
 
 		case UPDATE_LINK:
 			console.log("updated link");
@@ -38,13 +38,22 @@ export default (state = "", action) => {
 				link: action.link
 			});
 
+		case REQUEST_ANNOUNCEMENT:
+			console.log("requesting announcement from database...");
+
+			return Object.assign({}, state, {
+				isFetching: true
+			});
+
 		case RECEIVE_ANNOUNCEMENT:
 			console.log("received annoucement from database");
 
 			return Object.assign( {}, state, {
-				_id: action.json._id,
+				id: action.json._id,
+				isFetching: false,
 				gotAnnouncement: true,
 				title: action.json.title,
+				bodyText: action.json.bodyText,
 				startDate: new Date(action.json.startDate),
 				endDate: new Date(action.json.endDate),
 				imgUrl: action.json.imgUrl,
