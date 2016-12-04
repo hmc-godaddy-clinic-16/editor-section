@@ -90,8 +90,6 @@ export class App extends React.Component {
 
         <div className="col-sm-6" style={editorStyle}>
           <h4> Announcement </h4>
-          <p> {this.props.editor.title}, {datey.toLocaleString()}, {datey2.toLocaleString()} </p>
-
           <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
           <p> Your announcement is scheduled to begin displaying on {startDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
