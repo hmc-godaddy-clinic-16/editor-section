@@ -71,10 +71,6 @@ export class App extends React.Component {
       'color': 'white'
     };
 
-    var datey = new Date();
-
-    var datey2 = new Date(datey);
-
     var startDate = new Date(this.props.editor.startDate);
     var endDate = new Date(this.props.editor.endDate);
     var dateDisplayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric'};
