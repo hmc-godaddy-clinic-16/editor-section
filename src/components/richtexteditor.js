@@ -77,16 +77,28 @@ class RichTextEditor extends React.Component {
 			);
 	}
 
+  updateStateIfDifferentFromProps(props) {
+    const {editorState} = this.state;
 
+    var contentState = editorState.getCurrentContent();
+    let html = stateToHTML(contentState);
+    let propshtml = this.props.text
+
+    if (html != propshtml) {
+      this.getStateFromProps(props);
+    }
+  }
 
 
 	render() {
-    this.getStateFromProps(this.props);
+    this.updateStateIfDifferentFromProps(this.props);
+
 		const {editorState} = this.state;
 
 		let className = 'RichTextEditor-editor';
 		var contentState = editorState.getCurrentContent();
 		let html = stateToHTML(contentState);
+
 
 		return (
 			<div className = "RichEditor-root">
