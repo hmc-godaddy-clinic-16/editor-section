@@ -9,8 +9,6 @@ import editor from "./reducers/editor.js";
 import {fetchAnnouncement, putAnnouncement} from './actions/editor.js';
 import {DEFAULT_ID} from './constants.js'
 
-
-
 const reducers = combineReducers({
     editor
 });

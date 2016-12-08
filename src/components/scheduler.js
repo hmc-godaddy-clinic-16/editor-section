@@ -12,32 +12,32 @@ import DateTimePicker from './datetimepicker.js';
 // If the date should be after a certain date, a startDate is passed in
 class Scheduler extends React.Component 
 {
-	  constructor(props) {
-	    super(props);
+      constructor(props) {
+        super(props);
         var thisDate = new Date(this.props.thisDate);
         var thisMoment = moment(thisDate);
 
-	    this.state = {
-	    	datetime: thisMoment,
+        this.state = {
+            datetime: thisMoment,
             checkBox: false
-	    };
-	    this.onDateChange = this.onDateChange.bind(this);
+        };
+        this.onDateChange = this.onDateChange.bind(this);
         this.onCheckbox = this.onCheckbox.bind(this);
-	    this.isValidDate = this.isValidDate.bind(this);
-	    this.render = this.render.bind(this);
+        this.isValidDate = this.isValidDate.bind(this);
+        this.render = this.render.bind(this);
     }
 
     onDateChange(moment) {
-    	if (this.isValidDate(moment)) {
+        if (this.isValidDate(moment)) {
 
-    		this.setState ({datetime: moment});
+            this.setState ({datetime: moment});
 
             if (this.state.datetime != null) {
-    		    this.props.onEdit(this.state.datetime.toDate());
+                this.props.onEdit(this.state.datetime.toDate());
             } else {
                 this.props.onEdit(null);
             }
-    	}
+        }
 
         // Uncheck the checkbox
         if (this.state.checkbox) {
@@ -62,22 +62,22 @@ class Scheduler extends React.Component
         this.setState({checkbox: !this.state.checkbox});
     }
 
-    isValidDate(selectedDate) {	
+    isValidDate(selectedDate) { 
         // Ensure that the end date is after the start date
-    	if (this.props.startDate == null ) {
+        if (this.props.startDate == null ) {
             return true;
-    	} else {
-    		if ( selectedDate.isSameOrAfter(this.props.startDate)) {
-    			return true;
-    		} else {
-    			return false;
-    		}
-    	}
+        } else {
+            if ( selectedDate.isSameOrAfter(this.props.startDate)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     // renders a different date/time picker UI dependending on the value of props.same
-	render() {
-		var dateTimePicker;
+    render() {
+        var dateTimePicker;
 
         var divStyle = {
             'paddingTop': '6px',
@@ -99,10 +99,10 @@ class Scheduler extends React.Component
             checkboxText = "End Never";
         }
 
-		dateTimePicker = (
-			<div className="row" style={divStyle}> 
+        dateTimePicker = (
+            <div className="row" style={divStyle}> 
 
-				<div className="col-sm-6">
+                <div className="col-sm-6">
                     <DateTimePicker
                         viewMode='days' 
                         onChange={this.onDateChange} 
@@ -113,7 +113,7 @@ class Scheduler extends React.Component
                     />
                 </div>
 
-				<div className="col-sm-6">
+                <div className="col-sm-6">
                     <DateTimePicker 
                         viewMode='time' 
                         onChange={this.onDateChange} 
@@ -131,10 +131,10 @@ class Scheduler extends React.Component
                     </label>
                 </div>
 
-			</div> 
-		);
+            </div> 
+        );
 
-	    return dateTimePicker;
+        return dateTimePicker;
     }
 }
 

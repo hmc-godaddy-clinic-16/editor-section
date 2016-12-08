@@ -1,6 +1,6 @@
 .RichEditor-root {
-  background: #434445;
-  border: 1px solid #787878;
+  background: #434445;              /* grey */
+  border: 1px solid #787878;        /* light grey */
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   border-radius: 3px;
@@ -22,6 +22,8 @@
 
 .public-DraftEditor-content {
     padding: 10px;
+    height: 150px;    /* fix height of editable content */
+    overflow-y: auto; /* scroll when text no longer fits within height */
 }
 
 .RichEditor-editor .public-DraftEditorPlaceholder-root,
@@ -56,7 +58,7 @@
 
 .RichEditor-controls {
   font-family: 'Helvetica', sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   margin-bottom: 0px;
   user-select: none;
 }
@@ -66,9 +68,9 @@
   color: #FEFEFE;
   cursor: pointer;
   margin-bottom: 0px;
-  padding: 12px 14px;
-  display: inline-block;
-  
+  padding: 10px 14px;
+  display: inline-block;      /* custom buttons fit on one line */
+  width: 40px;
 }
 
 .RichEditor-activeButton {
@@ -79,8 +81,3 @@
 nav {
     border-bottom: solid 1px #787878;
 }
-
-
-
-
-

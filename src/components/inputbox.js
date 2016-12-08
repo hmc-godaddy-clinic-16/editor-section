@@ -1,8 +1,7 @@
 import React from "react";
 import './inputbox.css';
 
-// InputBox is a basic text input field. 
-// onEdit updates the store
+/* InputBox is a basic text input field. */
 class InputBox extends React.Component
 {
   constructor(props) {
@@ -19,18 +18,12 @@ class InputBox extends React.Component
   }
 
   render() {
+    // insert space between fields
     var divStyle = {
       'paddingBottom': '15px'
     };
 
-    var boxStyle = {
-      'width': '99%',
-      'padding': '10px',
-      'backgroundColor': '#434445', 
-      'border': 'solid 1px #787878',
-      'borderRadius': '3px'
-    };
-
+    // create input field along with corresponding label
     return (
       <div style={divStyle}>
         <p>{this.props.label}</p>

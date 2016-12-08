@@ -4,7 +4,7 @@ import * as constants from './constants.js';
 import './link.css';
 
 
-// The Announcement component handles displaying a preview of the announcement
+/* Announcement displays a preview of the announcements. */
 class Announcement extends React.Component {
 	constructor () {
 		super();
@@ -24,8 +24,8 @@ class Announcement extends React.Component {
 	render () {
 		var image = this.props.data.imgUrl;
 
-		// in-line styling to display background image
-		// two cases for hover and non-hover state
+		// display announcement depending on whether or not
+		// user provides link
 		var announcementStyle;
 
 		if (this.state.hover && this.props.data.link) {
@@ -37,7 +37,7 @@ class Announcement extends React.Component {
 				'WebkitBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
 				'MozBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
 				'boxShadow': '0px 0px 69px -9px rgba(0,0,0,1)'
-			}
+			};
 		}
 		else {
 			announcementStyle = {
@@ -45,7 +45,7 @@ class Announcement extends React.Component {
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',		
 				'backgroundRepeat': 'no-repeat',
 				'backgroundSize': 'cover'
-			}
+			};
 		}
 
 		// scheduling data
@@ -84,7 +84,7 @@ class Announcement extends React.Component {
 			var announcement = <noscript/>;
 		}
 
-		// debugging
+		/* FOR DEBUGGING THE DISPLAY BASED ON SCHEDULED DATES */
 		// console.log("Start: " + start);
 		// console.log("End: " + end);
 		// console.log("Current: " + current);

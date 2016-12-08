@@ -1,11 +1,11 @@
 import React from "react";
 
-// Content handles rendering the content in the body of the announcement
+/* Content renders the title and body. */
 class Content extends React.Component {
 	render () {
 		var contentStyle = {
 			'color': 'white',
-			'textAlign': 'center'
+			'textAlign': 'center',
 		};
 
 		return (

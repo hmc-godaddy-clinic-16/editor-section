@@ -1,6 +1,7 @@
 import React from "react";
 
-// Provides a simple button component - not currently used 
+/* Button is a simple button component.
+   Button is not currently used. */
 class Button extends React.Component {
   constructor() {
     super();    

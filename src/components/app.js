@@ -51,7 +51,7 @@ export class App extends React.Component {
 
     var containerStyle = {
       'backgroundColor': '#202121',
-      'height': '100vh',
+      'height': '100%',
       'borderStyle': 'solid',
       'borderColor': 'black'
     };
@@ -61,7 +61,7 @@ export class App extends React.Component {
     };
 
     var editorStyle = {
-      'height': '100vh',
+      'height': '100%',
       'padding': '20px',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
@@ -81,10 +81,12 @@ export class App extends React.Component {
 
     return (
       <div className="row" style={containerStyle}>
+        {/* preview section */}
         <div className="col-sm-6" style={previewStyle}>
           <Announcement data={editor} mode={mode}/>
         </div>
 
+        {/* editor section */}
         <div className="col-sm-6" style={editorStyle}>
           <h4> Announcement </h4>
 
