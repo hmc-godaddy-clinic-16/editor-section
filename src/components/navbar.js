@@ -6,11 +6,6 @@ class NavigationBar extends React.Component {
 		super(props)
 	}
 	render() {
-		// let className = 'NavBar-styleButton';
-	 //      if (this.props.active) {
-	 //        className += ' NavBar-activeButton';
-	 //      }
-
 		return (
 			<div className="NavBar-root">
 				<EditButton/>
@@ -18,7 +13,6 @@ class NavigationBar extends React.Component {
 
 	);}
 }
-
 	class NavButton extends React.Component {
 		constructor() {
 			super();
@@ -29,7 +23,6 @@ class NavigationBar extends React.Component {
 				hover: false
 			};
 		}
-		
 
 		onToggle() {
 			var active = !(this.state.isActive);
@@ -55,7 +48,7 @@ class NavigationBar extends React.Component {
 				'height': '18px'
 			};
 
-			//var editIcon = './uxpin-icon-set_compose.png';
+			
 
 
 			return (
@@ -67,21 +60,38 @@ class NavigationBar extends React.Component {
 			);
 		}
 	}   
-		// TODO: CAN'T IMPORT IMAGES FROM RELATIVE FOLDER?? HAVE 
-		// USE SERVER URL
-		const NAV_BUTTONS = [
-			{label: 'Edit', icon: 'http://www.freeiconspng.com/uploads/edit-new-icon-22.png'},
-			{label: 'Layout', icon: 'http://www.pixempire.com/images/preview/layout-sidebar-at-left-icon.jpg'},
-			{label: 'Style', icon: 'https://d30y9cdsu7xlg0.cloudfront.net/png/70487-200.png'}
+
+		
+		var normalButtons = [
+			{label: 'Edit', icon: require('file-loader!./editgrey.svg'), icon2: require('file-loader!./editwhite.svg')},
+			{label: 'Layouts', icon: require('file-loader!./layoutgrey.svg'), icon2: require('file-loader!./layoutwhite.svg')},
+			{label: 'Styles', icon: require('file-loader!./slidergrey.svg'), icon2: require('file-loader!./sliderwhite.svg')}
 		];
 
+		var activeButtons = [
+			{label: 'Edit', icon: require('file-loader!./editwhite.svg')},
+			{label: 'Layouts', icon: require('file-loader!./layoutwhite.svg')},
+			{label: 'Styles', icon: require('file-loader!./sliderwhite.svg')}
+		];
+
+
+
+
 		const EditButton = (props) => {
+			var buttonState;
+			if (props.onHovered){
+				buttonState = activeButtons;
+			}
+			buttonState = normalButtons;
 			return (
 				<span className="NavBar-controls">
-				{NAV_BUTTONS.map((type) =>
+				{buttonState.map((type) =>
 					<NavButton
 					  label={type.label}
 					  icon={type.icon}
+					  onToggle={props.onToggle}
+					  onHovered={props.onHovered}
+
 
 					/>
 				)}
