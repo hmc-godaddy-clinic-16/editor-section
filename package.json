@@ -43,6 +43,7 @@
     "draft-js-export-html": "^0.5.1",
     "draft-js-import-html": "^0.3.2",
     "express": "^4.14.0",
+    "file-loader": "^0.9.0",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.15.2",
     "mongodb": "^2.2.11",
@@ -52,9 +53,11 @@
     "react-datetime": "^2.6.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
+    "react-svg-loader": "^1.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7"
   }
 }

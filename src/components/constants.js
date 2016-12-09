@@ -1,6 +1,6 @@
-// Constants for the announcement preview
+/* Constants for the announcement preview. */
 
-// mode
+// viewing mode
 export const EDIT = 'EDIT';
 export const PUBLISH = 'PUBLISH';
 
