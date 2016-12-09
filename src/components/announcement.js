@@ -36,28 +36,15 @@ class Announcement extends React.Component {
 				'backgroundSize': 'cover',
 				'WebkitBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
 				'MozBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
-// <<<<<<< HEAD
-// 				'boxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
-// 				'width': '1000px'
-// 			}
-// =======
 				'boxShadow': '0px 0px 69px -9px rgba(0,0,0,1)'
 			};
-
-		}
-		else {
+		} else {
 			announcementStyle = {
 				'padding': '10px',
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',		
 				'backgroundRepeat': 'no-repeat',
-// <<<<<<< HEAD
-// 				'backgroundSize': 'cover',
-// 				'width': '1000px'
-// 			}
-// =======
 				'backgroundSize': 'cover'
 			};
-
 		}
 
 		// scheduling data
