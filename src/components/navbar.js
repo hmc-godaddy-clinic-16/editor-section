@@ -53,7 +53,9 @@ class NavigationBar extends React.Component {
 
 			return (
 			<span className={className} onMouseDown={this.onToggle} onMouseEnter={this.onHovered} onMouseLeave={this.onHovered}> 
-				<div> <img src={this.props.icon}  style={iconStyle}/> </div>
+				<div> <img src={this.state.isActive? 
+					this.props.iconhover
+					:(this.state.hover? this.props.iconhover : this.props.icon)}  style={iconStyle}/> </div>
 				{this.props.label} 
 			</span>
 
@@ -63,15 +65,9 @@ class NavigationBar extends React.Component {
 
 		
 		var normalButtons = [
-			{label: 'Edit', icon: require('file-loader!./editgrey.svg'), icon2: require('file-loader!./editwhite.svg')},
-			{label: 'Layouts', icon: require('file-loader!./layoutgrey.svg'), icon2: require('file-loader!./layoutwhite.svg')},
-			{label: 'Styles', icon: require('file-loader!./slidergrey.svg'), icon2: require('file-loader!./sliderwhite.svg')}
-		];
-
-		var activeButtons = [
-			{label: 'Edit', icon: require('file-loader!./editwhite.svg')},
-			{label: 'Layouts', icon: require('file-loader!./layoutwhite.svg')},
-			{label: 'Styles', icon: require('file-loader!./sliderwhite.svg')}
+			{label: 'Edit', icon: require('file-loader!./editgrey.svg'), iconhover: require('file-loader!./editwhite.svg')},
+			{label: 'Layouts', icon: require('file-loader!./layoutgrey.svg'), iconhover: require('file-loader!./layoutwhite.svg')},
+			{label: 'Styles', icon: require('file-loader!./slidergrey.svg'), iconhover: require('file-loader!./sliderwhite.svg')}
 		];
 
 
@@ -89,6 +85,7 @@ class NavigationBar extends React.Component {
 					<NavButton
 					  label={type.label}
 					  icon={type.icon}
+					  iconhover={type.iconhover}
 					  onToggle={props.onToggle}
 					  onHovered={props.onHovered}
 
@@ -101,4 +98,6 @@ class NavigationBar extends React.Component {
 		}
 	
 export default NavigationBar;
+			
+
 			
