@@ -103,6 +103,7 @@ class DateTimePicker extends React.Component
 	                    dateFormat={this.props.dateFormat} 
 	                    isValidDate={this.props.isValidDate}
 	                    input={false}
+	                    timeConstraints={this.props.timeConstraints}
 	                />
 	            </div>
 	        </span>

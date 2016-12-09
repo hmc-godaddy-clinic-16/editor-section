@@ -90,7 +90,7 @@ class Scheduler extends React.Component
 
         var checkboxText; // Text to display 
 
-
+        var minuteInterval = {minutes : { step: 15 }};
 
         // This is the end-date picker
         if (this.props.isStart) {
@@ -121,6 +121,7 @@ class Scheduler extends React.Component
                         dateFormat ="" 
                         timeFormat = "h:mm A"
                         isValidDate={this.isValidDate}
+                        timeConstraints={minuteInterval}
                     />
                 </div>
 
