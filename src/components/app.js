@@ -6,21 +6,16 @@ import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
+import Mode from "./mode.js";
 import * as constants from './constants.js';
 
 export class App extends React.Component {
   constructor (props) {
     super(props);
-    // this.state = {
-    //   editor: {
-    //     title:"a different test title",
-    //     startDate: null,
-    //     endDate: null,
-    //     imgUrl: "some image url",
-    //     bodyText: "some body text",
-    //     link: "some link"
-    //   }
-    // };
+    this.changeMode = this.changeMode.bind(this);
+    this.state = {
+      currentMode: 1
+    };
   }
 
   changeTitle (text) {
@@ -45,6 +40,10 @@ export class App extends React.Component {
 
   changeLink(link) {
     this.props.changeLink(link);
+  }
+
+  changeMode(mode){
+    this.setState({currentMode: mode.id});
   }
 
   render () {
@@ -103,7 +102,10 @@ export class App extends React.Component {
       <div className="row" style={containerStyle}>
 
         <div style={navbarStyle}>
-        <NavigationBar mode={mode}/>
+        <NavigationBar 
+          currentMode={this.state.currentMode}
+          changeMode={this.changeMode}
+        />
         </div>
 
         {/* preview section */}
@@ -113,18 +115,32 @@ export class App extends React.Component {
         </div>
 
         {/* editor section */}
-        <div className="col-sm-6" style={editorStyle}>
-          <h4> Announcement </h4>
+        <div className="col-sm-6" style={editorStyle} currentMode={this.state.currentMode}>
+            {this.state.currentMode === 1 ?
+              <div>
+              <h4> Announcement </h4>
+              <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
+              Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
+              <p> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+              Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+              <p> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+              End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
+              <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
+              <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
+             </div>
+             :null}
 
-          <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
-          Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
-          <p> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-          Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
-          <p> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-          End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
-          <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
-          <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
-        </div>
+            {this.state.currentMode === 2 ?
+            <h4> "Layout Mode" </h4>
+            :null}
+
+            {this.state.currentMode === 3 ?
+            <h4> "Styles Mode" </h4>
+            :null}
+         </div>
+            
+          
+        
       </div>
     )
   }
