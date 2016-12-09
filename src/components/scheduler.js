@@ -14,6 +14,8 @@ class Scheduler extends React.Component
 {
       constructor(props) {
         super(props);
+        var thisDate = new Date(this.props.thisDate);
+        var thisMoment = moment(thisDate);
 
         this.state = {
             checkBox: false
@@ -28,7 +30,9 @@ class Scheduler extends React.Component
     onDateChange(moment) {
 
         if (this.isValidDate(moment)) {
+
             if (moment != null) {
+
                 this.props.onEdit(moment.toDate());
             } else {
                 this.props.onEdit(null);
@@ -37,8 +41,6 @@ class Scheduler extends React.Component
 
         // Uncheck the checkbox
         if (this.state.checkbox) {
-            console.log("Set checkbox state to opposite");
-            console.log(this.state.checkbox);
             this.setState({checkbox: !this.state.checkbox});
         }
     }
@@ -119,7 +121,7 @@ class Scheduler extends React.Component
                 </div>
 
                 <div>
-                    <label htmlFor="datecheckbox">
+                    <label>
                         <input type="checkBox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
                         {checkboxText}
                     </label>
