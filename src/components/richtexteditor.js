@@ -15,84 +15,99 @@ const {
    OLButton, ULButton,
 } = richButtonsPlugin;
 
-// Creates the text box for the body of the announcement and relies on DraftJS
+/* RichTextEditor creates a text editor for the announcement body using DraftJS. */
 class RichTextEditor extends React.Component {
 
-	constructor(props) {
-		super(props);
-		let html = this.props.text;
-		let contentState = stateFromHTML(html);
-		this.state = {editorState: EditorState.createWithContent(contentState)};
+  constructor(props) {
+    super(props);
+    this.getStateFromProps(props);
 
-		this.focus = () => this.refs.editor.focus();
-		this.onChange = this.onChange.bind(this);
-		this.onTab = (e) => this._onTab(e);
-		this.toggleBlockType = (type) => this._toggleBlockType(type);
-		this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
-		this.handleKeyCommand = this.handleKeyCommand.bind(this);
-	}
+    this.focus = () => this.refs.editor.focus();
+    this.onChange = this.onChange.bind(this);
+    this.onTab = (e) => this._onTab(e);
+    this.toggleBlockType = (type) => this._toggleBlockType(type);
+    this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
+  }
 
-	onChange(editorState) {
-		this.setState({editorState});
-		var contentState = editorState.getCurrentContent();
-		let html = stateToHTML(contentState);
-		this.props.onEdit(html);
+  getStateFromProps(props) {
+    let html = this.props.text;
+    let contentState = stateFromHTML(html);
+    this.state = {editorState: EditorState.createWithContent(contentState)};
+  }
 
-	}
+  onChange(editorState) {
+    this.setState({editorState});
+    var contentState = editorState.getCurrentContent();
+    let html = stateToHTML(contentState);
+    this.props.onEdit(html);
 
-	handleKeyCommand(command) {
-		const {editorState} = this.state;
-		const newState = RichUtils.handleKeyCommand(editorState, command);
-		if (newState) {
-			this.onChange(newState);
-			return 'handled';
-		}
-		return 'not-handled';
-	}
+  }
 
-	_onTab(e) {
-		const maxDepth = 4;
-		this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
-	}
+  handleKeyCommand(command) {
+    const {editorState} = this.state;
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
+  }
 
-	_toggleBlockType(blockType) {
-		this.onChange(
-			RichUtils.toggleBlockType(
-				this.state.editorState,
-				blockType
-				)
-			);
-	}
+  _onTab(e) {
+    const maxDepth = 4;
+    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+  }
 
-	_toggleInlineStyle(inlineStyle) {
-		this.onChange(
-			RichUtils.toggleInlineStyle(
-				this.state.editorState,
-				inlineStyle
-				)
-			);
-	}
+  _toggleBlockType(blockType) {
+    this.onChange(
+      RichUtils.toggleBlockType(
+        this.state.editorState,
+        blockType
+        )
+      );
+  }
+
+  _toggleInlineStyle(inlineStyle) {
+    this.onChange(
+      RichUtils.toggleInlineStyle(
+        this.state.editorState,
+        inlineStyle
+        )
+      );
+  }
+
+  updateStateIfDifferentFromProps(props) {
+    const {editorState} = this.state;
+
+    var contentState = editorState.getCurrentContent();
+    let html = stateToHTML(contentState);
+    let propshtml = this.props.text
+
+    if (html != propshtml) {
+      this.getStateFromProps(props);
+    }
+  }
 
 
+  render() {
+    this.updateStateIfDifferentFromProps(this.props);
+
+    const {editorState} = this.state;
+
+    let className = 'RichTextEditor-editor';
+    var contentState = editorState.getCurrentContent();
+    let html = stateToHTML(contentState);
 
 
-	render() {
-		const {editorState} = this.state;
-
-		let className = 'RichTextEditor-editor';
-		var contentState = editorState.getCurrentContent();
-		let html = stateToHTML(contentState);
-
-		return (
-			<div className = "RichEditor-root">
-	            <nav>
+    return (
+      <div className = "RichEditor-root">
+              <nav>
                <InlineStyleControls
                   editorState={editorState}
-                  onToggle={this.toggleInlineStyle}
-              /> <BlockStyleControls
-	                editorState={editorState}
-	                onToggle={this.toggleBlockType}
-	            /> 
+                  onToggle={this.toggleInlineStyle}/><BlockStyleControls
+                  editorState={editorState}
+                  onToggle={this.toggleBlockType}/> 
               </nav>
 				<div classname = "RichEditor-content">
 				<Editor
@@ -115,6 +130,7 @@ class RichTextEditor extends React.Component {
         }
       }
 
+      /* Buttons for styling text */
       class StyleButton extends React.Component {
         constructor() {
           super();
@@ -130,9 +146,19 @@ class RichTextEditor extends React.Component {
             className += ' RichEditor-activeButton';
           }
 
+          // render button images for block styles and plain text for inline styles
+          var buttonDisplay;
+          if (this.props.label == 'UL') {
+            buttonDisplay = <img src={require('file-loader!./images/ulButton.svg')} width="17px" height="17px"/>;
+          } else if (this.props.label == 'OL') {
+            buttonDisplay = <img src={require('file-loader!./images/olButton.svg')} width="17px" height="17px"/>;
+          } else {
+            buttonDisplay = this.props.label;
+          }
+
           return (
             <span className={className} onMouseDown={this.onToggle}>
-              {this.props.label}
+              {buttonDisplay}
             </span>
           );
         }

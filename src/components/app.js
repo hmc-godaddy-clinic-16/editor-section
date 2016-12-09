@@ -8,19 +8,18 @@ import Announcement from "./announcement.js";
 import * as constants from './constants.js';
 
 export class App extends React.Component {
-  constructor () {
-    super();
-    this.state = {
-      editor: {
-        title:"a different test title",
-        startDate: null,
-        endDate: null,
-        imgUrl: "some image url",
-        bodyText: "some body text",
-        link: "some link"
-      }, 
-      dateTimeSameField: true,
-    };
+  constructor (props) {
+    super(props);
+    // this.state = {
+    //   editor: {
+    //     title:"a different test title",
+    //     startDate: null,
+    //     endDate: null,
+    //     imgUrl: "some image url",
+    //     bodyText: "some body text",
+    //     link: "some link"
+    //   }
+    // };
   }
 
   changeTitle (text) {
@@ -47,12 +46,12 @@ export class App extends React.Component {
     this.props.changeLink(link);
   }
 
-
   render () {
+
 
     var containerStyle = {
       'backgroundColor': '#202121',
-      'height': '100vh',
+      'height': '100%',
       'borderStyle': 'solid',
       'borderColor': 'black'
     };
@@ -62,7 +61,7 @@ export class App extends React.Component {
     };
 
     var editorStyle = {
-      'height': '100vh',
+      'height': '100%',
       'padding': '20px',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
@@ -70,24 +69,35 @@ export class App extends React.Component {
       'color': 'white'
     };
 
+    const editor = this.props.editor
+    const {  gotAnnouncement, isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor
+
+    var startDateDate = new Date(startDate);
+    var endDateDate = new Date(endDate);
+    var dateDisplayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric'};
+
     // mock mode
     var mode = constants.EDIT;
 
     return (
       <div className="row" style={containerStyle}>
+        {/* preview section */}
         <div className="col-sm-6" style={previewStyle}>
-          <Announcement data={this.props.editor} mode={mode}/>
+          <Announcement data={editor} mode={mode}/>
         </div>
 
+        {/* editor section */}
         <div className="col-sm-6" style={editorStyle}>
           <h4> Announcement </h4>
 
-          <InputBox label="Title" text={this.props.editor.title} onEdit={this.props.changeTitle}/>
-          Body <RichTextEditor text={this.props.editor.bodyText} onEdit={this.props.changeBodyText}/>
-          Start <Scheduler startDate={null} onEdit={this.props.changeStartDate} same = {this.state.dateTimeSameField}/>
-          End <Scheduler startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate} same = {this.state.dateTimeSameField}/>
-          <InputBox label="Image URL" text={this.props.editor.imgUrl} onEdit={this.props.changeImageUrl}/>
-          <InputBox label="Link" text={this.props.editor.link} onEdit={this.props.changeLink}/>
+          <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
+          Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
+          <p> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+          Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+          <p> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+          End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
+          <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
+          <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
         </div>
       </div>
     )
@@ -103,6 +113,8 @@ App.propTypes = {
   changeLink: React.PropTypes.func.isRequired,
   
   editor: React.PropTypes.shape({
+    gotAnnouncement: React.PropTypes.bool.isRequired,
+    isFetching: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,
     startDate: React.PropTypes.instanceOf(Date),
     endDate: React.PropTypes.instanceOf(Date),

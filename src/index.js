@@ -9,8 +9,6 @@ import editor from "./reducers/editor.js";
 import {fetchAnnouncement, putAnnouncement} from './actions/editor.js';
 import {DEFAULT_ID} from './constants.js'
 
-
-
 const reducers = combineReducers({
     editor
 });
@@ -32,10 +30,11 @@ const store = createStore(
   editor: {
     _id: DEFAULT_ID,
     gotAnnouncement: false,
-    title:"BUY ONE DOZEN GET ONE DOZEN FREE - DEFAULT",
-    bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
-    startDate: null,
-    endDate: null,
+    isFetching: false,
+    title:"BUY ONE DOZEN GET ONE DOZEN FREE store",
+    bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply. store",
+    startDate: new Date(),
+    endDate: new Date(),
     imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg",
     link: "http://www.thedonutmanca.com/"
   } 

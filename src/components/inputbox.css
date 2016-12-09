@@ -1,12 +1,13 @@
 input[type=text] {
-	width: 99%;
+	width: 100%;				/* extend length */
     padding: 6px;
     color: white;
-    background-color: #434445; 
-    border: solid 1px #787878;
+    background-color: #434445; /* grey */
+    border: solid 1px #787878; /* light grey */
     border-radius: 3px;
 }
 
+/* Input fields glow white when selected */
 input[type=text]:focus {
 	outline: none;
 	border-color: white;
