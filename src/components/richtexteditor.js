@@ -110,6 +110,7 @@ class RichTextEditor extends React.Component {
                   onToggle={this.toggleBlockType}/> 
               </nav>
 
+
           <div>
           <Editor
             editorState={editorState}
@@ -121,6 +122,7 @@ class RichTextEditor extends React.Component {
       </div>
     );
   }
+
 
 }
 
