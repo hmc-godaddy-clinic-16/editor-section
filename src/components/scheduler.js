@@ -23,6 +23,7 @@ class Scheduler extends React.Component
             checkBox: false
         };
 
+        this.showDropdown = this.props.showDropdown;
         this.onDateChange = this.onDateChange.bind(this);
         this.onCheckbox = this.onCheckbox.bind(this);
         this.isValidDate = this.isValidDate.bind(this);
@@ -86,9 +87,24 @@ class Scheduler extends React.Component
 
         var checkboxText; // Text to display 
 
-        var options = [
+        var optionsNum = [
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
         ]
+
+        var optionsSpan = [
+            "minutes", "hours", "days", "weeks", "months", "years"
+        ]
+
+        var dropdownStyle;
+
+        console.log("############" + this.showDropdown);
+        if (!this.showDropdown) {
+            dropdownStyle = {
+                'display':'none',
+                'position':'absolute',
+                'zIndex': '1000',
+            };
+        }
 
         // This is the end-date picker
         if (this.props.isStart) {
@@ -98,17 +114,25 @@ class Scheduler extends React.Component
         }
 
         dateTimePicker = (
+            <div>
+                <div className="row" style={divStyle}> 
+                        <div className="col-sm-6" style={dropdownStyle}>
+                            <Dropdown
+                                options={optionsNum}
+                                placeholder="Select number"
+                            />
+                        </div>
+
+                        <div className="col-sm-6" style={dropdownStyle}>
+                            <Dropdown
+                                options={optionsSpan}
+                                placeholder="Select span"
+                            />
+                        </div>
+
+                </div> 
+
             <div className="row" style={divStyle}> 
-
-                <div className="col-sm-6">
-                    
-
-                    <Dropdown 
-                        options={options}
-                        placeholder="Select number"
-                    />
-                </div>
-
                 <div className="col-sm-6">
                     <DateTimePicker
                         viewMode='days' 
@@ -139,6 +163,7 @@ class Scheduler extends React.Component
                 </div>
 
             </div> 
+            </div>
         );
 
         return dateTimePicker;
