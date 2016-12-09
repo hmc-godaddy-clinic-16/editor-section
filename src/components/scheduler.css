@@ -212,3 +212,64 @@ td.rdtYear:hover {
   font-size: 1.2em;
   margin-top: 37px;
 }
+
+/* Button */
+
+button {
+  width: 100%;
+  padding: 6px;
+  color: white;
+  background-color: #434445; /* grey */
+  border: solid 1px #787878; /* light grey */
+  border-radius: 3px;
+  margin-bottom: 5px;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+button:hover {
+  background-color: #787878;
+}
+
+button:focus {
+  outline: none;
+  border-color: white;
+}
+
+/* Checkbox */
+
+.scheduleBox { 
+  margin-left: 15px;
+  font-size: 12px;
+}
+
+/*input[type=checkbox] {
+  visibility: hidden; 
+}
+
+label {
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  margin-right: 5px;
+  display: inline;
+  position: relative;
+  background: #eee;
+}
+
+label:hover::after {
+  opacity: 0.5;
+  color: black;
+  background: transparent;
+  content: '\2713'; 
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+input[type=checkbox]:checked label:after {
+  opacity: 1;
+}*/

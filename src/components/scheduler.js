@@ -79,12 +79,8 @@ class Scheduler extends React.Component
 
         var divStyle = {
             'paddingTop': '6px',
-            'paddingBottom': '15px',
+            'paddingBottom': '6px'
         }
-
-        var buttonStyle = {
-            'zIndex': '-1',
-        };
 
         var checkboxText; // Text to display 
 
@@ -120,11 +116,11 @@ class Scheduler extends React.Component
                     />
                 </div>
 
-                <div>
+                <div className="scheduleBox">
                     <label>
-                        <input type="checkBox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
-                        {checkboxText}
+                        <input type="checkbox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
                     </label>
+                    {checkboxText}
                 </div>
 
             </div> 
