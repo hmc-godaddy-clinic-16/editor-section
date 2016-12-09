@@ -69,6 +69,11 @@ export class App extends React.Component {
       'color': 'white'
     };
 
+    var textStyle = {
+      'fontSize': '12px',
+      'color': '#787878'
+    };
+
     const editor = this.props.editor
     const {  gotAnnouncement, isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor
 
@@ -92,10 +97,10 @@ export class App extends React.Component {
 
           <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
           Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
-          <p> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
           Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
-          <p> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+          <p style={textStyle}> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
           End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
+          <p style={textStyle}> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
           <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
           <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
         </div>
