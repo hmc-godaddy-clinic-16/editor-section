@@ -15,7 +15,7 @@ class Scheduler extends React.Component
       constructor(props) {
         super(props);
         var thisDate = new Date(this.props.thisDate);
-        var thisMoment = moment(thisDate);
+        var thisMoment = moment(thisDate).hour(0).minute(0).second(0).millisecond(0);
 
         this.state = {
             datetime: thisMoment,
