@@ -6,7 +6,6 @@ import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
-import Mode from "./mode.js";
 import * as constants from './constants.js';
 
 export class App extends React.Component {
