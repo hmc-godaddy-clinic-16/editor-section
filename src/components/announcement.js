@@ -38,8 +38,7 @@ class Announcement extends React.Component {
 				'MozBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
 				'boxShadow': '0px 0px 69px -9px rgba(0,0,0,1)'
 			};
-		}
-		else {
+		} else {
 			announcementStyle = {
 				'padding': '10px',
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',		

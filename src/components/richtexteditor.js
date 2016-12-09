@@ -109,17 +109,21 @@ class RichTextEditor extends React.Component {
                   editorState={editorState}
                   onToggle={this.toggleBlockType}/> 
               </nav>
-        <div>
-        <Editor
-          editorState={editorState}
-          handleKeyCommand = {this.handleKeyCommand}
-          onChange={this.onChange}
-          onTab= {this.onTab}
-          ref='editor'/>
-        </div>
+
+
+          <div>
+          <Editor
+            editorState={editorState}
+            handleKeyCommand = {this.handleKeyCommand}
+            onChange={this.onChange}
+            onTab= {this.onTab}
+            ref='editor'/>
+          </div>
       </div>
     );
   }
+
+
 }
 
       function getBlockStyle(block) {
@@ -148,9 +152,9 @@ class RichTextEditor extends React.Component {
           // render button images for block styles and plain text for inline styles
           var buttonDisplay;
           if (this.props.label == 'UL') {
-            buttonDisplay = <img src={require('./images/ulButton.svg')} width="17px" height="17px"/>;
+            buttonDisplay = <img src={require('file-loader!./images/ulButton.svg')} width="17px" height="17px"/>;
           } else if (this.props.label == 'OL') {
-            buttonDisplay = <img src={require('./images/olButton.svg')} width="17px" height="17px"/>;
+            buttonDisplay = <img src={require('file-loader!./images/olButton.svg')} width="17px" height="17px"/>;
           } else {
             buttonDisplay = this.props.label;
           }
