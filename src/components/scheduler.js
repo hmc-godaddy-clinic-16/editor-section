@@ -20,9 +20,9 @@ class Scheduler extends React.Component
         var thisMoment = moment(thisDate);
 
         this.state = {
-            datetime: thisMoment,
             checkBox: false
         };
+
         this.onDateChange = this.onDateChange.bind(this);
         this.onCheckbox = this.onCheckbox.bind(this);
         this.isValidDate = this.isValidDate.bind(this);
@@ -30,12 +30,12 @@ class Scheduler extends React.Component
     }
 
     onDateChange(moment) {
+
         if (this.isValidDate(moment)) {
 
-            this.setState ({datetime: moment});
+            if (moment != null) {
 
-            if (this.state.datetime != null) {
-                this.props.onEdit(this.state.datetime.toDate());
+                this.props.onEdit(moment.toDate());
             } else {
                 this.props.onEdit(null);
             }
@@ -52,11 +52,9 @@ class Scheduler extends React.Component
         if (!this.state.checkbox) {
             if (this.props.isStart) { // start now
                 var now = new moment();
-                this.setState({datetime: now});
                 this.props.onEdit(now.toDate());
 
             } else { // End never
-                this.setState({datetime: null});
                 this.props.onEdit(null);
             }
         }
@@ -83,12 +81,8 @@ class Scheduler extends React.Component
 
         var divStyle = {
             'paddingTop': '6px',
-            'paddingBottom': '15px',
+            'paddingBottom': '6px'
         }
-
-        var buttonStyle = {
-            'zIndex': '-1',
-        };
 
         var checkboxText; // Text to display 
 
@@ -119,7 +113,7 @@ class Scheduler extends React.Component
                     <DateTimePicker
                         viewMode='days' 
                         onChange={this.onDateChange} 
-                        datetime={this.state.datetime} 
+                        datetime={moment(this.props.thisDate)} 
                         timeFormat =""
                         dateFormat = "MM DD YYYY" 
                         isValidDate={this.isValidDate}
@@ -130,18 +124,18 @@ class Scheduler extends React.Component
                     <DateTimePicker 
                         viewMode='time' 
                         onChange={this.onDateChange} 
-                        datetime={this.state.datetime} 
+                        datetime={moment(this.props.thisDate)} 
                         dateFormat ="" 
                         timeFormat = "h:mm A"
                         isValidDate={this.isValidDate}
                     />
                 </div>
 
-                <div>
-                    <label htmlFor="datecheckbox">
-                        <input type="checkBox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
-                        {checkboxText}
+                <div className="scheduleBox">
+                    <label>
+                        <input type="checkbox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
                     </label>
+                    {checkboxText}
                 </div>
 
             </div> 

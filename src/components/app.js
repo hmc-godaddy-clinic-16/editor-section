@@ -11,16 +11,10 @@ import * as constants from './constants.js';
 export class App extends React.Component {
   constructor (props) {
     super(props);
-    // this.state = {
-    //   editor: {
-    //     title:"a different test title",
-    //     startDate: null,
-    //     endDate: null,
-    //     imgUrl: "some image url",
-    //     bodyText: "some body text",
-    //     link: "some link"
-    //   }
-    // };
+    this.changeMode = this.changeMode.bind(this);
+    this.state = {
+      currentMode: 1
+    };
   }
 
   changeTitle (text) {
@@ -47,9 +41,11 @@ export class App extends React.Component {
     this.props.changeLink(link);
   }
 
+  changeMode(mode){
+    this.setState({currentMode: mode.id});
+  }
+
   render () {
-
-
     var containerStyle = {
       'backgroundColor': '#202121',
       'height': '100%',
@@ -58,17 +54,10 @@ export class App extends React.Component {
     };
 
     var previewStyle = {
-      'padding-top': '50px',
-      'padding-left': '50px',
-      'padding-right': '50px',
-      'width': '1000px'
+      'padding': '20px',
     };
 
     var editorStyle = {
-
-      'float': 'right',
-      'height': '100vh',
-      'width': '340px',
       'height': '100%',
       'padding': '20px',
       'backgroundColor': '#2e2f2e',
@@ -77,15 +66,18 @@ export class App extends React.Component {
       'color': 'white'
     };
 
+    var textStyle = {
+      'fontSize': '12px',
+      'color': '#787878'
+    };
 
     var navbarStyle = {
       'float': 'top',
-      'padding-left': '550px',
-      'padding-right': '15px',
+      'paddingLeft': '550px',
+      'paddingRight': '15px',
       'height': '60px',
       'backgroundColor': '#2e2f2e',
-      'border-bottom': '1px solid #232323'
-      
+      'borderBottom': '1px solid #232323'
     }
 
     const editor = this.props.editor
@@ -95,35 +87,48 @@ export class App extends React.Component {
     var endDateDate = new Date(endDate);
     var dateDisplayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric'};
 
-
     // mock mode
     var mode = constants.EDIT;
 
     return (
-      <div className="row" style={containerStyle}>
-
+      <div>
+        {/* navigation bar */}
         <div style={navbarStyle}>
-        <NavigationBar mode={mode}/>
+          <NavigationBar 
+            currentMode={this.state.currentMode}
+            changeMode={this.changeMode}/>
         </div>
 
-        {/* preview section */}
+        <div className="row" style={containerStyle}>
+          {/* preview section */}
+          <div className="col-sm-6" style={previewStyle}>
+            <Announcement data={editor} mode={mode}/>
+          </div>
 
-        <div className="col-sm-6" style={previewStyle}>
-          <Announcement data={editor} mode={mode}/>
-        </div>
+          {/* editor section */}
+          <div className="col-sm-6" style={editorStyle} currentMode={this.state.currentMode}>
+          {this.state.currentMode === 1 ?
+            <div>
+            <h4> Announcement </h4>
+              <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
+              Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
+              <p style={textStyle}> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+              Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+              <p style={textStyle}> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+              End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
+              <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
+              <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
+            </div>
+            :null}
 
-        {/* editor section */}
-        <div className="col-sm-6" style={editorStyle}>
-          <h4> Announcement </h4>
+            {this.state.currentMode === 2 ?
+            <h4> "Layout Mode" </h4>
+            :null}
 
-          <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
-          Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
-          <p> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-          Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
-          <p> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-          End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
-          <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
-          <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
+            {this.state.currentMode === 3 ?
+            <h4> "Styles Mode" </h4>
+            :null}
+          </div>
         </div>
       </div>
     )
@@ -150,7 +155,6 @@ App.propTypes = {
   }).isRequired 
 
 };
-
 
 // mapStateToProps and mapDispatchToProps handle 
 // the communication between the Redux store and React

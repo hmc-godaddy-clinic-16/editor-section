@@ -42,7 +42,22 @@ class DateTimePicker extends React.Component
 	}
 
 	onChange(event) {
-		this.hidePicker();
+		
+		var today = new moment();
+		var dayDiff;
+		
+		// If the day has changed, we want to close the picker since
+		// the user has selected a date
+		if (this.state.datetime == null) {
+			dayDiff = Math.abs(today.diff(event, 'days'));
+		} else {
+			dayDiff = Math.abs(this.state.datetime.diff(event, 'days'));
+		}
+
+		if (dayDiff > 0 && dayDiff < this.state.datetime.daysInMonth()) {
+			this.hidePicker();
+		}
+
 		this.props.onChange(event);
 	}
 
@@ -76,15 +91,15 @@ class DateTimePicker extends React.Component
 
 		var buttonText;
 
-		if (this.state.datetime != null) {
+		if (this.state.datetime != null && this.state.datetime.isValid()) {
 
 			if (this.props.viewMode == 'days') {
 				buttonText = this.state.datetime.format("MMM, Do");
 			} else {
-				buttonText = this.state.datetime.format("h:mm, A");
+				buttonText = this.state.datetime.format("h:mm A");
 			}
 		} else {
-			if (this.state.viewMode == 'days') {
+			if (this.props.viewMode == 'days') {
 				buttonText = "Select Date";
 			} else {
 				buttonText = "Select Time";
