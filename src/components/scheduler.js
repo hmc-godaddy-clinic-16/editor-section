@@ -96,14 +96,21 @@ class Scheduler extends React.Component
         ]
 
         var dropdownStyle;
-
-        console.log("############" + this.showDropdown);
+        var pickerStyle;
         if (!this.showDropdown) {
             dropdownStyle = {
                 'display':'none',
-                'position':'absolute',
-                'zIndex': '1000',
             };
+            pickerStyle = {
+                'display':'block'
+            }
+        } else {
+            pickerStyle = {
+                'display':'none',
+            };
+            dropdownStyle = {
+                'display':'block'
+            }
         }
 
         // This is the end-date picker
@@ -133,7 +140,7 @@ class Scheduler extends React.Component
                 </div> 
 
             <div className="row" style={divStyle}> 
-                <div className="col-sm-6">
+                <div className="col-sm-6" style={pickerStyle}>
                     <DateTimePicker
                         viewMode='days' 
                         onChange={this.onDateChange} 
@@ -144,7 +151,7 @@ class Scheduler extends React.Component
                     />
                 </div>
 
-                <div className="col-sm-6">
+                <div className="col-sm-6" style={pickerStyle}>
                     <DateTimePicker 
                         viewMode='time' 
                         onChange={this.onDateChange} 

@@ -113,9 +113,9 @@ export class App extends React.Component {
               <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
               Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
               <p style={textStyle}> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-              Start <Scheduler showDropdown = {false} thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+              Start <Scheduler showDropdown = {true} thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
               <p style={textStyle}> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-              End <Scheduler showDropdown = {true} thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
+              End <Scheduler showDropdown = {false} thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
               <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
               <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
             </div>
