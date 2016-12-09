@@ -3,6 +3,8 @@ import moment from 'moment';
 import Datetime from 'react-datetime';
 import './scheduler.css';
 import DateTimePicker from './datetimepicker.js';
+import DropdownScheduler from './dropdownscheduler.js';
+import Dropdown from 'react-dropdown';
 
 // Scheduler provides a UI for picking a date and time 
 // Relies on the third party node module react-datetitme to provide the date
@@ -90,7 +92,9 @@ class Scheduler extends React.Component
 
         var checkboxText; // Text to display 
 
-
+        var options = [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+        ]
 
         // This is the end-date picker
         if (this.props.isStart) {
@@ -101,6 +105,15 @@ class Scheduler extends React.Component
 
         dateTimePicker = (
             <div className="row" style={divStyle}> 
+
+                <div className="col-sm-6">
+                    
+
+                    <Dropdown 
+                        options={options}
+                        placeholder="Select number"
+                    />
+                </div>
 
                 <div className="col-sm-6">
                     <DateTimePicker
