@@ -36,14 +36,16 @@ class Announcement extends React.Component {
 				'backgroundSize': 'cover',
 				'WebkitBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
 				'MozBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
-				'boxShadow': '0px 0px 69px -9px rgba(0,0,0,1)'
+				'boxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
+				'listStylePosition': 'inside'
 			};
 		} else {
 			announcementStyle = {
 				'padding': '10px',
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',		
 				'backgroundRepeat': 'no-repeat',
-				'backgroundSize': 'cover'
+				'backgroundSize': 'cover',
+				'listStylePosition': 'inside'
 			};
 		}
 
