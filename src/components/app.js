@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink, fetchAnnouncement} from "../actions/editor";
@@ -112,9 +114,20 @@ export class App extends React.Component {
             <h4> Announcement </h4>
               <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
               Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
+              
               <p style={textStyle}> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+              
               Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
-              <p style={textStyle}> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+              
+
+              {moment(startDateDate).isSameOrAfter(moment(endDateDate)) && this.props.editor.endDate != null ?
+                <p> Warning: The end date you selected is after the selected start date. Your announcement will not display. </p>:null}
+
+              {this.props.editor.endDate === null ?
+                <p style={textStyle}> Your announcement is scheduled to continue displaying until you select a new end date. </p>:null}
+              {this.props.editor.endDate != null ?
+                <p style={textStyle}> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
+              
               End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
               <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
               <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
