@@ -94,7 +94,7 @@ class DateTimePicker extends React.Component
 		if (this.state.datetime != null && this.state.datetime.isValid()) {
 
 			if (this.props.viewMode == 'days') {
-				buttonText = this.state.datetime.format("MMM, Do");
+				buttonText = this.state.datetime.format("MMM Do, YYYY");
 			} else {
 				buttonText = this.state.datetime.format("h:mm A");
 			}
