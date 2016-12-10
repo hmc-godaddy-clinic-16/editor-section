@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import thunkMiddleware from 'redux-thunk';
 import React from "react";
 import ReactDOM from "react-dom";
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {Provider} from "react-redux";
 import App from "./components/app.js";
 import editor from "./reducers/editor.js";
@@ -23,26 +23,27 @@ const finalReducer = (state = reducers(), action) => {
     return nextState;
 };
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 // The app redux store contains all of the app's data
 const store = createStore(
   finalReducer,
  {
   editor: {
     _id: DEFAULT_ID,
-    gotAnnouncement: false,
-    isFetching: false,
-    title:"BUY ONE DOZEN GET ONE DOZEN FREE store",
+    isFetching: true,
+    title:"BUY ONE DOZEN GET ONE DOZEN FREE store test",
     bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply. store",
     startDate: new Date(),
     endDate: new Date(),
     imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg",
     link: "http://www.thedonutmanca.com/"
   } 
-},
+}, composeEnhancers(
   applyMiddleware(
     thunkMiddleware // lets us dispatch() functions (as well as actions)
-  ),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  )
+)
 );
 
 // Get the announcement data from the database

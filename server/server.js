@@ -78,3 +78,4 @@ var populateDB = function() {
         collection.insert(announcements, {safe:true}, function(err, result) {});
     });
 };
+

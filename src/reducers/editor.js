@@ -47,11 +47,11 @@ export default (state = "", action) => {
 
 		case RECEIVE_ANNOUNCEMENT:
 			console.log("received annoucement from database");
+			console.log(action);
 
 			return Object.assign( {}, state, {
 				id: action.json._id,
 				isFetching: false,
-				gotAnnouncement: true,
 				title: action.json.title,
 				bodyText: action.json.bodyText,
 				startDate: new Date(action.json.startDate),

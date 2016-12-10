@@ -81,7 +81,7 @@ export class App extends React.Component {
     }
 
     const editor = this.props.editor
-    const {  gotAnnouncement, isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor
+    const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor
 
     var startDateDate = new Date(startDate);
     var endDateDate = new Date(endDate);
@@ -144,7 +144,6 @@ App.propTypes = {
   changeLink: React.PropTypes.func.isRequired,
   
   editor: React.PropTypes.shape({
-    gotAnnouncement: React.PropTypes.bool.isRequired,
     isFetching: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,
     startDate: React.PropTypes.instanceOf(Date),

@@ -83,11 +83,10 @@ export function fetchAnnouncement(announcementid) {
 // Update the database with the user-input announcement data
 export function putAnnouncement(announcement, announcementid) {
 
-	if (announcement.editor.gotAnnouncement = false) {
+	if (announcement.editor.isFetching == true) {
 		return;
 	}
 
-	announcement.editor.gotAnnouncement = false;
     return fetch(`${SERVER_URL}/announcements/${announcementid}`, 
     		{  	headers: {
     				'Accept': 'application/json',
