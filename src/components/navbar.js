@@ -2,9 +2,9 @@ import React from 'react';
 import './navbar.css';
 
 var normalButtons = [
-	{'id': 1, label: 'Edit', icon: require('file-loader!./editgrey.svg'), iconhover: require('file-loader!./editwhite.svg')},
-	{'id': 2, label: 'Layouts', icon: require('file-loader!./layoutgrey.svg'), iconhover: require('file-loader!./layoutwhite.svg')},
-	{'id': 3, label: 'Styles', icon: require('file-loader!./slidergrey.svg'), iconhover: require('file-loader!./sliderwhite.svg')}
+	{'id': 1, label: 'Edit', icon: require('./editgrey.svg'), iconhover: require('./editwhite.svg')},
+	{'id': 2, label: 'Layouts', icon: require('./layoutgrey.svg'), iconhover: require('./layoutwhite.svg')},
+	{'id': 3, label: 'Styles', icon: require('./slidergrey.svg'), iconhover: require('./sliderwhite.svg')}
 ];
 
 class NavigationBar extends React.Component {
