@@ -27,7 +27,8 @@ class NavigationBar extends React.Component {
 		    	iconhover={type.iconhover}
 		    	handleClick={this.handleClick.bind(this, type)}
 		    	key={type.id}
-		    	isCurrent={(this.props.currentTab == type.id)}
+		    	isCurrent={(this.props.currentMode === type.id)}
+		    	currentMode={1}
 				/>
 			)}
 			</div>
@@ -63,26 +64,20 @@ class NavButton extends React.Component {
 	}
 
 	render(){
-		let className = 'NavBar-styleButton';
-		if (this.state.isActive) {
-			className = 'NavBar-activeButton';
-		}
-		else if (this.state.hover){
-			className = 'NavBar-hoverButton';
-		}
-
+	
 		var iconStyle = {
 			'width': '18px',
 			'height': '18px'
 		};
 		return (
-		<span className={className} 
+		<span className={this.props.isCurrent ? 'NavBar-activeButton' : 
+		(this.state.hover ? 'NavBar-hoverButton' : 'NavBar-styleButton')} 
 		onClick={this.handleClick} 
 		onMouseDown={this.handleClick}
 		onMouseDown={this.onToggle} 
 		onMouseEnter={this.onHovered} 
 		onMouseLeave={this.onHovered}> 
-			<div> <img src={this.state.isActive? 
+			<div> <img src={this.props.isCurrent ? 
 				this.props.iconhover
 				:(this.state.hover? this.props.iconhover : this.props.icon)}  style={iconStyle}/> </div>
 			{this.props.label} 
@@ -93,6 +88,3 @@ class NavButton extends React.Component {
 }   
 	
 export default NavigationBar;
-			
-
-			
