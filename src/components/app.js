@@ -49,8 +49,9 @@ export class App extends React.Component {
 
   render () {
     var containerStyle = {
+      'height': '100vh',
+      'overflow': 'hidden',
       'backgroundColor': '#202121',
-      'height': '100%',
       'borderStyle': 'solid',
       'borderColor': 'black'
     };
@@ -60,8 +61,10 @@ export class App extends React.Component {
     };
 
     var editorStyle = {
-      'height': '100%',
+      'height': '100vh',
+      'overflow': 'auto',
       'padding': '20px',
+      'padding-bottom': '300px',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
       'fontSize': '14px',
@@ -93,22 +96,22 @@ export class App extends React.Component {
     var mode = constants.EDIT;
 
     return (
-      <div>
+      <div className="container-fluid" style={containerStyle}>
         {/* navigation bar */}
-        <div style={navbarStyle}>
+        <div style={navbarStyle} className="row">
           <NavigationBar 
             currentMode={this.state.currentMode}
             changeMode={this.changeMode}/>
         </div>
 
-        <div className="row" style={containerStyle}>
+        <div className="row">
           {/* preview section */}
-          <div className="col-sm-6" style={previewStyle}>
+          <div className="col-sm-8" style={previewStyle}>
             <Announcement data={editor} mode={mode}/>
           </div>
 
           {/* editor section */}
-          <div className="col-sm-6" style={editorStyle} currentMode={this.state.currentMode}>
+          <div className="col-sm-4" style={editorStyle} currentMode={this.state.currentMode}>
           {this.state.currentMode === 1 ?
             <div>
             <h4> Announcement </h4>
