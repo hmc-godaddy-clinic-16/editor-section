@@ -50,7 +50,7 @@ export class App extends React.Component {
   render () {
     var containerStyle = {
       'height': '100vh',
-      'overflow': 'hidden',
+      'overflow': 'hidden',              /* hide scrollbar */
       'backgroundColor': '#202121',
       'borderStyle': 'solid',
       'borderColor': 'black'
@@ -58,13 +58,15 @@ export class App extends React.Component {
 
     var previewStyle = {
       'padding': '20px',
+      'height': '40vh',                   /* mobile support */
+      'overflow': 'auto'
     };
 
     var editorStyle = {
       'height': '100vh',
-      'overflow': 'auto',
+      'overflow': 'auto',                 /* fixed height with scrollbar */
       'padding': '20px',
-      'padding-bottom': '300px',
+      'paddingBottom': '300px',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
       'fontSize': '14px',
@@ -83,7 +85,7 @@ export class App extends React.Component {
       'height': '60px',
       'backgroundColor': '#2e2f2e',
       'borderBottom': '1px solid #232323'
-    }
+    };
 
     const editor = this.props.editor
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor
@@ -106,7 +108,7 @@ export class App extends React.Component {
 
         <div className="row">
           {/* preview section */}
-          <div className="col-sm-8" style={previewStyle}>
+          <div className="col-sm-8 col-height" style={previewStyle}>
             <Announcement data={editor} mode={mode}/>
           </div>
 
