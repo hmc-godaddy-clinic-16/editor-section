@@ -66,7 +66,7 @@ export class App extends React.Component {
       'height': '100vh',
       'overflow': 'auto',                 /* fixed height with scrollbar */
       'padding': '20px',
-      'paddingBottom': '300px',
+      'paddingBottom': '350px',
       'backgroundColor': '#2e2f2e',
       'fontFamily': 'Arial, sans-serif',
       'fontSize': '14px',
