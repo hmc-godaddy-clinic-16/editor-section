@@ -14,13 +14,12 @@ class Scheduler extends React.Component
 {
       constructor(props) {
         super(props);
-        var thisDate = new Date(this.props.thisDate);
-        var thisMoment = moment(thisDate);
 
         this.state = {
             checkBox: false
         };
 
+        this.props.thisDate.setMinutes(0, 0, 0);
         this.onDateChange = this.onDateChange.bind(this);
         this.onCheckbox = this.onCheckbox.bind(this);
         this.isValidDate = this.isValidDate.bind(this);
@@ -84,6 +83,8 @@ class Scheduler extends React.Component
 
         var checkboxText; // Text to display 
 
+        var minuteInterval = {minutes : { step: 30 }};
+
         // This is the end-date picker
         if (this.props.isStart) {
             checkboxText = "Start Now";
@@ -113,6 +114,7 @@ class Scheduler extends React.Component
                         dateFormat ="" 
                         timeFormat = "h:mm A"
                         isValidDate={this.isValidDate}
+                        timeConstraints={minuteInterval}
                     />
                 </div>
 
