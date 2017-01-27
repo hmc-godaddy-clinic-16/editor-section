@@ -69,7 +69,7 @@ class Announcement extends React.Component {
 		// and when no start and no end is given
 		if (displayAnnouncement && this.props.data.link != '') {
 			var announcement = (
-				<a href={this.props.data.link}>
+				<a>
 					<div style={announcementStyle} onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
 							<Content data={this.props.data} />
 					</div>
