@@ -9,6 +9,7 @@ import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
 import * as constants from './constants.js';
+import './app.css';
 
 export class App extends React.Component {
   constructor (props) {
@@ -48,46 +49,14 @@ export class App extends React.Component {
   }
 
   render () {
-    var containerStyle = {
-      'backgroundColor': '#202121',
-      'height': '100%',
-      'borderStyle': 'solid',
-      'borderColor': 'black'
-    };
-
-    var previewStyle = {
-      'padding': '20px',
-    };
-
-    var editorStyle = {
-      'height': '100%',
-      'padding': '20px',
-      'backgroundColor': '#2e2f2e',
-      'fontFamily': 'Arial, sans-serif',
-      'fontSize': '14px',
-      'color': 'white'
-    };
-
-    var textStyle = {
-      'fontSize': '12px',
-      'color': '#787878'
-    };
-
-    var navbarStyle = {
-      'float': 'top',
-      'paddingLeft': '550px',
-      'paddingRight': '15px',
-      'height': '60px',
-      'backgroundColor': '#2e2f2e',
-      'borderBottom': '1px solid #232323'
-    }
-
     const editor = this.props.editor
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor
 
     var startDateDate = new Date(startDate);
     var endDateDate = new Date(endDate);
-    var dateDisplayOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour:'numeric', minute:'numeric'};
+    var dateDisplayOptions = { weekday: 'long', year: 'numeric', 
+                               month: 'long', day: 'numeric', 
+                               hour:'numeric', minute:'numeric'};
 
     // mock mode
     var mode = constants.EDIT;
@@ -95,27 +64,27 @@ export class App extends React.Component {
     return (
       <div>
         {/* navigation bar */}
-        <div style={navbarStyle}>
+        <div className="announcement-navbar">
           <NavigationBar 
             currentMode={this.state.currentMode}
             changeMode={this.changeMode}/>
         </div>
 
-        <div className="row" style={containerStyle}>
+        <div className="row announcement-container">
           {/* preview section */}
-          <div className="col-sm-6" style={previewStyle}>
+          <div className="col-sm-6 preview">
             <Announcement data={editor} mode={mode}/>
           </div>
 
           {/* editor section */}
-          <div className="col-sm-6" style={editorStyle} currentMode={this.state.currentMode}>
+          <div className="col-sm-6 editor" currentMode={this.state.currentMode}>
           {this.state.currentMode === 1 ?
             <div>
             <h4> Announcement </h4>
               <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
               Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
               
-              <p style={textStyle}> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
+              <p className="schedule-text"> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
               
               Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
               
@@ -124,9 +93,9 @@ export class App extends React.Component {
                 <p> Warning: The end date you selected is after the selected start date. Your announcement will not display. </p>:null}
 
               {this.props.editor.endDate === null ?
-                <p style={textStyle}> Your announcement is scheduled to continue displaying until you select a new end date. </p>:null}
+                <p className="schedule-text"> Your announcement is scheduled to continue displaying until you select a new end date. </p>:null}
               {this.props.editor.endDate != null ?
-                <p style={textStyle}> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
+                <p className="schedule-text"> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
               
               End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
               <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>

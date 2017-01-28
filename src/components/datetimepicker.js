@@ -72,21 +72,10 @@ class DateTimePicker extends React.Component
 	render() {
 
 		var pickerStyle;
-
-		if (this.state.showPicker) {
-			pickerStyle = {
-	            'display':'block',
-	            'position':'absolute',
-	            'zIndex': '1000',
-        	};
-		} else {
+		if (!this.state.showPicker) {
 			pickerStyle = {
 				'display':'none',
 			}
-		}
-
-		var buttonStyle = {
-			'background-color:': '#434445',
 		}
 
 		var buttonText;
@@ -109,7 +98,7 @@ class DateTimePicker extends React.Component
 		var dateTimePicker = (
 			<span> 
 		        <button type="button" onClick={this.showPicker}>{buttonText}</button>
-	            <div style={pickerStyle}>
+	            <div style={pickerStyle} className="picker">
 	                <Datetime 
 	                    viewMode={this.props.viewMode} 
 	                    onChange={this.onChange} 

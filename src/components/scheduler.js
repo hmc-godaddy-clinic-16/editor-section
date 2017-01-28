@@ -76,12 +76,6 @@ class Scheduler extends React.Component
     // renders a different date/time picker UI dependending on the value of props.same
     render() {
         var dateTimePicker;
-
-        var divStyle = {
-            'paddingTop': '6px',
-            'paddingBottom': '6px'
-        }
-
         var checkboxText; // Text to display 
 
         // This is the end-date picker
@@ -92,7 +86,7 @@ class Scheduler extends React.Component
         }
 
         dateTimePicker = (
-            <div className="row" style={divStyle}> 
+            <div className="row"> 
 
                 <div className="col-sm-6">
                     <DateTimePicker
