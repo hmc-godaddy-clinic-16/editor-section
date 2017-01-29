@@ -1,21 +1,23 @@
 import React from 'react';
 import './navbar.css';
+import localStrings from './localStrings.json';
+
 
 var normalButtons = [
 	{
 		'id': 1, 
-		label: 'Edit', 
+		label: "Edit", 
 		icon: require('./editgrey.svg'), 
 		iconhover: require('./editwhite.svg')
 	},
 	{
 		'id': 2, 
-		label: 'Layouts', 
+		label: "Layouts", 
 		icon: require('./layoutgrey.svg'), 
 		iconhover: require('./layoutwhite.svg')},
 	{
 		'id': 3, 
-		label: 'Styles', 
+		label: "Styles", 
 		icon: require('./slidergrey.svg'), 
 		iconhover: require('./sliderwhite.svg')}
 ];
