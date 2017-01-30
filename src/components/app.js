@@ -10,7 +10,7 @@ import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
 import * as constants from './constants.js';
 import './app.css';
-import localStrings from './localStrings.json';
+import * as localStrings from './localStrings.json';
 
 export class App extends React.Component {
   constructor (props) {
@@ -64,6 +64,7 @@ export class App extends React.Component {
 
     return (
       <div>
+        {localStrings}
         {/* navigation bar */}
         <div className="announcement-navbar">
           <NavigationBar 
