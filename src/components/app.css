@@ -1,17 +1,22 @@
     .announcement-container {
       background-color: #202121;
-      height: 100%;
+      height: 100vh;
+      overflow: hidden;
       border-style: solid;
       border-color: black;
     }
 
     .preview {
       padding: 20px;
+      height: 40vh;
+      overflow: auto;
     }
 
     .editor {
-      height: 100%;
+      height: 100vh;
+      overflow: auto;
       padding: 20px;
+      padding-bottom: 350px;
       background-color: #2e2f2e;
       font-family: Arial, sans-serif;
       font-size: 14px;
@@ -24,7 +29,7 @@
     }
 
     .announcement-navbar {
-      float: top !important;  
+      float: top;  
       padding-left: 550px;
       padding-right: 15px;
       height: 60px;

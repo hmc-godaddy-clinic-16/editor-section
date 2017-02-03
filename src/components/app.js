@@ -62,13 +62,10 @@ export class App extends React.Component {
     // mock mode
     var mode = constants.EDIT;
 
-    console.log(localStrings);
-    console.log(localStrings.title);
-
-    return ( 
-      <div>
+    return (
+      <div className="container-fluid">
         {/* navigation bar */}
-        <div className="announcement-navbar">
+        <div className="row announcement-navbar">
           <NavigationBar 
             currentMode={this.state.currentMode}
             changeMode={this.changeMode}/>
@@ -76,13 +73,13 @@ export class App extends React.Component {
 
         <div className="row announcement-container">
           {/* preview section */}
-          <div className="col-sm-6 preview">
+          <div className="col-sm-8 col-height preview">
             <Announcement data={editor} mode={mode}/>
           </div>
 
           {/* editor section */}
-          <div className="col-sm-6 editor" currentMode={this.state.currentMode}>
-          {this.state.currentMode === 1 ?     
+          <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
+          {this.state.currentMode === 1 ?
             <div>
             <h4> {localStrings.announcement} </h4>
               <InputBox label={localStrings.title} text={title} onEdit={this.props.changeTitle}/>
