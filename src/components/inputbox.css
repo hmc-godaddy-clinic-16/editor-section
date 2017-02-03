@@ -12,3 +12,7 @@ input[type=text]:focus {
 	outline: none;
 	border-color: white;
 }
+
+.input-box {
+	padding-bottom: 15px;
+}
