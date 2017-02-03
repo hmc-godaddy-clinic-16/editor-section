@@ -10,6 +10,7 @@
 	"endDateAfterStartWarn": "Warning: The end date you selected is after the selected start date. Your announcement will not display.",
 	"announcementNoEndDate": "Your announcement is scheduled to continue displaying until you select a new end date.",
 	"announcementEndInfo": "Your announcement is scheduled to stop displaying on ",
-	"layoutMode": "Layout Mode",
-	"stylesMode": "Styles Mode"
+	"edit": "Edit",
+	"styles": "Styles",
+	"layouts": "Layouts"
 }

@@ -6,18 +6,18 @@ import localStrings from './localStrings.json';
 var normalButtons = [
 	{
 		'id': 1, 
-		label: "Edit", 
+		label: localStrings.edit, 
 		icon: require('./editgrey.svg'), 
 		iconhover: require('./editwhite.svg')
 	},
 	{
 		'id': 2, 
-		label: "Layouts", 
+		label: localStrings.layouts, 
 		icon: require('./layoutgrey.svg'), 
 		iconhover: require('./layoutwhite.svg')},
 	{
 		'id': 3, 
-		label: "Styles", 
+		label: localStrings.styles, 
 		icon: require('./slidergrey.svg'), 
 		iconhover: require('./sliderwhite.svg')}
 ];
