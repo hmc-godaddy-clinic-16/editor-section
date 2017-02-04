@@ -1,22 +1,23 @@
 import React from 'react';
 import './css/navbar.css';
 import localStrings from './localStrings.json';
+import {NAV_EDIT, NAV_PUBLISH, NAV_STYLES} from './constants.js';
 
 
 var normalButtons = [
 	{
-		'id': 1, 
+		'id': NAV_EDIT, 
 		label: localStrings.edit, 
 		icon: require('./images/editgrey.svg'), 
 		iconhover: require('./images/editwhite.svg')
 	},
 	{
-		'id': 2, 
+		'id': NAV_PUBLISH, 
 		label: localStrings.layouts, 
 		icon: require('./images/layoutgrey.svg'), 
 		iconhover: require('./images/layoutwhite.svg')},
 	{
-		'id': 3, 
+		'id': NAV_STYLES, 
 		label: localStrings.styles, 
 		icon: require('./images/slidergrey.svg'), 
 		iconhover: require('./images/sliderwhite.svg')}
@@ -43,7 +44,7 @@ class NavigationBar extends React.Component {
 		    	handleClick={this.handleClick.bind(this, type)}
 		    	key={type.id}
 		    	isCurrent={(this.props.currentMode === type.id)}
-		    	currentMode={1}
+		    	currentMode={NAV_EDIT}
 				/>
 			)}
 			</div>

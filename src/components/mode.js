@@ -14,7 +14,7 @@ class Mode extends React.Component {
 	render() {
 		return (
 			<div>
-				{this.props.currentMode === 1 ?
+				{this.props.currentMode === NAV_EDIT ?
 				 <div>
 				  <h4> Announcement </h4>
 		          <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
@@ -28,14 +28,14 @@ class Mode extends React.Component {
 		         </div>
 				:null}
 
-				{this.props.currentMode === 2 ?
+				{this.props.currentMode === NAV_PUBLISH ?
 				<div>
 				<h4> "Layout Mode" </h4>
 				<p> Coming soon </p>
 				</div>
 				:null}
 
-				{this.props.currentMode === 3 ?
+				{this.props.currentMode === NAV_STYLES ?
 				<div>
 				<h4> "Styles Mode" </h4>
 				<p> Coming soon </p>
