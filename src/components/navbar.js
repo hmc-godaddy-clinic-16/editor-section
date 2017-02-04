@@ -7,19 +7,19 @@ var normalButtons = [
 	{
 		'id': 1, 
 		label: localStrings.edit, 
-		icon: require('./editgrey.svg'), 
-		iconhover: require('./editwhite.svg')
+		icon: require('./images/editgrey.svg'), 
+		iconhover: require('./images/editwhite.svg')
 	},
 	{
 		'id': 2, 
 		label: localStrings.layouts, 
-		icon: require('./layoutgrey.svg'), 
-		iconhover: require('./layoutwhite.svg')},
+		icon: require('./images/layoutgrey.svg'), 
+		iconhover: require('./images/layoutwhite.svg')},
 	{
 		'id': 3, 
 		label: localStrings.styles, 
-		icon: require('./slidergrey.svg'), 
-		iconhover: require('./sliderwhite.svg')}
+		icon: require('./images/slidergrey.svg'), 
+		iconhover: require('./images/sliderwhite.svg')}
 ];
 
 class NavigationBar extends React.Component {
