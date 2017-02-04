@@ -21,26 +21,6 @@ export class App extends React.Component {
     };
   }
 
-  changeStartDate(date) {
-    this.props.changeStartDate(date);
-  }
-
-  changeEndDate(date) {
-    this.props.changeEndDate(date);
-  }
-
-  changeImageUrl(imgUrl) {
-    this.props.changeImageUrl(imgUrl);
-  }
-
-  changeBodyText(text) {
-    this.props.changeBodyText(text);
-  }
-
-  changeLink(link) {
-    this.props.changeLink(link);
-  }
-
   changeMode(mode){
     this.setState({currentMode: mode.id});
   }
@@ -137,7 +117,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-   changeTitle: (title) => {
+    changeTitle: (title) => {
       return dispatch(updateTitle(title))
     }, 
     changeStartDate: (date) => {
