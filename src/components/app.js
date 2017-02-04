@@ -21,10 +21,6 @@ export class App extends React.Component {
     };
   }
 
-  changeTitle (text) {
-  	this.props.changeTitle(text);
-  }
-
   changeStartDate(date) {
     this.props.changeStartDate(date);
   }
@@ -118,14 +114,7 @@ export class App extends React.Component {
   }
 }
 
-App.propTypes = {
-  changeTitle: React.PropTypes.func.isRequired,
-  changeStartDate: React.PropTypes.func.isRequired,
-  changeEndDate: React.PropTypes.func.isRequired,
-  changeImageUrl: React.PropTypes.func.isRequired,
-  changeBodyText: React.PropTypes.func.isRequired,
-  changeLink: React.PropTypes.func.isRequired,
-  
+App.propTypes = { 
   editor: React.PropTypes.shape({
     isFetching: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,
@@ -148,7 +137,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    changeTitle: (title) => {
+   changeTitle: (title) => {
       return dispatch(updateTitle(title))
     }, 
     changeStartDate: (date) => {
