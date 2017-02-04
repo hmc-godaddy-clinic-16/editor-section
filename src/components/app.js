@@ -9,7 +9,7 @@ import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
 import * as constants from './constants.js';
-import './app.css';
+import './css/app.css';
 import localStrings from './localStrings.json';
 
 export class App extends React.Component {

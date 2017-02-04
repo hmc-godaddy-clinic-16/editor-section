@@ -1,5 +1,5 @@
 import React from 'react';
-import './navbar.css';
+import './css/navbar.css';
 import localStrings from './localStrings.json';
 
 

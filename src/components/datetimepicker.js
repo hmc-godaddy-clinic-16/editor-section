@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
 import Datetime from 'react-datetime';
-import './scheduler.css';
+import './css/scheduler.css';
 
 // Provides a date or time picker depending on props
 class DateTimePicker extends React.Component

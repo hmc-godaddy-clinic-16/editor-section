@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Datetime from 'react-datetime';
-import './scheduler.css';
+import './css/scheduler.css';
 import DateTimePicker from './datetimepicker.js';
 
 // Scheduler provides a UI for picking a date and time 

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin';
-import './RichTextEditor.css';
+import './css/RichTextEditor.css';
 import {stateToHTML} from 'draft-js-export-html';
 import {stateFromHTML} from 'draft-js-import-html';
 
