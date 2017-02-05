@@ -1,3 +1,14 @@
+.row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.picker {
+  display: block;
+  position: absolute;
+  z-index: 1000;
+}
+
 /*!
  * https://github.com/arqex/react-datetime
  */

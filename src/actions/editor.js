@@ -1,45 +1,45 @@
-import {UPDATE_TITLE, UPDATE_START_DATE, UPDATE_END_DATE, UPDATE_IMAGE_URL, UPDATE_BODY_TEXT, UPDATE_LINK, REQUEST_ANNOUNCEMENT, RECEIVE_ANNOUNCEMENT, SERVER_URL, REQUEST_ERROR} from '../constants';
+import * as constants from '../constants';
 import fetch from 'isomorphic-fetch';
 
 // Redux action to edit/update the title of an anncouncement
 export function updateTitle (title) {
 	return {
-		type: UPDATE_TITLE,
+		type: constants.UPDATE_TITLE,
 		title
 	}
 }
 
 export function updateStartDate (date) {
 	return {
-		type: UPDATE_START_DATE,
+		type: constants.UPDATE_START_DATE,
 		date
 	}
 }
 
 export function updateEndDate (date) {
 	return {
-		type: UPDATE_END_DATE,
+		type: constants.UPDATE_END_DATE,
 		date
 	}
 }
 
 export function updateImageUrl (imgUrl) {
     return {
-        type: UPDATE_IMAGE_URL,
+        type: constants.UPDATE_IMAGE_URL,
         imgUrl
     }
 }
 
 export function updateBodyText (bodyText) {
 	return {
-		type: UPDATE_BODY_TEXT,
+		type: constants.UPDATE_BODY_TEXT,
 		bodyText
 	}
 }
 
 export function updateLink (link) {
 	return {
-		type: UPDATE_LINK,
+		type: constants.UPDATE_LINK,
 		link
 	}
 }
@@ -48,7 +48,7 @@ export function updateLink (link) {
 
 export function requestAnnouncement (announcementid) {
 	return {
-		type: REQUEST_ANNOUNCEMENT,
+		type: constants.REQUEST_ANNOUNCEMENT,
 		announcementid
 	}
 }
@@ -57,7 +57,7 @@ export function requestAnnouncement (announcementid) {
 // the database
 export function receiveAnnouncement (json) {
 	return {
-		type: RECEIVE_ANNOUNCEMENT,
+		type: constants.RECEIVE_ANNOUNCEMENT,
 		json
 	}
 } 
@@ -69,7 +69,7 @@ export function fetchAnnouncement(announcementid) {
 
   	dispatch(requestAnnouncement(announcementid))
   	
-    return fetch( `${SERVER_URL}/announcements/${announcementid}`, {
+    return fetch( `${constants.SERVER_URL}/announcements/${announcementid}`, {
     	method: "GET"
     })
        .then(

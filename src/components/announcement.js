@@ -1,7 +1,8 @@
 import React from "react";
 import Content from "./content.js";
 import * as constants from './constants.js';
-import './link.css';
+import './css/link.css';
+import './css/announcement.css';
 
 
 /* Announcement displays a preview of the announcements. */
@@ -24,29 +25,9 @@ class Announcement extends React.Component {
 	render () {
 		var image = this.props.data.imgUrl;
 
-		// display announcement depending on whether or not
-		// user provides link
-		var announcementStyle;
-
-		if (this.state.hover && this.props.data.link) {
-			announcementStyle = {
-				'padding': '10px',
-				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',		
-				'backgroundRepeat': 'no-repeat',
-				'backgroundSize': 'cover',
-				'WebkitBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
-				'MozBoxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
-				'boxShadow': '0px 0px 69px -9px rgba(0,0,0,1)',
-				'listStylePosition': 'inside'
-			};
-		} else {
-			announcementStyle = {
-				'padding': '10px',
-				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',		
-				'backgroundRepeat': 'no-repeat',
-				'backgroundSize': 'cover',
-				'listStylePosition': 'inside'
-			};
+		// Set background image
+		var announcementStyle = {
+			'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')'
 		}
 
 		// scheduling data
@@ -70,14 +51,14 @@ class Announcement extends React.Component {
 		if (displayAnnouncement && this.props.data.link != '') {
 			var announcement = (
 				<a>
-					<div style={announcementStyle} onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
+					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
 							<Content data={this.props.data} />
 					</div>
 				</a>
 			);
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
-					<div style={announcementStyle} onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
+					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
 						<Content data={this.props.data} />
 					</div>
 				);
