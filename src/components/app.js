@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-
+import 'bootstrap/dist/css/bootstrap.css'
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink, fetchAnnouncement} from "../actions/editor";
@@ -97,7 +97,7 @@ export class App extends React.Component {
     return (
       <div className="container-fluid" style={containerStyle}>
         {/* navigation bar */}
-        <div className="row ">
+        <div className="row">
           <div className="col-sm-4"> </div>
           <div className="col-4" style={navbarStyle}>
             <NavigationBar 

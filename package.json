@@ -35,6 +35,7 @@
     "react-addons-test-utils": "^15.3.2",
     "redux-thunk": "^2.1.0",
     "sinon": "^1.17.6",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1"
   },
