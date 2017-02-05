@@ -17,14 +17,40 @@ class Mode extends React.Component {
 				{this.props.currentMode === NAV_EDIT ?
 				 <div>
 				  <h4> Announcement </h4>
-		          <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
-		          Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
+		          <InputBox 
+		          	label="Title" 
+		          	text={title} 
+		          	onEdit={this.props.changeTitle}
+		          />
+		          Body 
+		          <RichTextEditor 
+		          	text={bodyText} 
+		          	onEdit={this.props.changeBodyText}
+		          />
 		          <p> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-		          Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+		          Start 
+		          <Scheduler 
+		          	thisDate = {startDate} 
+		          	isStart = {true} 
+		          	startDate={null} 
+		          	onEdit={this.props.changeStartDate}
+		          />
 		          <p> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-		          End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
-		          <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
-		          <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
+		          End 
+		          <Scheduler 
+		          	thisDate = {endDate} 
+		          	isStart = {false} 
+		          	startDate={this.props.editor.startDate} 
+		          	onEdit={this.props.changeEndDate}
+		          />
+		          <InputBox 
+		          	label="Image URL" 
+		          	text={imgUrl} 
+		          	onEdit={this.props.changeImageUrl}/>
+		          <InputBox 
+		          	label="Link" 
+		          	text={link} 
+		          	onEdit={this.props.changeLink}/>
 		         </div>
 				:null}
 

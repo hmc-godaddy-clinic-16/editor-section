@@ -3,7 +3,9 @@ import moment from 'moment';
 
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink, fetchAnnouncement} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
+        updateBodyText, updateLink, fetchAnnouncement} 
+        from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
@@ -26,7 +28,7 @@ export class App extends React.Component {
     this.setState({currentMode: mode.id});
   }
 
-  renderNavBar () {
+  renderNavBar() {
     return (
       <div className="row announcement-navbar">
         <NavigationBar 
@@ -36,7 +38,7 @@ export class App extends React.Component {
     );
   }
 
-  renderPreview () {
+  renderPreview() {
     // mock mode
     var mode = constants.EDIT;
     const editor = this.props.editor;
@@ -48,7 +50,7 @@ export class App extends React.Component {
     );
   }
 
-  renderEditor () {
+  renderEditor() {
     const editor = this.props.editor;
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
 
@@ -60,28 +62,58 @@ export class App extends React.Component {
 
     return (
       <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
-      {this.state.currentMode === NAV_EDIT ?
+        {this.state.currentMode === NAV_EDIT ?
         <div>
-        <h4> {localStrings.announcement} </h4>
-          <InputBox label={localStrings.title} text={title} onEdit={this.props.changeTitle}/>
-          {localStrings.body} <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
+          <h4> {localStrings.announcement} </h4>
+          <InputBox 
+            label={localStrings.title} 
+            text={title} 
+            onEdit={this.props.changeTitle}
+          />
+          {localStrings.body}
+          <RichTextEditor 
+            text={bodyText} 
+            onEdit={this.props.changeBodyText}
+          />
+          <p className="schedule-text"> 
+            {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
+          </p>
           
-          <p className="schedule-text"> {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-          
-          {localStrings.start} <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
-          
+          {localStrings.start} 
 
-          {moment(startDateDate).isSameOrAfter(moment(endDateDate)) && this.props.editor.endDate != null ?
+          <Scheduler 
+            thisDate = {startDate} 
+            isStart = {true} 
+            startDate={null} 
+            onEdit={this.props.changeStartDate}
+          />
+          
+          {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
+            && this.props.editor.endDate != null ?
             <p> {localStrings.endDateAfterStartWarn} </p>:null}
 
           {this.props.editor.endDate === null ?
             <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
+
           {this.props.editor.endDate != null ?
             <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
           
-          {localStrings.end} <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
-          <InputBox label={localStrings.imageURL} text={imgUrl} onEdit={this.props.changeImageUrl}/>
-          <InputBox label={localStrings.link} text={link} onEdit={this.props.changeLink}/>
+          {localStrings.end} 
+
+          <Scheduler 
+            thisDate = {endDate} 
+            isStart = {false} 
+            startDate={this.props.editor.startDate} 
+            onEdit={this.props.changeEndDate}/>
+          <InputBox 
+            label={localStrings.imageURL} 
+            text={imgUrl} 
+            onEdit={this.props.changeImageUrl}/>
+          <InputBox 
+            label={localStrings.link} 
+            text={link} 
+            onEdit={this.props.changeLink}/>
+
         </div>
         :null}
 

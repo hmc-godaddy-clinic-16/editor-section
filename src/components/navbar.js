@@ -95,7 +95,8 @@ class NavButton extends React.Component {
 		onMouseLeave={this.onHovered}> 
 			<div> <img src={this.props.isCurrent ? 
 				this.props.iconhover
-				:(this.state.hover? this.props.iconhover : this.props.icon)}  style={iconStyle}/> </div>
+				:(this.state.hover? this.props.iconhover : this.props.icon)}  style={iconStyle}/> 
+			</div>
 			{this.props.label} 
 		</span>
 
