@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-
+import 'bootstrap/dist/css/bootstrap.css'
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
@@ -117,6 +117,7 @@ export class App extends React.Component {
         </div>
         :null}
 
+
         {this.state.currentMode === NAV_PUBLISH ?
         <h4> "Layout Mode" </h4>
         :null}
@@ -136,6 +137,7 @@ export class App extends React.Component {
         <div className="row announcement-container">
           {this.renderPreview()}
           {this.renderEditor()}
+
         </div>
       </div>
     )
