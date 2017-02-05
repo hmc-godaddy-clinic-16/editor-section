@@ -79,10 +79,7 @@ export class App extends React.Component {
     };
 
     var navbarStyle = {
-      'float': 'top',
-      'paddingLeft': '550px',
-      'paddingRight': '15px',
-      'height': '60px',
+      'height': '10vh',
       'backgroundColor': '#2e2f2e',
       'borderBottom': '1px solid #232323'
     };
@@ -100,11 +97,16 @@ export class App extends React.Component {
     return (
       <div className="container-fluid" style={containerStyle}>
         {/* navigation bar */}
-        <div style={navbarStyle} className="row">
-          <NavigationBar 
-            currentMode={this.state.currentMode}
-            changeMode={this.changeMode}/>
+        <div className="row ">
+          <div className="col-sm-4"> </div>
+          <div className="col-4" style={navbarStyle}>
+            <NavigationBar 
+              currentMode={this.state.currentMode}
+              changeMode={this.changeMode}/>
+          </div>
+          <div className="col-sm-4"> </div>
         </div>
+     
 
         <div className="row">
           {/* preview section */}

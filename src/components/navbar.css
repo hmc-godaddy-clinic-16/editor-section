@@ -3,9 +3,10 @@
   color: #676767;
   cursor: pointer;
   margin-bottom: 0px;
-  padding: 9px 20px;
+  padding: 9px 1vw;
   display: inline-block;
-  width: 120px;
+  min-width: 80px;
+  width: 11vw;
   height: 59px;
   text-align: center;
   
@@ -16,9 +17,10 @@
   color: #ffffff;
   cursor: pointer;
   border-bottom: 3px solid #00a63f;
-  padding: 9px 20px;
+  padding: 9px 1vw;
   display: inline-block;
-  width: 120px;
+  min-width: 80px;
+  width: 11vw;
   height: 59px;
   text-align: center;
   font-weight: bold;
@@ -28,9 +30,10 @@
   background-color: #2e2f2e;
   color: #ffffff;
   cursor: pointer;
-  padding: 9px 20px;
+  padding: 9px 1vw;
   display: inline-block;
-  width: 120px;
+  min-width: 80px;
+  width: 11vw;
   height: 59px;
   text-align: center;
   font-weight: bold;
@@ -48,7 +51,8 @@
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   border-radius: 3px;
-  margin-top: 6px;
-  margin-bottom: 15px;
+
+  
+
 
 }

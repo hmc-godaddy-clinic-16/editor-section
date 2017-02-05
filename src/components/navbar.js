@@ -20,6 +20,7 @@ class NavigationBar extends React.Component {
 	render() {
 		return (
 			<div className="NavBar-root">
+			<div className="col-4">
 			{normalButtons.map((type) =>
 				<NavButton
 				label={type.label}
@@ -31,6 +32,7 @@ class NavigationBar extends React.Component {
 		    	currentMode={1}
 				/>
 			)}
+			</div>
 			</div>
 
 	);}
