@@ -3,55 +3,56 @@ import moment from 'moment';
 
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
-import {updateTitle, updateStartDate, updateEndDate, updateImageUrl, updateBodyText, updateLink, fetchAnnouncement} from "../actions/editor";
+import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
+        updateBodyText, updateLink, fetchAnnouncement} 
+        from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
 import * as constants from './constants.js';
-import './app.css';
+import './css/app.css';
 import localStrings from './localStrings.json';
+import {NAV_EDIT, NAV_PUBLISH, NAV_STYLES} from './constants.js';
 
 export class App extends React.Component {
   constructor (props) {
     super(props);
     this.changeMode = this.changeMode.bind(this);
     this.state = {
-      currentMode: 1
+      currentMode: NAV_EDIT
     };
-  }
-
-  changeTitle (text) {
-  	this.props.changeTitle(text);
-  }
-
-  changeStartDate(date) {
-    this.props.changeStartDate(date);
-  }
-
-  changeEndDate(date) {
-    this.props.changeEndDate(date);
-  }
-
-  changeImageUrl(imgUrl) {
-    this.props.changeImageUrl(imgUrl);
-  }
-
-  changeBodyText(text) {
-    this.props.changeBodyText(text);
-  }
-
-  changeLink(link) {
-    this.props.changeLink(link);
   }
 
   changeMode(mode){
     this.setState({currentMode: mode.id});
   }
 
-  render () {
-    const editor = this.props.editor
-    const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor
+  renderNavBar() {
+    return (
+      <div className="row announcement-navbar">
+        <NavigationBar 
+          currentMode={this.state.currentMode}
+          changeMode={this.changeMode}/>
+      </div>
+    );
+  }
+
+  renderPreview() {
+    // mock mode
+    var mode = constants.EDIT;
+    const editor = this.props.editor;
+
+    return (
+      <div className="col-sm-8 col-height preview">
+        <Announcement data={editor} mode={mode}/>
+      </div>
+    );
+  }
+
+  renderEditor() {
+    const editor = this.props.editor;
+    const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
 
     var startDateDate = new Date(startDate);
     var endDateDate = new Date(endDate);
@@ -59,73 +60,89 @@ export class App extends React.Component {
                                month: 'long', day: 'numeric', 
                                hour:'numeric', minute:'numeric'};
 
-    // mock mode
-    var mode = constants.EDIT;
+    return (
+      <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
+        {this.state.currentMode === NAV_EDIT ?
+        <div>
+          <h4> {localStrings.announcement} </h4>
+          <InputBox 
+            label={localStrings.title} 
+            text={title} 
+            onEdit={this.props.changeTitle}
+          />
+          {localStrings.body}
+          <RichTextEditor 
+            text={bodyText} 
+            onEdit={this.props.changeBodyText}
+          />
+          <p className="schedule-text"> 
+            {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
+          </p>
+          
+          {localStrings.start} 
 
+          <Scheduler 
+            thisDate = {startDate} 
+            isStart = {true} 
+            startDate={null} 
+            onEdit={this.props.changeStartDate}
+          />
+          
+          {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
+            && this.props.editor.endDate != null ?
+            <p> {localStrings.endDateAfterStartWarn} </p>:null}
+
+          {this.props.editor.endDate === null ?
+            <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
+
+          {this.props.editor.endDate != null ?
+            <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
+          
+          {localStrings.end} 
+
+          <Scheduler 
+            thisDate = {endDate} 
+            isStart = {false} 
+            startDate={this.props.editor.startDate} 
+            onEdit={this.props.changeEndDate}/>
+          <InputBox 
+            label={localStrings.imageURL} 
+            text={imgUrl} 
+            onEdit={this.props.changeImageUrl}/>
+          <InputBox 
+            label={localStrings.link} 
+            text={link} 
+            onEdit={this.props.changeLink}/>
+
+        </div>
+        :null}
+
+        {this.state.currentMode === NAV_PUBLISH ?
+        <h4> "Layout Mode" </h4>
+        :null}
+
+        {this.state.currentMode === NAV_STYLES ?
+        <h4> "Styles Mode" </h4>
+        :null}
+      </div>
+    );
+  }
+
+
+  render () {
     return (
       <div className="container-fluid">
-        {/* navigation bar */}
-        <div className="row announcement-navbar">
-          <NavigationBar 
-            currentMode={this.state.currentMode}
-            changeMode={this.changeMode}/>
-        </div>
-
+          {this.renderNavBar()}  
         <div className="row announcement-container">
-          {/* preview section */}
-          <div className="col-sm-8 col-height preview">
-            <Announcement data={editor} mode={mode}/>
-          </div>
-
-          {/* editor section */}
-          <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
-          {this.state.currentMode === 1 ?
-            <div>
-            <h4> {localStrings.announcement} </h4>
-              <InputBox label={localStrings.title} text={title} onEdit={this.props.changeTitle}/>
-              {localStrings.body} <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
-              
-              <p className="schedule-text"> {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-              
-              {localStrings.start} <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
-              
-
-              {moment(startDateDate).isSameOrAfter(moment(endDateDate)) && this.props.editor.endDate != null ?
-                <p> {localStrings.endDateAfterStartWarn} HERE </p>:null}
-
-              {this.props.editor.endDate === null ?
-                <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
-              {this.props.editor.endDate != null ?
-                <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
-              
-              {localStrings.end} <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
-              <InputBox label={localStrings.imageURL} text={imgUrl} onEdit={this.props.changeImageUrl}/>
-              <InputBox label={localStrings.link} text={link} onEdit={this.props.changeLink}/>
-            </div>
-            :null}
-
-            {this.state.currentMode === 2 ?
-            <h4> "Layout Mode" </h4>
-            :null}
-
-            {this.state.currentMode === 3 ?
-            <h4> "Styles Mode" </h4>
-            :null}
-          </div>
+          {this.renderPreview()}
+          {this.renderEditor()}
         </div>
       </div>
     )
   }
 }
 
-App.propTypes = {
-  changeTitle: React.PropTypes.func.isRequired,
-  changeStartDate: React.PropTypes.func.isRequired,
-  changeEndDate: React.PropTypes.func.isRequired,
-  changeImageUrl: React.PropTypes.func.isRequired,
-  changeBodyText: React.PropTypes.func.isRequired,
-  changeLink: React.PropTypes.func.isRequired,
-  
+App.propTypes = { 
   editor: React.PropTypes.shape({
     isFetching: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,

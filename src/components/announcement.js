@@ -1,8 +1,8 @@
 import React from "react";
 import Content from "./content.js";
 import * as constants from './constants.js';
-import './link.css';
-import './announcement.css';
+import './css/link.css';
+import './css/announcement.css';
 
 
 /* Announcement displays a preview of the announcements. */

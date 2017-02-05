@@ -1,5 +1,5 @@
 import React from "react";
-import './inputbox.css';
+import './css/inputbox.css';
 
 /* InputBox is a basic text input field. */
 class InputBox extends React.Component

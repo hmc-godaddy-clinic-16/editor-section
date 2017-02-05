@@ -1,25 +1,26 @@
 import React from 'react';
-import './navbar.css';
+import './css/navbar.css';
 import localStrings from './localStrings.json';
+import {NAV_EDIT, NAV_PUBLISH, NAV_STYLES} from './constants.js';
 
 
 var normalButtons = [
 	{
-		'id': 1, 
-		label: "Edit", 
-		icon: require('./editgrey.svg'), 
-		iconhover: require('./editwhite.svg')
+		'id': NAV_EDIT, 
+		label: localStrings.edit, 
+		icon: require('./images/editgrey.svg'), 
+		iconhover: require('./images/editwhite.svg')
 	},
 	{
-		'id': 2, 
-		label: "Layouts", 
-		icon: require('./layoutgrey.svg'), 
-		iconhover: require('./layoutwhite.svg')},
+		'id': NAV_PUBLISH, 
+		label: localStrings.layouts, 
+		icon: require('./images/layoutgrey.svg'), 
+		iconhover: require('./images/layoutwhite.svg')},
 	{
-		'id': 3, 
-		label: "Styles", 
-		icon: require('./slidergrey.svg'), 
-		iconhover: require('./sliderwhite.svg')}
+		'id': NAV_STYLES, 
+		label: localStrings.styles, 
+		icon: require('./images/slidergrey.svg'), 
+		iconhover: require('./images/sliderwhite.svg')}
 ];
 
 class NavigationBar extends React.Component {
@@ -43,7 +44,7 @@ class NavigationBar extends React.Component {
 		    	handleClick={this.handleClick.bind(this, type)}
 		    	key={type.id}
 		    	isCurrent={(this.props.currentMode === type.id)}
-		    	currentMode={1}
+		    	currentMode={NAV_EDIT}
 				/>
 			)}
 			</div>
@@ -94,7 +95,8 @@ class NavButton extends React.Component {
 		onMouseLeave={this.onHovered}> 
 			<div> <img src={this.props.isCurrent ? 
 				this.props.iconhover
-				:(this.state.hover? this.props.iconhover : this.props.icon)}  style={iconStyle}/> </div>
+				:(this.state.hover? this.props.iconhover : this.props.icon)}  style={iconStyle}/> 
+			</div>
 			{this.props.label} 
 		</span>
 
