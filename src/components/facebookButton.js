@@ -5,27 +5,31 @@ import localStrings from './localStrings.json';
 class FacebookButton extends React.Component {
 	render () {
 		var button;
-		/* NEED TO CHANGE TO FALSE WHEN DONE MAKING TOGGLE BUTTON */
-		var loggedIn = false;	// assume unauthenticated upon first visit
+		var loggedIn = true;	// assume unauthenticated upon first visit
+
+		var loginButton = (
+			<button type="submit" className="loginButton">
+				<img src={require('./images/facebookButton.svg')}/>
+			</button>
+		);
+
+		var toggleButton = (
+			<div>
+				<label className="toggle">
+					<input type="checkbox"/>
+					<div className="slider">
+						<div className="sliderText">{localStrings.fb}</div>
+					</div>
+				</label>
+			</div>
+		);
 
 		// show toggle option to post if user has already logged in
 		if (loggedIn) {
-			button = (
-				<div>
-					<div className="toggleLabel">{localStrings.fb}</div> 
-					<label className="toggle">
-						<input type="checkbox"/>
-						<div className="slider"></div>
-					</label>
-				</div>
-			);
+			button = toggleButton;
 		// show login buttons if user has not already logged in
 		} else {
-			button = (
-				<button type="submit" className="loginButton">
-					<img src={require('./images/facebookButton.svg')}/>
-				</button>
-			);
+			button = loginButton;
 		}
 
 		return button;
