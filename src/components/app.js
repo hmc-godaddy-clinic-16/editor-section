@@ -66,57 +66,62 @@ export class App extends React.Component {
       <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
         {this.state.currentMode === NAV_EDIT ?
         <div>
-          <h4> {localStrings.announcement} </h4>
-          <InputBox 
-            label={localStrings.title} 
-            text={title} 
-            onEdit={this.props.changeTitle}
-          />
-          {localStrings.body}
-          <RichTextEditor 
-            text={bodyText} 
-            onEdit={this.props.changeBodyText}
-          />
-          <p className="schedule-text"> 
-            {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
-          </p>
-          
-          {localStrings.start} 
+          <div className="section-header">{localStrings.announcement}</div>
 
-          <Scheduler 
-            thisDate = {startDate} 
-            isStart = {true} 
-            startDate={null} 
-            onEdit={this.props.changeStartDate}
-          />
-          
-          {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
-            && this.props.editor.endDate != null ?
-            <p> {localStrings.endDateAfterStartWarn} </p>:null}
+          <div className="section-container">
+            <InputBox 
+              label={localStrings.title} 
+              text={title} 
+              onEdit={this.props.changeTitle}/>
 
-          {this.props.editor.endDate === null ?
-            <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
+            {localStrings.body}
+            <RichTextEditor 
+              text={bodyText} 
+              onEdit={this.props.changeBodyText}/>
+          </div>
 
-          {this.props.editor.endDate != null ?
-            <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
-          
-          {localStrings.end} 
+          <div className="section-container">
+            <div className="feature-header">{localStrings.start}</div> 
+            <Scheduler 
+              thisDate = {startDate} 
+              isStart = {true} 
+              startDate={null} 
+              onEdit={this.props.changeStartDate}/>
 
-          <Scheduler 
-            thisDate = {endDate} 
-            isStart = {false} 
-            startDate={this.props.editor.startDate} 
-            onEdit={this.props.changeEndDate}/>
-          <InputBox 
-            label={localStrings.imageURL} 
-            text={imgUrl} 
-            onEdit={this.props.changeImageUrl}/>
-          <InputBox 
-            label={localStrings.link} 
-            text={link} 
-            onEdit={this.props.changeLink}/>
+            <div className="feature-header">{localStrings.end}</div>
+            <Scheduler 
+              thisDate = {endDate} 
+              isStart = {false} 
+              startDate={this.props.editor.startDate} 
+              onEdit={this.props.changeEndDate}/>
+            
+            {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
+              && this.props.editor.endDate != null ?
+              <p> {localStrings.endDateAfterStartWarn} </p>:null}
 
-          {localStrings.social}
+            <p className="schedule-text"> 
+              {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
+            </p>
+
+            {this.props.editor.endDate === null ?
+              <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
+
+            {this.props.editor.endDate != null ?
+              <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
+          </div>
+
+          <div className="section-container">
+            <InputBox 
+              label={localStrings.imageURL} 
+              text={imgUrl} 
+              onEdit={this.props.changeImageUrl}/>
+            <InputBox 
+              label={localStrings.link} 
+              text={link} 
+              onEdit={this.props.changeLink}/>
+          </div>
+
+          <div className="feature-header">{localStrings.social}</div>
           <p className="schedule-text">{localStrings.socialTip}</p>
           <div className="row">
             <div className="col-lg-6"><FacebookButton/></div>

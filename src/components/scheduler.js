@@ -89,7 +89,7 @@ class Scheduler extends React.Component
         dateTimePicker = (
             <div className="row"> 
 
-                <div className="col-sm-6">
+                <div className="col-md-6">
                     <DateTimePicker
                         viewMode='days' 
                         onChange={this.onDateChange} 
@@ -100,7 +100,7 @@ class Scheduler extends React.Component
                     />
                 </div>
 
-                <div className="col-sm-6">
+                <div className="col-md-6">
                     <DateTimePicker 
                         viewMode='time' 
                         onChange={this.onDateChange} 

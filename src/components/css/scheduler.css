@@ -229,7 +229,7 @@ td.rdtYear:hover {
 button {
   width: 100%;
   padding: 6px;
-  color: white;
+  color: #ccc;
   background-color: #434445; /* grey */
   border: solid 1px #787878; /* light grey */
   border-radius: 3px;

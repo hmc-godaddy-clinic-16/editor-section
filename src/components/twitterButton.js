@@ -8,7 +8,7 @@ class TwitterButton extends React.Component {
 		var loggedIn = true;	// assume unauthenticated upon first visit
 
 		var loginButton = (
-			<button type="submit" className="loginButton">
+			<button type="submit" className="login-button">
 				<img src={require('./images/twitterButton.svg')}/>
 			</button>
 		);
@@ -18,7 +18,7 @@ class TwitterButton extends React.Component {
 				<label className="toggle">
 					<input type="checkbox"/>
 					<div className="slider">
-						<div className="sliderText">{localStrings.twitter}</div>
+						<div className="slider-text">{localStrings.twitter}</div>
 					</div>
 				</label>
 			</div>

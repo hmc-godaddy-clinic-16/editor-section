@@ -8,7 +8,7 @@ class FacebookButton extends React.Component {
 		var loggedIn = true;	// assume unauthenticated upon first visit
 
 		var loginButton = (
-			<button type="submit" className="loginButton">
+			<button type="submit" className="login-button">
 				<img src={require('./images/facebookButton.svg')}/>
 			</button>
 		);
@@ -18,7 +18,7 @@ class FacebookButton extends React.Component {
 				<label className="toggle">
 					<input type="checkbox"/>
 					<div className="slider">
-						<div className="sliderText">{localStrings.fb}</div>
+						<div className="slider-text">{localStrings.fb}</div>
 					</div>
 				</label>
 			</div>

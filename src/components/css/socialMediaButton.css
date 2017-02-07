@@ -13,7 +13,7 @@
 }
 
 /* Text on the toggle button */
-.sliderText {
+.slider-text {
 	padding-top: 4px;
 	text-align: center;
 }
@@ -42,7 +42,7 @@ input:checked + .slider {
 }
 
 /* Social Media login button overrides editor button styling */
-.loginButton {
+.login-button {
 	border: none;
 	background-color: transparent;
 	padding: 0px;
