@@ -10,6 +10,8 @@ import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
+import FacebookButton from "./facebookButton.js";
+import TwitterButton from "./twitterButton.js";
 import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
@@ -114,6 +116,12 @@ export class App extends React.Component {
             text={link} 
             onEdit={this.props.changeLink}/>
 
+          {localStrings.social}
+          <p className="schedule-text">{localStrings.socialTip}</p>
+          <div className="row">
+            <div className="col-lg-6"><FacebookButton/></div>
+            <div className="col-lg-6"><TwitterButton/></div>
+          </div>        
         </div>
         :null}
 
