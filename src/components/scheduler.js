@@ -1,8 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import Datetime from 'react-datetime';
-import './css/scheduler.css';
 import DateTimePicker from './datetimepicker.js';
+import localStrings from './localStrings.json';
+import './css/scheduler.css';
 
 // Scheduler provides a UI for picking a date and time 
 // Relies on the third party node module react-datetitme to provide the date
@@ -75,18 +76,32 @@ class Scheduler extends React.Component
     // renders a different date/time picker UI dependending on the value of props.same
     render() {
         var dateTimePicker;
-        var checkboxText; // Text to display 
+
+        // Text to display
+        var headerText;
+        var checkboxText;
 
         var minuteInterval = {minutes : { step: 30 }};
 
         // This is the end-date picker
         if (this.props.isStart) {
+            headerText = localStrings.start;
             checkboxText = "Start Now";
         } else { // this is the start-date picker
+            headerText = localStrings.end;
             checkboxText = "End Never";
         }
 
         dateTimePicker = (
+            <div>
+                {headerText}
+                <div className="scheduleBox">
+                    <label>
+                        <input type="checkbox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
+                    </label>
+                    {checkboxText}
+                </div>
+
             <div className="row"> 
 
                 <div className="col-md-6">
@@ -96,8 +111,7 @@ class Scheduler extends React.Component
                         datetime={moment(this.props.thisDate)} 
                         timeFormat =""
                         dateFormat = "MM DD YYYY" 
-                        isValidDate={this.isValidDate}
-                    />
+                        isValidDate={this.isValidDate}/>
                 </div>
 
                 <div className="col-md-6">
@@ -108,18 +122,11 @@ class Scheduler extends React.Component
                         dateFormat ="" 
                         timeFormat = "h:mm A"
                         isValidDate={this.isValidDate}
-                        timeConstraints={minuteInterval}
-                    />
+                        timeConstraints={minuteInterval}/>
                 </div>
+            </div>
 
-                <div className="scheduleBox">
-                    <label>
-                        <input type="checkbox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
-                    </label>
-                    {checkboxText}
-                </div>
-
-            </div> 
+            </div>
         );
 
         return dateTimePicker;

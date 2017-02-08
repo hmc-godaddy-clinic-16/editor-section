@@ -5,7 +5,7 @@ import localStrings from './localStrings.json';
 class FacebookButton extends React.Component {
 	render () {
 		var button;
-		var loggedIn = true;	// assume unauthenticated upon first visit
+		var loggedIn = false;	// assume unauthenticated upon first visit
 
 		var loginButton = (
 			<button type="submit" className="login-button">

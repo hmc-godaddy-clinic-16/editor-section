@@ -250,15 +250,19 @@ button:focus {
 /* Checkbox */
 
 .scheduleBox { 
-  margin-left: 15px;
+  float: right;
   font-size: 12px;
+}
+
+.scheduleBox label {
+  margin-right: 3px;
 }
 
 /*input[type=checkbox] {
   visibility: hidden; 
 }
 
-label {
+.scheduleBox label {
   cursor: pointer;
   width: 10px;
   height: 10px;
@@ -269,7 +273,7 @@ label {
   background: #eee;
 }
 
-label:hover::after {
+.scheduleBox label:hover::after {
   opacity: 0.5;
   color: black;
   background: transparent;
@@ -281,6 +285,6 @@ label:hover::after {
   right: 0px;
 }
 
-input[type=checkbox]:checked label:after {
+.scheduleBox input[type=checkbox]:checked label::after {
   opacity: 1;
 }*/

@@ -81,14 +81,12 @@ export class App extends React.Component {
           </div>
 
           <div className="section-container">
-            <div className="feature-header">{localStrings.start}</div> 
             <Scheduler 
               thisDate = {startDate} 
               isStart = {true} 
               startDate={null} 
               onEdit={this.props.changeStartDate}/>
 
-            <div className="feature-header">{localStrings.end}</div>
             <Scheduler 
               thisDate = {endDate} 
               isStart = {false} 
