@@ -87,7 +87,7 @@ export function putAnnouncement(announcement, announcementid) {
 		return;
 	}
 
-    return fetch(`${SERVER_URL}/announcements/${announcementid}`, 
+    return fetch(`${constants.SERVER_URL}/announcements/${announcementid}`, 
     		{  	headers: {
     				'Accept': 'application/json',
     				'Content-Type': 'application/json'
