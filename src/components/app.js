@@ -70,6 +70,7 @@ export class App extends React.Component {
         {this.state.currentMode === NAV_EDIT ?
         <div>
           <h4> {localStrings.announcement} </h4>
+          <p className="announcement-desc-text"> {localStrings.announcementdesc} </p>
           <InputBox 
             label={localStrings.title} 
             text={title} 
