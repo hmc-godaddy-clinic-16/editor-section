@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
-        updateBodyText, updateLink, fetchAnnouncement} 
+        updateBodyText, updateLink, fetchAnnouncement, updateIsPermanent} 
         from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
@@ -55,6 +55,7 @@ export class App extends React.Component {
     );
   }
 
+ 
   renderEditor() {
     const editor = this.props.editor;
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
@@ -81,9 +82,7 @@ export class App extends React.Component {
             text={bodyText} 
             onEdit={this.props.changeBodyText}
           />
-          <p className="schedule-text"> 
-            {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
-          </p>
+          
           
           {localStrings.start} 
 
@@ -92,17 +91,13 @@ export class App extends React.Component {
             isStart = {true} 
             startDate={null} 
             onEdit={this.props.changeStartDate}
+            isPermanent = {false}
           />
           
           {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
             && this.props.editor.endDate != null ?
             <p> {localStrings.endDateAfterStartWarn} </p>:null}
 
-          {this.props.editor.endDate === null ?
-            <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
-
-          {this.props.editor.endDate != null ?
-            <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
           
           {localStrings.end} 
 
@@ -110,7 +105,9 @@ export class App extends React.Component {
             thisDate = {endDate} 
             isStart = {false} 
             startDate={this.props.editor.startDate} 
-            onEdit={this.props.changeEndDate}/>
+            onEdit={this.props.changeEndDate}
+            onChangePermanent={this.props.changeIsPermanent}
+            isPermanent = {this.props.editor.isPermanent}/>
           <InputBox 
             label={localStrings.imageURL} 
             text={imgUrl} 
@@ -154,6 +151,7 @@ export class App extends React.Component {
 
 App.propTypes = { 
   editor: React.PropTypes.shape({
+    isPermanent: React.PropTypes.bool.isRequired,
     isFetching: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,
     startDate: React.PropTypes.instanceOf(Date),
@@ -192,6 +190,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeLink: (link) => {
       return dispatch(updateLink(link))
+    },
+    changeIsPermanent: (isPermanent) => {
+      return dispatch(updateIsPermanent(isPermanent))
     }
   };
 }

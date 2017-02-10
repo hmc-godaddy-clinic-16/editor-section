@@ -1,9 +1,10 @@
 {
 	"announcement": "Announcement",
+	"announcementdesc": "Here you can create an announcement that will begin displaying on your website at a specified time. Create your announcement below, and select when you want it to display on your site. Perfect for announcing sales or special events!",
 	"title": "Title",
 	"body": "Body",
-	"start": "Start",
-	"end": "End",
+	"start": "Start Date",
+	"end": "End Date",
 	"imageURL": "Image URL",
 	"link": "Link",
 	"announcementStartInfo": "Your announcement is scheduled to begin displaying on",
@@ -12,5 +13,7 @@
 	"announcementEndInfo": "Your announcement is scheduled to stop displaying on ",
 	"edit": "Edit",
 	"styles": "Styles",
-	"layouts": "Layouts"
+	"layouts": "Layouts",
+	"startnowtext": "Start displaying this announcement now",
+	"makepermanenttext": "Make this announcement permanent"
 }
