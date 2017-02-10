@@ -14,28 +14,54 @@ class Mode extends React.Component {
 	render() {
 		return (
 			<div>
-				{this.props.currentMode === 1 ?
+				{this.props.currentMode === NAV_EDIT ?
 				 <div>
 				  <h4> Announcement </h4>
-		          <InputBox label="Title" text={title} onEdit={this.props.changeTitle}/>
-		          Body <RichTextEditor text={bodyText} onEdit={this.props.changeBodyText}/>
+		          <InputBox 
+		          	label="Title" 
+		          	text={title} 
+		          	onEdit={this.props.changeTitle}
+		          />
+		          Body 
+		          <RichTextEditor 
+		          	text={bodyText} 
+		          	onEdit={this.props.changeBodyText}
+		          />
 		          <p> Your announcement is scheduled to begin displaying on {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-		          Start <Scheduler thisDate = {startDate} isStart = {true} startDate={null} onEdit={this.props.changeStartDate}/>
+		          Start 
+		          <Scheduler 
+		          	thisDate = {startDate} 
+		          	isStart = {true} 
+		          	startDate={null} 
+		          	onEdit={this.props.changeStartDate}
+		          />
 		          <p> Your announcement is scheduled to stop displaying on {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>
-		          End <Scheduler thisDate = {endDate} isStart = {false} startDate={this.props.editor.startDate} onEdit={this.props.changeEndDate}/>
-		          <InputBox label="Image URL" text={imgUrl} onEdit={this.props.changeImageUrl}/>
-		          <InputBox label="Link" text={link} onEdit={this.props.changeLink}/>
+		          End 
+		          <Scheduler 
+		          	thisDate = {endDate} 
+		          	isStart = {false} 
+		          	startDate={this.props.editor.startDate} 
+		          	onEdit={this.props.changeEndDate}
+		          />
+		          <InputBox 
+		          	label="Image URL" 
+		          	text={imgUrl} 
+		          	onEdit={this.props.changeImageUrl}/>
+		          <InputBox 
+		          	label="Link" 
+		          	text={link} 
+		          	onEdit={this.props.changeLink}/>
 		         </div>
 				:null}
 
-				{this.props.currentMode === 2 ?
+				{this.props.currentMode === NAV_PUBLISH ?
 				<div>
 				<h4> "Layout Mode" </h4>
 				<p> Coming soon </p>
 				</div>
 				:null}
 
-				{this.props.currentMode === 3 ?
+				{this.props.currentMode === NAV_STYLES ?
 				<div>
 				<h4> "Styles Mode" </h4>
 				<p> Coming soon </p>
