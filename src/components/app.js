@@ -32,9 +32,14 @@ export class App extends React.Component {
   renderNavBar() {
     return (
       <div className="row announcement-navbar">
-        <NavigationBar 
-          currentMode={this.state.currentMode}
-          changeMode={this.changeMode}/>
+
+        <div className="col-4 col-offset-4">
+          <NavigationBar 
+            currentMode={this.state.currentMode}
+            changeMode={this.changeMode}/>
+
+        </div>
+       
       </div>
     );
   }
@@ -67,6 +72,7 @@ export class App extends React.Component {
         {this.state.currentMode === NAV_EDIT ?
         <div>
           <h4> {localStrings.announcement} </h4>
+          <p className="announcement-desc-text"> {localStrings.announcementdesc} </p>
           <InputBox 
             label={localStrings.title} 
             text={title} 
@@ -134,7 +140,9 @@ export class App extends React.Component {
   render () {
     return (
       <div className="container-fluid">
+        <div className="row">
           {this.renderNavBar()}  
+        </div>
         <div className="row announcement-container">
           {this.renderPreview()}
           {this.renderEditor()}

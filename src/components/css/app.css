@@ -35,11 +35,14 @@
       color: #787878;
     }
 
+    .announcement-desc-text {
+      font-size: 14px;
+      color: #787878;
+    }
+
     .announcement-navbar {
       float: top;  
-      padding-left: 550px;
-      padding-right: 15px;
-      height: 60px;
+      height: 59px;
       background-color: #2e2f2e;
       border-bottom: 1px solid #232323;
     }
