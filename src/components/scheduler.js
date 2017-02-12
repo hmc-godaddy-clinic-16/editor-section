@@ -87,7 +87,7 @@ class Scheduler extends React.Component
         }
 
         dateTimePicker = (
-            <div className="row"> 
+            <div className="scheduler-row"> 
 
                 <div className="col-sm-6">
                     <DateTimePicker
