@@ -94,11 +94,7 @@ export class App extends React.Component {
             isPermanent = {false}
           />
           
-          {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
-            && this.props.editor.endDate != null ?
-            <p> {localStrings.endDateAfterStartWarn} </p>:null}
 
-          
           {localStrings.end} 
 
           <Scheduler 
