@@ -1,0 +1,34 @@
+.mocknav {
+	padding-top: 20px;
+	padding-bottom: 15px;
+	text-align: right;
+	color: white;
+	font-family: Arial, sans-serif;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);;
+}
+
+.mocktitle {
+	color: white;
+	text-align: center;
+	font-family: Arial, sans-serif;
+	padding-bottom: 100px;
+	opacity: 1;
+}
+
+.mockphone {
+	color: white;
+	font-family: Arial, sans-serif;
+	text-align: center;
+	opacity: 1;
+}
+
+.mockheader {
+	position: relative;
+	overflow: hidden;
+	z-index: 0;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.498039), rgba(0, 0, 0, 0.498039)), url(/src/components/images/donut.png);
+	background-size: cover;
+	background-position: center;
+}

@@ -8,8 +8,15 @@
 
     .preview {
       padding: 20px;
-      height: 40vh;
-      overflow: auto;
+    }
+
+    /* limit the height of the preview section
+     * for mobile devices */
+    @media (max-width: 768px) {
+      .preview {
+        height: 40vh;
+        overflow: auto;
+      }
     }
 
     .editor {
