@@ -1,0 +1,113 @@
+.mocknav {
+	padding-top: 20px;
+	padding-bottom: 15px;
+	text-align: right;
+	color: white;
+	font-family: Arial, sans-serif;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);;
+}
+
+.mocktitle {
+	color: white;
+	text-align: center;
+	font-family: Arial, sans-serif;
+	padding-bottom: 60px;
+	opacity: 1;
+	padding-top: 20px;
+}
+
+.mockphone {
+	color: white;
+	font-family: Arial, sans-serif;
+	text-align: center;
+	opacity: 1;
+	padding-bottom: 20px;
+}
+
+.mocknavtitle {
+	float: left;
+}
+
+.mockheader {
+	position: relative;
+	overflow: hidden;
+	z-index: 0;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.498039), rgba(0, 0, 0, 0.498039)), url(/src/components/images/donut.png);
+	background-size: cover;
+	background-position: center;
+}
+
+.mockheader h1 {
+	font-size: 49px;
+	font-weight: 600;
+}
+
+.mockabout {
+	font-family: Arial, sans-serif;
+	padding: 20px;
+	text-align: center;
+	background-color: white;
+}
+
+.mockabout h3 {
+	text-align: center;
+	color: #ab6700;
+	font-weight: 600;
+}
+
+.mockabout h4 {
+	padding-top: 20px;
+	text-align: center;
+	color: #ab6700;
+	font-weight: 600;
+}
+
+.mockabout hr {
+	width: 15%;
+	height: 6px;
+	border-color: #e2e2e2;
+}
+
+.mockabout p {
+	color: #5e5e5e;
+	text-align: center;
+}
+
+
+.mocklocation {
+	font-family: Arial, sans-serif;
+	padding: 20px;
+	text-align: center;
+	background-color: white;
+	background-color: #e8e8e8;
+}
+
+.mocklocation h3 {
+	padding-top: 15px;
+	text-align: center;
+	color: #ab6700;
+	font-weight: 600;
+}
+
+.mocklocation h4 {
+	text-align: center;
+	color: #ab6700;
+	font-weight: 600;
+}
+
+.mocklocation hr {
+	width: 15%;
+	height: 6px;
+	border-color: #878787;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.mocklocation p {
+	color: #5e5e5e;
+	text-align: center;
+}
+
+

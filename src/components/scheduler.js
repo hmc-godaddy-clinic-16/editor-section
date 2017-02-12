@@ -120,6 +120,18 @@ class Scheduler extends React.Component
                         {checkboxText}
                     </div>
                     
+        dateTimePicker = (
+            <div className="scheduler-row"> 
+
+                <div className="col-sm-6">
+                    <DateTimePicker
+                        viewMode='days' 
+                        onChange={this.onDateChange} 
+                        datetime={moment(this.props.thisDate)} 
+                        timeFormat =""
+                        dateFormat = "MM DD YYYY" 
+                        isValidDate={this.isValidDate}
+                    />
                 </div>
                 );
         }
