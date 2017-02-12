@@ -14,6 +14,7 @@ import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
 import {NAV_EDIT, NAV_PUBLISH, NAV_STYLES} from './constants.js';
+import MockSite from "./mocksite";
 
 export class App extends React.Component {
   constructor (props) {
@@ -51,6 +52,7 @@ export class App extends React.Component {
     return (
       <div className="col-sm-8 col-height preview">
         <Announcement data={editor} mode={mode}/>
+        <MockSite></MockSite>
       </div>
     );
   }
@@ -122,7 +124,6 @@ export class App extends React.Component {
 
         </div>
         :null}
-
 
         {this.state.currentMode === NAV_PUBLISH ?
         <h4> "Layout Mode" </h4>
