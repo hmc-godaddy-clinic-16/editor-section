@@ -1,9 +1,9 @@
     .announcement-container {
       background-color: #202121;
-      height: 100vh;
-      overflow: hidden;
       border-style: solid;
       border-color: black;
+      overflow: hidden;
+      height: 150vh;
     }
 
     .preview {
@@ -17,17 +17,21 @@
         height: 40vh;
         overflow: auto;
       }
+      .announcement-container {
+        height: 100vh;
+      }
     }
 
     .editor {
-      height: 100vh;
-      overflow: auto;
       padding: 20px;
       padding-bottom: 350px;
       background-color: #2e2f2e;
       font-family: Arial, sans-serif;
       font-size: 14px;
       color: white;
+      overflow: auto;
+      height: 100vh;
+
     }
 
     .schedule-text {
