@@ -121,10 +121,7 @@ export class App extends React.Component {
 
           <div className="feature-header">{localStrings.social}</div>
           <p className="schedule-text">{localStrings.socialTip}</p>
-          <div className="row">
-            <div className="col-lg-6"><FacebookButton/></div>
-            <div className="col-lg-6"><TwitterButton/></div>
-          </div>        
+          <FacebookButton/><TwitterButton/>
         </div>
         :null}
 

@@ -1,21 +1,29 @@
+.social-media-button img {
+	margin-right: 10px;
+	margin-bottom: 10px;
+	vertical-align: top;
+}
+
+/* Label for toggle button */
+.toggle-label {
+	font-size: large;
+	color: #787878;
+	display: inline;
+	padding-right: 20px;
+	vertical-align: top;
+}
+
 /* Box surrounding the toggle button */
 .toggle {
 	position: relative;
-	width: 100%;
+	float: right;
+	width: 60px;
 	height: 28px;
-	display: inline-block;
-	font-weight: normal;
 }
 
 /* Hide default HTML checkbox */
 .toggle input {
 	display: none;
-}
-
-/* Text on the toggle button */
-.slider-text {
-	padding-top: 4px;
-	text-align: center;
 }
 
 /* Toggle button */
@@ -32,8 +40,17 @@
 	transition: .4s;
 }
 
-.slider:hover{
-  background-color: #787878;	/* light grey */
+.slider:before {
+   position: absolute;
+   content: "";
+   height: 20px;
+   width: 20px;
+   left: 4px;
+   bottom: 4px;
+   background-color: white;
+   border-radius: 50%;
+   -webkit-transition: .4s;
+   transition: .4s;
 }
 
 /* Change color when toggled on */
@@ -41,9 +58,9 @@ input:checked + .slider {
 	background-color: #00a63f;	/* GoDaddy green */
 }
 
-/* Social Media login button overrides editor button styling */
-.login-button {
-	border: none;
-	background-color: transparent;
-	padding: 0px;
+/* Animate toggle */
+input:checked + .slider:before {
+   -webkit-transform: translateX(32px);
+   -ms-transform: translateX(32px);
+   transform: translateX(32px);
 }
