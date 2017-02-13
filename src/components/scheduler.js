@@ -25,7 +25,7 @@ class Scheduler extends React.Component
         this.onDateChange = this.onDateChange.bind(this);
         this.onCheckbox = this.onCheckbox.bind(this);
         this.isValidDate = this.isValidDate.bind(this);
-        this.render = this.render.bind(this);
+        this.render = this.render.bind(this); 
     }
 
     onDateChange(moment) {
