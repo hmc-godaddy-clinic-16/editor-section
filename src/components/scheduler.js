@@ -102,7 +102,7 @@ class Scheduler extends React.Component
                     {checkboxText}
                 </div>
 
-            <div className="row"> 
+            <div className="scheduler row"> 
 
                 <div className="col-md-6">
                     <DateTimePicker

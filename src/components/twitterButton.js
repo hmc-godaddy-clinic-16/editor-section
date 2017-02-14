@@ -18,6 +18,12 @@ class TwitterButton extends React.Component {
 		this.setState(prevState => ({
 			logoOff: !prevState.logoOff
 		}));
+
+		// enable/disable share button depending on toggle button
+		this.props.setParentState(prevState => ({
+			facebookSelected: prevState.facebookSelected,
+			twitterSelected: !prevState.twitterSelected
+		}));
 	}
 
 	render () {

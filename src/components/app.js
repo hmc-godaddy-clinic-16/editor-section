@@ -12,6 +12,7 @@ import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
 import FacebookButton from "./facebookButton.js";
 import TwitterButton from "./twitterButton.js";
+import ShareButton from "./shareButton.js";
 import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
@@ -121,7 +122,7 @@ export class App extends React.Component {
 
           <div className="feature-header">{localStrings.social}</div>
           <p className="schedule-text">{localStrings.socialTip}</p>
-          <FacebookButton/><TwitterButton/>
+          <ShareButton/>
         </div>
         :null}
 

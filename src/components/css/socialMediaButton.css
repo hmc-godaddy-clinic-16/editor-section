@@ -1,3 +1,4 @@
+/* Logo */
 .social-media-button img {
 	margin-right: 10px;
 	margin-bottom: 10px;
@@ -40,6 +41,7 @@
 	transition: .4s;
 }
 
+/* Slider */
 .slider:before {
    position: absolute;
    content: "";
@@ -63,4 +65,25 @@ input:checked + .slider:before {
    -webkit-transform: translateX(32px);
    -ms-transform: translateX(32px);
    transform: translateX(32px);
+}
+
+/* Post to Social Media button */
+.share-button {
+	margin-top: 10px;
+	outline: none;
+}
+
+.enabled {
+	border: none;				/* Override editor button styles */
+	background-color: #00a63f;	/* GoDaddy green */
+	cursor: pointer;
+}
+
+.enabled:hover {
+  background-color: #787878;
+}
+
+.disabled {
+	border: none;
+	cursor: not-allowed;
 }

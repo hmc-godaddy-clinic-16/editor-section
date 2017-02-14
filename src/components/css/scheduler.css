@@ -238,11 +238,11 @@ button {
   transition-duration: 0.3s;
 }
 
-button:hover {
+.scheduler button:hover {
   background-color: #787878;
 }
 
-button:focus {
+.scheduler button:focus {
   outline: none;
   border-color: white;
 }
