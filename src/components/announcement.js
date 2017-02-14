@@ -50,16 +50,20 @@ class Announcement extends React.Component {
 		// and when no start and no end is given
 		if (displayAnnouncement && this.props.data.link != '') {
 			var announcement = (
-				<a>
-					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-							<Content data={this.props.data} />
-					</div>
-				</a>
+				<div>
+					<a>
+						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
+								<Content data={this.props.data} />
+						</div>
+					</a>
+					<div className="announcementBorder"></div>
+				</div>
 			);
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
 					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
 						<Content data={this.props.data} />
+						<div className="announcementBorder"></div>
 					</div>
 				);
 		} else {
