@@ -34,11 +34,13 @@ class Announcement extends React.Component {
 		var start = new Date(this.props.data.startDate);
 		var end = new Date(this.props.data.endDate);
 		var current = new Date();
+		var isPermanent = this.props.data.isPermanent;
 		var displayAnnouncement = false;
 
 		// display announcement on edit mode, when no dates specified,
 		// and when the current date falls within the scheduled date
-		if ( this.props.mode == constants.EDIT || 
+		if ( this.props.mode == constants.EDIT ||
+			(isPermanent)                      || 
 			(start < current && current < end) || 
 			(start == constants.INVALID_DATE && end == constants.INVALID_DATE) ||
 			(start == constants.INVALID_DATE && end != constants.INVALID_DATE && current < end) ||

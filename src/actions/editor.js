@@ -44,6 +44,13 @@ export function updateLink (link) {
 	}
 }
 
+export function updateIsPermanent (isPermanent) {
+	return {
+		type: constants.UPDATE_IS_PERMANENT,
+		isPermanent
+	}
+}
+
 // Communication with the RESTful API
 
 export function requestAnnouncement (announcementid) {

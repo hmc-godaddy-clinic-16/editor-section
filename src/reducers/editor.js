@@ -38,6 +38,12 @@ export default (state = "", action) => {
 				link: action.link
 			});
 
+		case constants.UPDATE_IS_PERMANENT:
+			console.log("updated is permanent");
+			return Object.assign ( {}, state, {
+				isPermanent: action.isPermanent
+			});
+
 		case constants.REQUEST_ANNOUNCEMENT:
 			console.log("requesting announcement from database...");
 
@@ -52,6 +58,7 @@ export default (state = "", action) => {
 			return Object.assign( {}, state, {
 				id: action.json._id,
 				isFetching: false,
+				isPermanent: action.json.isPermanent,
 				title: action.json.title,
 				bodyText: action.json.bodyText,
 				startDate: new Date(action.json.startDate),
