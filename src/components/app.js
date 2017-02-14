@@ -13,20 +13,28 @@ import NavigationBar from "./navbar.js";
 import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
-import {NAV_EDIT, NAV_PUBLISH, NAV_STYLES} from './constants.js';
-import MockSite from "./mocksite";
+import {NAV_EDIT, NAV_LAYOUT, NAV_STYLES} from './constants.js';
+import MockSite from "./mocksite.js";
+import AddSection from "./addsection.js";
 
 export class App extends React.Component {
   constructor (props) {
     super(props);
     this.changeMode = this.changeMode.bind(this);
     this.state = {
-      currentMode: NAV_EDIT
+      currentMode: constants.NAV_EDIT,
+      announcementMode: constants.NO_ANNOUNCEMENT
     };
   }
 
+  // Navbar mode
   changeMode(mode){
     this.setState({currentMode: mode.id});
+  }
+
+  // Announcement display mode
+  changeAnnouncementMode(mode){
+    this.setState({announcementMode: mode});
   }
 
   renderNavBar() {
@@ -46,12 +54,12 @@ export class App extends React.Component {
 
   renderPreview() {
     // mock mode
-    var mode = constants.EDIT;
     const editor = this.props.editor;
 
     return (
       <div className="col-sm-8 col-height preview">
-        <Announcement data={editor} mode={mode}/>
+        <Announcement data={editor} mode={this.state.announcementMode}/>
+        <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_ICON}/>
         <MockSite></MockSite>
       </div>
     );
@@ -70,7 +78,7 @@ export class App extends React.Component {
 
     return (
       <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
-        {this.state.currentMode === NAV_EDIT ?
+        {this.state.currentMode === NAV_EDIT && this.state.announcementMode != constants.NO_ANNOUNCEMENT ?
         <div>
           <h4> {localStrings.announcement} </h4>
           <p className="announcement-desc-text"> {localStrings.announcementdesc} </p>
@@ -118,13 +126,18 @@ export class App extends React.Component {
         </div>
         :null}
 
-        {this.state.currentMode === NAV_PUBLISH ?
+        {this.state.currentMode === NAV_LAYOUT ?
         <h4> "Layout Mode" </h4>
         :null}
 
         {this.state.currentMode === NAV_STYLES ?
         <h4> "Styles Mode" </h4>
         :null}
+
+        {this.state.announcementMode === constants.NO_ANNOUNCEMENT ? 
+        <h4> Sections </h4>
+        <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_BUTTON}/>
+        :null} 
       </div>
     );
   }
