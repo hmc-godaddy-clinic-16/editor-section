@@ -115,6 +115,18 @@ export class App extends React.Component {
             text={link} 
             onEdit={this.props.changeLink}/>
 
+            <div class="container">
+
+              <div class="jumbotron text-center">
+                  <h1><span class="fa fa-lock"></span> Node Authentication</h1>
+
+                  <p>Login or Register with:</p>
+
+                  <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
+
+              </div>
+              </div>
+
         </div>
         :null}
 
