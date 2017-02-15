@@ -1,6 +1,6 @@
 import React from 'react';
 import './css/addsection.css';
-import {EDIT, NO_ANNOUNCEMENT} from './constants.js';
+import * as constants from './constants.js';
 
 class AddSection extends React.Component {
 	constructor(props) {
@@ -9,7 +9,7 @@ class AddSection extends React.Component {
 	}
 
 	handleClick () {
-		this.props.changeMode(EDIT);
+		this.props.changeMode(constants.EDIT);
 	}
 
 	render() {
@@ -17,12 +17,45 @@ class AddSection extends React.Component {
 
 		// need to handle button changes
 
-		if (this.props.announcementMode == NO_ANNOUNCEMENT) {
+		if (this.props.mode == constants.NO_ANNOUNCEMENT && this.props.appearance == constants.ADD_ICON) {
 			addButton = (
 				<div className="add-section-button-image-container" onClick={this.handleClick}>
 					<div className="add-section-button-image-circle"> 
 						<span className="button-text"> + </span>
 					</div>
+				</div>
+			);
+		} else if (this.props.mode == constants.NO_ANNOUNCEMENT && this.props.appearance == constants.ADD_BUTTON){
+			addButton = (
+				<div className="announcement-section"> 
+					<h4> Sections </h4>
+					<a>
+						<div className="section-wrapper" onClick={this.handleClick}>
+							<h5> Announcement </h5>
+							<div className="section-arrow">></div>
+						</div>
+					</a>
+
+					<div className="section-wrapper">
+						<h5> Header </h5>
+						<div className="section-arrow">></div>
+					</div>
+
+					<div className="section-wrapper">
+						<h5> About </h5>
+						<div className="section-arrow">></div>
+					</div>
+
+					<div className="section-wrapper">
+						<h5> Contact Us </h5>
+						<div className="section-arrow">></div>
+					</div>
+
+					<div className="section-wrapper">
+						<h5> Footer </h5>
+						<div className="section-arrow">></div>
+					</div>
+
 				</div>
 			);
 		} else {

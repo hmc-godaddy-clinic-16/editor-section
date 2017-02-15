@@ -41,6 +41,7 @@ class Announcement extends React.Component {
 		// and when the current date falls within the scheduled date
 		if ( 
 			this.props.mode != constants.NO_ANNOUNCEMENT && (
+			this.props.mode == constants.EDIT  || 
 			(isPermanent)                      || 
 			(start < current && current < end) || 
 			(start == constants.INVALID_DATE && end == constants.INVALID_DATE) ||

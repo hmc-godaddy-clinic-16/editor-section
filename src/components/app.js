@@ -16,11 +16,13 @@ import localStrings from './localStrings.json';
 import {NAV_EDIT, NAV_LAYOUT, NAV_STYLES} from './constants.js';
 import MockSite from "./mocksite.js";
 import AddSection from "./addsection.js";
+import RemoveSection from "./removesection.js";
 
 export class App extends React.Component {
   constructor (props) {
     super(props);
     this.changeMode = this.changeMode.bind(this);
+    this.changeAnnouncementMode = this.changeAnnouncementMode.bind(this);
     this.state = {
       currentMode: constants.NAV_EDIT,
       announcementMode: constants.NO_ANNOUNCEMENT
@@ -122,6 +124,7 @@ export class App extends React.Component {
             label={localStrings.link} 
             text={link} 
             onEdit={this.props.changeLink}/>
+          <RemoveSection changeMode={this.changeAnnouncementMode}/>
 
         </div>
         :null}
@@ -135,7 +138,6 @@ export class App extends React.Component {
         :null}
 
         {this.state.announcementMode === constants.NO_ANNOUNCEMENT ? 
-        <h4> Sections </h4>
         <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_BUTTON}/>
         :null} 
       </div>
