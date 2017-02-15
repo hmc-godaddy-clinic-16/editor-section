@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
-        updateBodyText, updateLink, fetchAnnouncement} 
+        updateBodyText, updateLink, fetchAnnouncement, updateIsPermanent} 
         from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
@@ -17,6 +17,7 @@ import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
 import {NAV_EDIT, NAV_PUBLISH, NAV_STYLES} from './constants.js';
+import MockSite from "./mocksite";
 
 export class App extends React.Component {
   constructor (props) {
@@ -34,9 +35,14 @@ export class App extends React.Component {
   renderNavBar() {
     return (
       <div className="row announcement-navbar">
-        <NavigationBar 
-          currentMode={this.state.currentMode}
-          changeMode={this.changeMode}/>
+
+        <div className="col-4 col-offset-4">
+          <NavigationBar 
+            currentMode={this.state.currentMode}
+            changeMode={this.changeMode}/>
+
+        </div>
+       
       </div>
     );
   }
@@ -49,10 +55,12 @@ export class App extends React.Component {
     return (
       <div className="col-sm-8 col-height preview">
         <Announcement data={editor} mode={mode}/>
+        <MockSite></MockSite>
       </div>
     );
   }
 
+ 
   renderEditor() {
     const editor = this.props.editor;
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
@@ -68,6 +76,7 @@ export class App extends React.Component {
         {this.state.currentMode === NAV_EDIT ?
         <div>
           <div className="section-header">{localStrings.announcement}</div>
+          <p className="announcement-desc-text">{localStrings.announcementdesc}</p>
 
           <div className="section-container">
             <InputBox 
@@ -86,13 +95,16 @@ export class App extends React.Component {
               thisDate = {startDate} 
               isStart = {true} 
               startDate={null} 
-              onEdit={this.props.changeStartDate}/>
+              onEdit={this.props.changeStartDate}
+              isPermanent={false}/>
 
             <Scheduler 
               thisDate = {endDate} 
               isStart = {false} 
               startDate={this.props.editor.startDate} 
-              onEdit={this.props.changeEndDate}/>
+              onEdit={this.props.changeEndDate}
+              onChangePermanent={this.props.changeIsPermanent}
+              isPermanent={this.props.editor.isPermanent}/>
             
             {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
               && this.props.editor.endDate != null ?
@@ -123,9 +135,9 @@ export class App extends React.Component {
           <div className="feature-header">{localStrings.social}</div>
           <p className="schedule-text">{localStrings.socialTip}</p>
           <ShareButton/>
+
         </div>
         :null}
-
 
         {this.state.currentMode === NAV_PUBLISH ?
         <h4> "Layout Mode" </h4>
@@ -142,7 +154,9 @@ export class App extends React.Component {
   render () {
     return (
       <div className="container-fluid">
+        <div className="row">
           {this.renderNavBar()}  
+        </div>
         <div className="row announcement-container">
           {this.renderPreview()}
           {this.renderEditor()}
@@ -155,6 +169,7 @@ export class App extends React.Component {
 
 App.propTypes = { 
   editor: React.PropTypes.shape({
+    isPermanent: React.PropTypes.bool.isRequired,
     isFetching: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,
     startDate: React.PropTypes.instanceOf(Date),
@@ -193,6 +208,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeLink: (link) => {
       return dispatch(updateLink(link))
+    },
+    changeIsPermanent: (isPermanent) => {
+      return dispatch(updateIsPermanent(isPermanent))
     }
   };
 }

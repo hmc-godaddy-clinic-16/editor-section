@@ -5,6 +5,7 @@ export const UPDATE_END_DATE = 'UPDATE_END_DATE';
 export const UPDATE_IMAGE_URL = 'UPDATE_IMAGE_URL';
 export const UPDATE_BODY_TEXT = 'UPDATE_BODY_TEXT';
 export const UPDATE_LINK = 'UPDATE_LINK';
+export const UPDATE_IS_PERMANENT = 'UPDATE_IS_PERMANENT';
 
 // Client/Server communication
 // If a different host for the server is being used, change SERVER_URL
