@@ -10,7 +10,7 @@ export const UPDATE_IS_PERMANENT = 'UPDATE_IS_PERMANENT';
 // Client/Server communication
 // If a different host for the server is being used, change SERVER_URL
 // to the appopriate value so requests will be sent to the right place
-export const DEFAULT_ID = '588b9391c56b5b3a2c4de76c';
+export const DEFAULT_ID = '588b8efc69074b2987764095';
 export const SERVER_URL = 'http://localhost:3000';
 export const REQUEST_ANNOUNCEMENT = 'REQUEST_ANNOUNCEMENT';
 export const RECEIVE_ANNOUNCEMENT = 'RECEIVE_ANNOUNCEMENT';
