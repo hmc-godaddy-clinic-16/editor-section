@@ -1,52 +1,67 @@
-    .announcement-container {
-      background-color: #202121;
-      border-style: solid;
-      border-color: black;
-      overflow: hidden;
-      height: 150vh;
-    }
+.announcement-container {
+  background-color: #202121;
+  border-style: solid;
+  border-color: black;
+  overflow: hidden;
+  height: 150vh;
+}
 
-    .preview {
-      padding: 20px;
-    }
+.preview {
+  padding: 20px;
+}
 
-    /* limit the height of the preview section
-     * for mobile devices */
-    @media (max-width: 768px) {
-      .preview {
-        height: 40vh;
-        overflow: auto;
-      }
-      .announcement-container {
-        height: 100vh;
-      }
-    }
+/* limit the height of the preview section
+ * for mobile devices */
+@media (max-width: 768px) {
+  .preview {
+    height: 40vh;
+    overflow: auto;
+  }
+  .announcement-container {
+    height: 100vh;
+  }
+}
 
-    .editor {
-      padding: 20px;
-      padding-bottom: 350px;
-      background-color: #2e2f2e;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-      color: white;
-      overflow: auto;
-      height: 100vh;
+.editor {
+  padding: 20px;
+  padding-bottom: 350px;
+  background-color: #2e2f2e;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #ccc;
+  overflow: auto;
+  height: 100vh;
+}
 
-    }
+/* Announcement header */
+.section-header {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-    .schedule-text {
-      font-size: 12px;
-      color: #787878;
-    }
+.section-container {
+  margin-bottom: 40px;
+}
 
-    .announcement-desc-text {
-      font-size: 14px;
-      color: #787878;
-    }
+/* Labels */
+.feature-header {
+  margin-bottom: 8px;
+}
 
-    .announcement-navbar {
-      float: top;  
-      height: 59px;
-      background-color: #2e2f2e;
-      border-bottom: 1px solid #232323;
-    }
+.schedule-text {
+  font-size: 12px;
+  color: #787878;
+}
+
+.announcement-desc-text {
+  font-size: 14px;
+  color: #787878;
+}
+
+.announcement-navbar {
+  float: top;  
+  height: 59px;
+  background-color: #2e2f2e;
+  border-bottom: 1px solid #232323;
+}

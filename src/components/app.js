@@ -4,12 +4,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
-        updateBodyText, updateLink, fetchAnnouncement} 
+        updateBodyText, updateLink, fetchAnnouncement, updateIsPermanent} 
         from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
+import FacebookButton from "./facebookButton.js";
+import TwitterButton from "./twitterButton.js";
+import ShareButton from "./shareButton.js";
 import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
@@ -57,6 +60,7 @@ export class App extends React.Component {
     );
   }
 
+ 
   renderEditor() {
     const editor = this.props.editor;
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
@@ -71,56 +75,66 @@ export class App extends React.Component {
       <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
         {this.state.currentMode === NAV_EDIT ?
         <div>
-          <h4> {localStrings.announcement} </h4>
-          <p className="announcement-desc-text"> {localStrings.announcementdesc} </p>
-          <InputBox 
-            label={localStrings.title} 
-            text={title} 
-            onEdit={this.props.changeTitle}
-          />
-          {localStrings.body}
-          <RichTextEditor 
-            text={bodyText} 
-            onEdit={this.props.changeBodyText}
-          />
-          <p className="schedule-text"> 
-            {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
-          </p>
-          
-          {localStrings.start} 
+          <div className="section-header">{localStrings.announcement}</div>
+          <p className="announcement-desc-text">{localStrings.announcementdesc}</p>
 
-          <Scheduler 
-            thisDate = {startDate} 
-            isStart = {true} 
-            startDate={null} 
-            onEdit={this.props.changeStartDate}
-          />
-          
-          {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
-            && this.props.editor.endDate != null ?
-            <p> {localStrings.endDateAfterStartWarn} </p>:null}
+          <div className="section-container">
+            <InputBox 
+              label={localStrings.title} 
+              text={title} 
+              onEdit={this.props.changeTitle}/>
 
-          {this.props.editor.endDate === null ?
-            <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
+            {localStrings.body}
+            <RichTextEditor 
+              text={bodyText} 
+              onEdit={this.props.changeBodyText}/>
+          </div>
 
-          {this.props.editor.endDate != null ?
-            <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
-          
-          {localStrings.end} 
+          <div className="section-container">
+            <Scheduler 
+              thisDate = {startDate} 
+              isStart = {true} 
+              startDate={null} 
+              onEdit={this.props.changeStartDate}
+              isPermanent={false}/>
 
-          <Scheduler 
-            thisDate = {endDate} 
-            isStart = {false} 
-            startDate={this.props.editor.startDate} 
-            onEdit={this.props.changeEndDate}/>
-          <InputBox 
-            label={localStrings.imageURL} 
-            text={imgUrl} 
-            onEdit={this.props.changeImageUrl}/>
-          <InputBox 
-            label={localStrings.link} 
-            text={link} 
-            onEdit={this.props.changeLink}/>
+            <Scheduler 
+              thisDate = {endDate} 
+              isStart = {false} 
+              startDate={this.props.editor.startDate} 
+              onEdit={this.props.changeEndDate}
+              onChangePermanent={this.props.changeIsPermanent}
+              isPermanent={this.props.editor.isPermanent}/>
+            
+            {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
+              && this.props.editor.endDate != null ?
+              <p> {localStrings.endDateAfterStartWarn} </p>:null}
+
+            <p className="schedule-text"> 
+              {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
+            </p>
+
+            {this.props.editor.endDate === null ?
+              <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
+
+            {this.props.editor.endDate != null ?
+              <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
+          </div>
+
+          <div className="section-container">
+            <InputBox 
+              label={localStrings.imageURL} 
+              text={imgUrl} 
+              onEdit={this.props.changeImageUrl}/>
+            <InputBox 
+              label={localStrings.link} 
+              text={link} 
+              onEdit={this.props.changeLink}/>
+          </div>
+
+          <div className="feature-header">{localStrings.social}</div>
+          <p className="schedule-text">{localStrings.socialTip}</p>
+          <ShareButton/>
 
         </div>
         :null}
@@ -155,6 +169,7 @@ export class App extends React.Component {
 
 App.propTypes = { 
   editor: React.PropTypes.shape({
+    isPermanent: React.PropTypes.bool.isRequired,
     isFetching: React.PropTypes.bool.isRequired,
     title: React.PropTypes.string.isRequired,
     startDate: React.PropTypes.instanceOf(Date),
@@ -193,6 +208,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeLink: (link) => {
       return dispatch(updateLink(link))
+    },
+    changeIsPermanent: (isPermanent) => {
+      return dispatch(updateIsPermanent(isPermanent))
     }
   };
 }

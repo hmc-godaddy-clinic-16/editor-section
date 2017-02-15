@@ -31,6 +31,7 @@ const store = createStore(
  {
   editor: {
     _id: DEFAULT_ID,
+    isPermanent: false,
     isFetching: true,
     title:"BUY ONE DOZEN GET ONE DOZEN FREE",
     bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
