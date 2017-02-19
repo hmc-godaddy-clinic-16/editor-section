@@ -50,7 +50,11 @@ class Scheduler extends React.Component
         if (!this.state.checkbox) {
             if (this.props.isStart) { // start now
                 var now = new moment();
+                var minutes = now.format('mm');
+                minutes = minutes % 5;
+                var starttime = now.subtract(minutes, 'minutes');
                 this.props.onEdit(now.toDate());
+
 
             } else { // End never
                 var now = new moment();
@@ -92,7 +96,7 @@ class Scheduler extends React.Component
         var infotext;
         var checkboxText; // Text to display 
 
-        var minuteInterval = {minutes : { step: 30 }};
+        var minuteInterval = {minutes : { step: 5 }};
 
         var dateDisplayOptions = { weekday: 'long', year: 'numeric', 
                                 month: 'long', day: 'numeric', 

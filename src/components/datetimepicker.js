@@ -13,7 +13,7 @@ class DateTimePicker extends React.Component
 
 		this.state = {
 			showPicker: false,
-			datetime: null
+			datetime: this.props.datetime
 		};
 
 		this.showPicker = this.showPicker.bind(this);
@@ -35,11 +35,11 @@ class DateTimePicker extends React.Component
 	}
 
 	// Close the picker on click elsewhere
-	handleClick = e => {
-		if (!ReactDOM.findDOMNode(this).contains(e.target)) {
-			this.hidePicker();
-		}
-	}
+	// handleClick = e => {
+	// 	if (!ReactDOM.findDOMNode(this).contains(e.target)) {
+	// 		this.hidePicker();
+	// 	}
+	// }
 
 	onChange(event) {
 		
@@ -99,7 +99,7 @@ class DateTimePicker extends React.Component
 			<span> 
 		        <button type="button" onClick={this.showPicker}>{buttonText}</button>
 	            <div style={pickerStyle} className="picker">
-	                <Datetime 
+	                <Datetime
 	                    viewMode={this.props.viewMode} 
 	                    onChange={this.onChange} 
 	                    value={this.props.datetime} 
