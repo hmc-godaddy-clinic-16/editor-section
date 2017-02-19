@@ -1,6 +1,8 @@
 import React from "react";
 import './css/socialMediaButton.css';
 import localStrings from './localStrings.json';
+import request from "request";
+
 
 class FacebookButton extends React.Component {
 	constructor(props) {
@@ -15,6 +17,22 @@ class FacebookButton extends React.Component {
 	}
 
 	handleToggle() {
+		// if (this.state.logoOff) {
+		// 	request.get(
+		// 	    'http://localhost:4000/login/facebook',
+		// 	    { json: { key: 'value' } },
+		// 	    function (error, response, body) {
+		// 	        if (!error && response.statusCode == 200) {
+		// 	            console.log(body)
+		// 	        }
+		// 	    }
+		// 	);
+
+		// 	console.log("post successful");
+		// }
+
+		window.location='http://0.0.0.0:4000/login/facebook';
+
 		this.setState(prevState => ({
 			logoOff: !prevState.logoOff
 		}));
@@ -34,6 +52,7 @@ class FacebookButton extends React.Component {
 				<label className="toggle">
 					<input type="checkbox" onClick={this.handleToggle}/>
 					<div className="slider"></div>
+					<a href="/fbLogin"/>
 				</label>
 			</div>
 		)
