@@ -115,11 +115,9 @@ class Scheduler extends React.Component
 
         if (this.props.isPermanent) {
             dateTimePicker = (
-                <div className="row"> 
-
-                    <p className="schedule-info-text">
-                        {localStrings.announcementNoEndDate}
-                    </p>
+                <div > 
+                    {headerText}
+                    
 
                     <div className="scheduleBox">
                         <label>
@@ -127,6 +125,10 @@ class Scheduler extends React.Component
                         </label>
                         {checkboxText}
                     </div>
+
+                    <p className="schedule-info-text">
+                        {localStrings.announcementNoEndDate}
+                    </p>
                 </div>
             );
         } else {

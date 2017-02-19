@@ -19,5 +19,5 @@
 	"styles": "Styles",
 	"layouts": "Layouts",
 	"startnowtext": " Start displaying this announcement now",
-	"makepermanenttext": " Make this announcement permanent"
+	"makepermanenttext": " Keep displaying this announcement until unchecked"
 }

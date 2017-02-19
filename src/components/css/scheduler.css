@@ -250,12 +250,7 @@ button {
 /* Checkbox */
 
 .scheduleBox { 
-  float: right;
   font-size: 12px;
-}
-
-.scheduleBox label {
-  margin-right: 3px;
 }
 
 .schedule-info-text {

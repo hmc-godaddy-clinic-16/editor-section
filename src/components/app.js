@@ -119,16 +119,6 @@ export class App extends React.Component {
             {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
               && this.props.editor.endDate != null ?
               <p> {localStrings.endDateAfterStartWarn} </p>:null}
-
-            <p className="schedule-text"> 
-              {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
-            </p>
-
-            {this.props.editor.endDate === null ?
-              <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
-
-            {this.props.editor.endDate != null ?
-              <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
           </div>
 
           <div className="section-container">
