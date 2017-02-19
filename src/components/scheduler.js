@@ -1,10 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import Datetime from 'react-datetime';
-import './css/scheduler.css';
 import DateTimePicker from './datetimepicker.js';
 import localStrings from './localStrings.json';
-
+import './css/scheduler.css';
 
 // Scheduler provides a UI for picking a date and time 
 // Relies on the third party node module react-datetitme to provide the date
@@ -87,6 +86,9 @@ class Scheduler extends React.Component
     // renders a different date/time picker UI dependending on the value of props.same
     render() {
         var dateTimePicker;
+
+        // Text to display
+        var headerText;
         var infotext;
         var checkboxText; // Text to display 
 
@@ -99,9 +101,11 @@ class Scheduler extends React.Component
         // This is the end-date picker
         if (this.props.isStart) {
             infotext = localStrings.announcementStartInfo;
+            headerText = localStrings.start;
             checkboxText = localStrings.startnowtext;
         } else { // this is the start-date picker
             infotext = localStrings.announcementEndInfo;
+            headerText = localStrings.end;
             checkboxText = localStrings.makepermanenttext;
         }
 
@@ -121,40 +125,10 @@ class Scheduler extends React.Component
                     </div>
                 </div>
             );
-                    
-        }
-        else
-        {
+        } else {
             dateTimePicker = (
-                <div className="row"> 
-
-                    <p className="schedule-info-text">
-                        {infotext} {this.props.thisDate.toLocaleDateString('en-US', dateDisplayOptions)}.
-                    </p>
-
-                    <div className="col-sm-6">
-                        <DateTimePicker
-                            viewMode='days' 
-                            onChange={this.onDateChange} 
-                            datetime={moment(this.props.thisDate)} 
-                            timeFormat =""
-                            dateFormat = "MM DD YYYY" 
-                            isValidDate={this.isValidDate}
-                        />
-                    </div>
-
-                    <div className="col-sm-6">
-                        <DateTimePicker 
-                            viewMode='time' 
-                            onChange={this.onDateChange} 
-                            datetime={moment(this.props.thisDate)} 
-                            dateFormat ="" 
-                            timeFormat = "h:mm A"
-                            isValidDate={this.isValidDate}
-                            timeConstraints={minuteInterval}
-                        />
-                    </div>
-
+                <div>
+                    {headerText}
                     <div className="scheduleBox">
                         <label>
                             <input type="checkbox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
@@ -162,7 +136,31 @@ class Scheduler extends React.Component
                         {checkboxText}
                     </div>
 
-                </div> 
+                <div className="scheduler row"> 
+
+                    <div className="col-md-6">
+                        <DateTimePicker
+                            viewMode='days' 
+                            onChange={this.onDateChange} 
+                            datetime={moment(this.props.thisDate)} 
+                            timeFormat =""
+                            dateFormat = "MM DD YYYY" 
+                            isValidDate={this.isValidDate}/>
+                    </div>
+
+                    <div className="col-md-6">
+                        <DateTimePicker 
+                            viewMode='time' 
+                            onChange={this.onDateChange} 
+                            datetime={moment(this.props.thisDate)} 
+                            dateFormat ="" 
+                            timeFormat = "h:mm A"
+                            isValidDate={this.isValidDate}
+                            timeConstraints={minuteInterval}/>
+                    </div>
+                </div>
+
+                </div>
             );
         }
 

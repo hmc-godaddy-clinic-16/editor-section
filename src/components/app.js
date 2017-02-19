@@ -10,6 +10,9 @@ import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
 import Announcement from "./announcement.js";
 import NavigationBar from "./navbar.js";
+import FacebookButton from "./facebookButton.js";
+import TwitterButton from "./twitterButton.js";
+import ShareButton from "./shareButton.js";
 import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
@@ -82,6 +85,7 @@ export class App extends React.Component {
       <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
         {this.state.currentMode === NAV_EDIT && this.state.announcementMode != constants.NO_ANNOUNCEMENT ?
         <div>
+<<<<<<< HEAD
           <h4> {localStrings.announcement} </h4>
           <p className="announcement-desc-text"> {localStrings.announcementdesc} </p>
           <InputBox 
@@ -125,6 +129,68 @@ export class App extends React.Component {
             text={link} 
             onEdit={this.props.changeLink}/>
           <RemoveSection changeMode={this.changeAnnouncementMode}/>
+=======
+          <div className="section-header">{localStrings.announcement}</div>
+          <p className="announcement-desc-text">{localStrings.announcementdesc}</p>
+
+          <div className="section-container">
+            <InputBox 
+              label={localStrings.title} 
+              text={title} 
+              onEdit={this.props.changeTitle}/>
+
+            {localStrings.body}
+            <RichTextEditor 
+              text={bodyText} 
+              onEdit={this.props.changeBodyText}/>
+          </div>
+
+          <div className="section-container">
+            <Scheduler 
+              thisDate = {startDate} 
+              isStart = {true} 
+              startDate={null} 
+              onEdit={this.props.changeStartDate}
+              isPermanent={false}/>
+
+            <Scheduler 
+              thisDate = {endDate} 
+              isStart = {false} 
+              startDate={this.props.editor.startDate} 
+              onEdit={this.props.changeEndDate}
+              onChangePermanent={this.props.changeIsPermanent}
+              isPermanent={this.props.editor.isPermanent}/>
+            
+            {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
+              && this.props.editor.endDate != null ?
+              <p> {localStrings.endDateAfterStartWarn} </p>:null}
+
+            <p className="schedule-text"> 
+              {localStrings.announcementStartInfo} {startDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. 
+            </p>
+
+            {this.props.editor.endDate === null ?
+              <p className="schedule-text"> {localStrings.announcementNoEndDate}</p>:null}
+
+            {this.props.editor.endDate != null ?
+              <p className="schedule-text"> {localStrings.announcementEndInfo} {endDateDate.toLocaleDateString('en-US', dateDisplayOptions)}. </p>:null}
+          </div>
+
+          <div className="section-container">
+            <InputBox 
+              label={localStrings.imageURL} 
+              text={imgUrl} 
+              onEdit={this.props.changeImageUrl}/>
+            <InputBox 
+              label={localStrings.link} 
+              text={link} 
+              onEdit={this.props.changeLink}/>
+          </div>
+
+          <div className="feature-header">{localStrings.social}</div>
+          <p className="schedule-text">{localStrings.socialTip}</p>
+          <ShareButton/>
+>>>>>>> 5641148557ce86ef79d5b9f8e1c704ca1360eeec
 
         </div>
         :null}
