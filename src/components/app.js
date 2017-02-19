@@ -85,51 +85,6 @@ export class App extends React.Component {
       <div className="col-sm-4 editor" currentMode={this.state.currentMode}>
         {this.state.currentMode === NAV_EDIT && this.state.announcementMode != constants.NO_ANNOUNCEMENT ?
         <div>
-<<<<<<< HEAD
-          <h4> {localStrings.announcement} </h4>
-          <p className="announcement-desc-text"> {localStrings.announcementdesc} </p>
-          <InputBox 
-            label={localStrings.title} 
-            text={title} 
-            onEdit={this.props.changeTitle}
-          />
-          {localStrings.body}
-          <RichTextEditor 
-            text={bodyText} 
-            onEdit={this.props.changeBodyText}
-          />
-          
-          
-          {localStrings.start} 
-
-          <Scheduler 
-            thisDate = {startDate} 
-            isStart = {true} 
-            startDate={null} 
-            onEdit={this.props.changeStartDate}
-            isPermanent = {false}
-          />
-          
-
-          {localStrings.end} 
-
-          <Scheduler 
-            thisDate = {endDate} 
-            isStart = {false} 
-            startDate={this.props.editor.startDate} 
-            onEdit={this.props.changeEndDate}
-            onChangePermanent={this.props.changeIsPermanent}
-            isPermanent = {this.props.editor.isPermanent}/>
-          <InputBox 
-            label={localStrings.imageURL} 
-            text={imgUrl} 
-            onEdit={this.props.changeImageUrl}/>
-          <InputBox 
-            label={localStrings.link} 
-            text={link} 
-            onEdit={this.props.changeLink}/>
-          <RemoveSection changeMode={this.changeAnnouncementMode}/>
-=======
           <div className="section-header">{localStrings.announcement}</div>
           <p className="announcement-desc-text">{localStrings.announcementdesc}</p>
 
@@ -190,7 +145,7 @@ export class App extends React.Component {
           <div className="feature-header">{localStrings.social}</div>
           <p className="schedule-text">{localStrings.socialTip}</p>
           <ShareButton/>
->>>>>>> 5641148557ce86ef79d5b9f8e1c704ca1360eeec
+          <RemoveSection changeMode={this.changeAnnouncementMode}/>
 
         </div>
         :null}
