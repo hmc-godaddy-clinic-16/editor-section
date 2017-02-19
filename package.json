@@ -4,7 +4,7 @@
   "description": "From the site visit",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server -d --host 0.0.0.0",
+    "start": "webpack-dev-server -d --host 0.0.0.0 & node server/server.js",
     "build": "webpack -d",
     "test": "mocha --compilers js:babel-core/register ./test/**/*.spec.js --require ./tools/testHelper.js 'src/**/*-spec.@(js|jsx)'",
     "cover": "babel-node node_modules/.bin/babel-istanbul cover node_modules/.bin/_mocha ./test/**/*.spec.js"
