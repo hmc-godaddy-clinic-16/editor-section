@@ -3,11 +3,13 @@
   border-style: solid;
   border-color: black;
   overflow: hidden;
-  height: 150vh;
+  height: 100vh;
 }
 
 .preview {
   padding: 20px;
+  height: 100vh;
+  overflow: auto;
 }
 
 /* limit the height of the preview section

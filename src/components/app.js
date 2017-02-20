@@ -115,10 +115,6 @@ export class App extends React.Component {
               onEdit={this.props.changeEndDate}
               onChangePermanent={this.props.changeIsPermanent}
               isPermanent={this.props.editor.isPermanent}/>
-            
-            {moment(startDateDate).isSameOrAfter(moment(endDateDate)) 
-              && this.props.editor.endDate != null ?
-              <p> {localStrings.endDateAfterStartWarn} </p>:null}
           </div>
 
           <div className="section-container">
