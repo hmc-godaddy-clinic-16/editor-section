@@ -19,6 +19,8 @@ class TwitterButton extends React.Component {
 			logoOff: !prevState.logoOff
 		}));
 
+		window.location='http://0.0.0.0:4000/login/twitter';
+
 		// enable/disable share button depending on toggle button
 		this.props.setParentState(prevState => ({
 			facebookSelected: prevState.facebookSelected,

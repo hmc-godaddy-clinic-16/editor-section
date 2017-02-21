@@ -25,6 +25,17 @@ passport.use(new FacebookStrategy({
     return cb(null, profile);
   }));
 
+// Configure Twitter strategy
+passport.use(new TwitterStrategy( {
+    consumerKey: config.twitter.consumerKey,
+    consumerSecret: config.twitter.consumerSecret,
+    callbackURL: config.twitter.callbackURL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    return done(null, profile);
+  }
+))
+
 
 // Configure Passport authenticated session persistence.
 //
@@ -66,6 +77,7 @@ app.use(passport.session());
 
 // Define routes.
 
+// Facebook
 app.get('/login/facebook', 
   passport.authenticate('facebook'));
 
@@ -80,5 +92,9 @@ app.get('/login/facebook',
 //   function(req, res){
 //     res.render('profile', { user: req.user });
 //   });
+
+// Twitter
+app.get('/login/twitter',
+  passport.authenticate('twitter'));
 
 app.listen(4000);
