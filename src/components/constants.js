@@ -16,3 +16,6 @@ export const INVALID_DATE = 'Invalid Date';
 // Add announcement button states
 export const ADD_BUTTON = 'ADD_BUTTON';
 export const ADD_ICON = 'ADD_ICON';
+
+// URL of the social media server
+export const SOCIAL_SERVER_URL = 'http://localhost:4000';

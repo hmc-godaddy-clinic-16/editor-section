@@ -3,6 +3,21 @@ var passport = require('passport');
 var config = require('./oauth.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
+var mongoose = require('mongoose');
+
+// Connect to the database
+mongoose.connect('mongodb://localhost/passport');
+
+// Create a user model
+var User = mongoose.model('User', {
+  platform: String,
+  oauthID: Number,
+  name: String,
+  created: Date,
+  token: String,
+  sharing: String
+});
+
 
 // Configure the Facebook strategy for use by Passport.
 //
@@ -29,12 +44,38 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy( {
     consumerKey: config.twitter.consumerKey,
     consumerSecret: config.twitter.consumerSecret,
-    callbackURL: config.twitter.callbackURL
-  },
-  function(accessToken, refreshToken, profile, done) {
-    return done(null, profile);
+    callbackURL: 'http://0.0.0.0:8080/'
+  }, 
+ function(accessToken, refreshToken, profile, done) {
+    // If a twitter user doesn't exist in our database, create one
+    User.findOne({ platform: 'twitter' }, function(err, user) {
+      if(err) {
+        console.log(err);  // handle errors!
+      }
+      if (!err && user !== null) {
+        done(null, user);
+      } else {
+        user = new User({
+          platform: 'twitter',
+          oauthID: profile.id,
+          name: profile.displayName,
+          created: Date.now(),
+          token: accessToken,
+          sharing: 'true'
+        });
+        user.save(function(err) {
+          if(err) {
+            console.log(err);  // handle errors!
+          } else {
+            console.log("saving user ...");
+            done(null, user);
+          }
+        });
+      }
+    });
+    return cb(null, profile);
   }
-))
+));
 
 
 // Configure Passport authenticated session persistence.
@@ -46,12 +87,14 @@ passport.use(new TwitterStrategy( {
 // from the database when deserializing.  However, due to the fact that this
 // example does not have a database, the complete Facebook profile is serialized
 // and deserialized.
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
+passport.deserializeUser(function(obj, done) {
+    User.findById(id, function (err, user) {
+      done(err, user);
+    });
 });
 
 
@@ -93,8 +136,85 @@ app.get('/login/facebook',
 //     res.render('profile', { user: req.user });
 //   });
 
-// Twitter
-app.get('/login/twitter',
-  passport.authenticate('twitter'));
+
+/* Twitter */
+
+// Only redirect the user to twitter authentication if we don't 
+// already have info for twitter
+//var authenticateTwitter = function(req, res) {
+//  passport.authenticate('twitter');
+   //  User.findOne({platform: 'twitter'}, function(err, user) {
+   //  if (err || user !== null) {
+   //    console.log("An error occured while looking for the user in the db");
+   //    res.send({'error': 'An error has occurred'})
+   //  } else {
+   //    passport.authenticate('twitter');
+   //  }
+   // });
+//}
+
+/* Database updates for twitter */
+
+// Remove the twitter user from the db (i.e. unlink their account)
+var removeTwitterUser = function(req, res) {
+   User.findOne({ platform: 'twitter' }, function(err, user) {
+      if (!err && user !== null) {
+        user.remove();
+      } else {
+        res.send({'error':'An error has occurred'});
+      }
+    });
+}
+
+// Skeleton code for posting to twitter
+var postToTwitter = function(req, res) {
+  // Info sent to us from the front-end
+  var post = req.body;
+
+  // Get the twitter user's info from the db
+  User.findOne({platform: 'twitter'}, function(err, user) {
+      if (!err && user !== null) {
+        // Make request to twitter api
+        // some code goes here
+
+        // on success, send a response to our front end saying so
+        // some code goes here
+
+      } else {
+        // send a response to the front-end saying
+        // that we weren't able to post to twitter
+        res.send({'error':'An error has occurred'});
+      }
+  });
+}
+
+// Grab the twitter user info (except the token)
+var getTwitterUser = function(req, res) {
+  User.findOne({platform: 'twitter'}, function(err, user) {
+    if (err || user == null) {
+      res.send({'error':'unable to get user'});
+    } else {
+      // We don't want to send the token back over an
+      // insecure connection
+      delete user.token;
+      res.send(user);
+    }
+  });
+}
+
+
+/* Twitter API for our server*/
+//app.get('/login/twitter', authenticateTwitter);
+app.get('/login/twitter', passport.authenticate('twitter'));
+
+// Post 
+app.get('/twitter/post', postToTwitter);
+
+// Get twitter user if already exists
+app.get('/twitter/user', getTwitterUser);
+
+// Remove twitter user (i.e. unlink account)
+app.get('/twitter/remove', removeTwitterUser);
+
 
 app.listen(4000);
