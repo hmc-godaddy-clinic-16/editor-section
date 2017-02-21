@@ -11,7 +11,7 @@ class Facebook extends React.Component {
 	passport.use(new FacebookStrategy({
 	    clientID: 1056599564445365,
 	    clientSecret: e5ffee3067470ff41a1b133e0a20c8ce,
-	    callbackURL: "http://0.0.0.0:8080/webpack-dev-server/"
+	    callbackURL: "http://0.0.0.0:8080/"
 	  },
 	  function(accessToken, refreshToken, profile, done) {
 	    User.findOrCreate(..., function(err, user) {
