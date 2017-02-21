@@ -39,12 +39,14 @@ class Announcement extends React.Component {
 
 		// display announcement on edit mode, when no dates specified,
 		// and when the current date falls within the scheduled date
-		if ( this.props.mode == constants.EDIT ||
+		if ( 
+			this.props.mode != constants.NO_ANNOUNCEMENT && (
+			this.props.mode == constants.EDIT  || 
 			(isPermanent)                      || 
 			(start < current && current < end) || 
 			(start == constants.INVALID_DATE && end == constants.INVALID_DATE) ||
 			(start == constants.INVALID_DATE && end != constants.INVALID_DATE && current < end) ||
-			(start != constants.INVALID_DATE && end == constants.INVALID_DATE && start < current) ) {
+			(start != constants.INVALID_DATE && end == constants.INVALID_DATE && start < current)) ) {
 			displayAnnouncement = true;
 		} 
 
@@ -52,16 +54,20 @@ class Announcement extends React.Component {
 		// and when no start and no end is given
 		if (displayAnnouncement && this.props.data.link != '') {
 			var announcement = (
-				<a>
-					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-							<Content data={this.props.data} />
-					</div>
-				</a>
+				<div>
+					<a>
+						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
+								<Content data={this.props.data} />
+						</div>
+					</a>
+					<div className="announcementBorder"></div>
+				</div>
 			);
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
 					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
 						<Content data={this.props.data} />
+						<div className="announcementBorder"></div>
 					</div>
 				);
 		} else {

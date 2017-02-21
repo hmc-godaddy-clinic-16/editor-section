@@ -50,7 +50,11 @@ class Scheduler extends React.Component
         if (!this.state.checkbox) {
             if (this.props.isStart) { // start now
                 var now = new moment();
+                var minutes = now.format('mm');
+                minutes = minutes % 5;
+                var starttime = now.subtract(minutes, 'minutes');
                 this.props.onEdit(now.toDate());
+
 
             } else { // End never
                 var now = new moment();
@@ -90,9 +94,9 @@ class Scheduler extends React.Component
         // Text to display
         var headerText;
         var infotext;
-        var checkboxText; // Text to display 
+        var checkboxText; 
 
-        var minuteInterval = {minutes : { step: 30 }};
+        var minuteInterval = {minutes : { step: 5 }};
 
         var dateDisplayOptions = { weekday: 'long', year: 'numeric', 
                                 month: 'long', day: 'numeric', 
@@ -111,18 +115,16 @@ class Scheduler extends React.Component
 
         if (this.props.isPermanent) {
             dateTimePicker = (
-                <div className="row"> 
-
-                    <p className="schedule-info-text">
-                        {localStrings.announcementNoEndDate}
-                    </p>
-
+                <div> 
+                    {headerText}
                     <div className="scheduleBox">
                         <label>
                             <input type="checkbox" id="datecheckbox" checked = {true} onChange = {this.onCheckbox} />
                         </label>
                         {checkboxText}
                     </div>
+
+                    <p className="schedule-info-text">{localStrings.announcementNoEndDate}</p>
                 </div>
             );
         } else {
@@ -131,35 +133,34 @@ class Scheduler extends React.Component
                     {headerText}
                     <div className="scheduleBox">
                         <label>
-                            <input type="checkbox" id="datecheckbox" checked = {this.state.checkbox} onChange = {this.onCheckbox} />
+                            <input type="checkbox" id="datecheckbox" checked={this.state.checkbox} onChange={this.onCheckbox} />
                         </label>
                         {checkboxText}
                     </div>
 
-                <div className="scheduler row"> 
+                    <div className="scheduler row"> 
 
-                    <div className="col-md-6">
-                        <DateTimePicker
-                            viewMode='days' 
-                            onChange={this.onDateChange} 
-                            datetime={moment(this.props.thisDate)} 
-                            timeFormat =""
-                            dateFormat = "MM DD YYYY" 
-                            isValidDate={this.isValidDate}/>
+                        <div className="col-md-6">
+                            <DateTimePicker
+                                viewMode='days' 
+                                onChange={this.onDateChange} 
+                                datetime={moment(this.props.thisDate)} 
+                                timeFormat =""
+                                dateFormat = "MM DD YYYY" 
+                                isValidDate={this.isValidDate}/>
+                        </div>
+
+                        <div className="col-md-6">
+                            <DateTimePicker 
+                                viewMode='time' 
+                                onChange={this.onDateChange} 
+                                datetime={moment(this.props.thisDate)} 
+                                dateFormat ="" 
+                                timeFormat = "h:mm A"
+                                isValidDate={this.isValidDate}
+                                timeConstraints={minuteInterval}/>
+                        </div>
                     </div>
-
-                    <div className="col-md-6">
-                        <DateTimePicker 
-                            viewMode='time' 
-                            onChange={this.onDateChange} 
-                            datetime={moment(this.props.thisDate)} 
-                            dateFormat ="" 
-                            timeFormat = "h:mm A"
-                            isValidDate={this.isValidDate}
-                            timeConstraints={minuteInterval}/>
-                    </div>
-                </div>
-
                 </div>
             );
         }

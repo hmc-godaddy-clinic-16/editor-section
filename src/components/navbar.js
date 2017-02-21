@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/navbar.css';
 import localStrings from './localStrings.json';
-import {NAV_EDIT, NAV_PUBLISH, NAV_STYLES} from './constants.js';
+import {NAV_EDIT, NAV_LAYOUT, NAV_STYLES} from './constants.js';
 
 
 var normalButtons = [
@@ -12,7 +12,7 @@ var normalButtons = [
 		iconhover: require('./images/editwhite.svg')
 	},
 	{
-		'id': NAV_PUBLISH, 
+		'id': NAV_LAYOUT, 
 		label: localStrings.layouts, 
 		icon: require('./images/layoutgrey.svg'), 
 		iconhover: require('./images/layoutwhite.svg')},
