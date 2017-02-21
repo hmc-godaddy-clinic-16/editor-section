@@ -28,7 +28,7 @@ export class App extends React.Component {
     this.changeAnnouncementMode = this.changeAnnouncementMode.bind(this);
     this.state = {
       currentMode: constants.NAV_EDIT,
-      announcementMode: constants.NO_ANNOUNCEMENT
+      announcementMode: constants.EDIT
     };
   }
 
