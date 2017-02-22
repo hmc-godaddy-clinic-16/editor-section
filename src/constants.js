@@ -15,7 +15,7 @@ export const UPDATE_IS_PERMANENT = 'UPDATE_IS_PERMANENT';
 // export const SERVER_URL = 'http://134.173.43.36:3000';
 
 // local MongoDB host
-export const DEFAULT_ID = '588b8d11c835d451aca04872';
+export const DEFAULT_ID = '588b8efc69074b2987764095';
 export const SERVER_URL = 'http://localhost:3000'; // local host
 
 export const REQUEST_ANNOUNCEMENT = 'REQUEST_ANNOUNCEMENT';
