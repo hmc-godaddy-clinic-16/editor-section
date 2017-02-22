@@ -60,26 +60,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-// Configure Passport authenticated session persistence.
-//
-// In order to restore authentication state across HTTP requests, Passport needs
-// to serialize users into and deserialize users out of the session.  In a
-// production-quality application, this would typically be as simple as
-// supplying the user ID when serializing, and querying the user record by ID
-// from the database when deserializing.  However, due to the fact that this
-// example does not have a database, the complete Facebook profile is serialized
-// and deserialized.
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(obj, done) {
-    User.findById(id, function (err, user) {
-      done(err, user);
-    });
-});
-
-
 // Configure the Facebook strategy for use by Passport.
 //
 // OAuth 2.0-based strategies require a `verify` function which receives the
@@ -105,7 +85,7 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy( {
     consumerKey: config.twitter.consumerKey,
     consumerSecret: config.twitter.consumerSecret,
-    callbackURL: 'http://localhost:4000/login/twitter/callback'
+    callbackURL: 'http://127.0.0.1:4000/login/twitter/callback'
   }, 
  function(token, tokenSecret, profile, done) {
     console.log("Got to the twitter strategy result");
@@ -124,7 +104,7 @@ passport.use(new TwitterStrategy( {
             oauthID: profile.id,
             name: profile.displayName,
             created: Date.now(),
-            token: accessToken,
+            token: tokenSecret,
             sharing: 'true'
           });
           user.save(function(err) {
@@ -142,6 +122,26 @@ passport.use(new TwitterStrategy( {
     });
   }
 ));
+
+
+// Configure Passport authenticated session persistence.
+//
+// In order to restore authentication state across HTTP requests, Passport needs
+// to serialize users into and deserialize users out of the session.  In a
+// production-quality application, this would typically be as simple as
+// supplying the user ID when serializing, and querying the user record by ID
+// from the database when deserializing.  However, due to the fact that this
+// example does not have a database, the complete Facebook profile is serialized
+// and deserialized.
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function (err, user) {
+      done(err, user);
+    });
+});
 
 
 
