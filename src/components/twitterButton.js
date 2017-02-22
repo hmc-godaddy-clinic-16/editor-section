@@ -1,6 +1,9 @@
 import React from "react";
 import './css/socialMediaButton.css';
 import localStrings from './localStrings.json';
+import fetch from 'isomorphic-fetch';
+import * as constants from './constants.js';
+require('es6-promise').polyfill();
 
 class TwitterButton extends React.Component {
 	constructor(props) {
@@ -12,6 +15,31 @@ class TwitterButton extends React.Component {
 		};
 
 		this.handleToggle = this.handleToggle.bind(this);
+		this.checkLoggedIn = this.checkLoggedIn.bind(this);
+	}
+
+	checkLoggedIn() {
+		console.log("CHECKING LOGGED IN STATUS");
+
+		return fetch( `${constants.SOCIAL_SERVER_URL}/twitter/user`, {
+			method: "GET"
+		})
+			.then(function(response) {
+		  		if (response.status >= 400) {
+		            throw new Error("Bad response from server");
+		        }
+		        return response.json();
+
+	   		})
+	   		.then(function(user) {
+	   			if (user.error) {
+	   				window.location='http://0.0.0.0:4000/login/twitter'; // Redirect the user to login to twitter
+	   			} else {
+	   				return user;
+	   			}
+	   			console.log(user);
+	   		});
+	   		
 	}
 
 	handleToggle() {
@@ -19,7 +47,7 @@ class TwitterButton extends React.Component {
 			logoOff: !prevState.logoOff
 		}));
 
-		window.location='http://0.0.0.0:4000/login/twitter';
+		this.checkLoggedIn();
 
 		// enable/disable share button depending on toggle button
 		this.props.setParentState(prevState => ({

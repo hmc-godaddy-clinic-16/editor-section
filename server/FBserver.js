@@ -112,6 +112,22 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 
+// Headers
+app.use(function (req, res, next) {
+
+    // Allow these sites to make requests
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Pass to next layer of middleware
+    next();
+});
+
 // Initialize Passport and restore authentication state, if any, from the
 // session.
 app.use(passport.initialize());
@@ -138,20 +154,6 @@ app.get('/login/facebook',
 
 
 /* Twitter */
-
-// Only redirect the user to twitter authentication if we don't 
-// already have info for twitter
-//var authenticateTwitter = function(req, res) {
-//  passport.authenticate('twitter');
-   //  User.findOne({platform: 'twitter'}, function(err, user) {
-   //  if (err || user !== null) {
-   //    console.log("An error occured while looking for the user in the db");
-   //    res.send({'error': 'An error has occurred'})
-   //  } else {
-   //    passport.authenticate('twitter');
-   //  }
-   // });
-//}
 
 /* Database updates for twitter */
 
@@ -204,7 +206,6 @@ var getTwitterUser = function(req, res) {
 
 
 /* Twitter API for our server*/
-//app.get('/login/twitter', authenticateTwitter);
 app.get('/login/twitter', passport.authenticate('twitter'));
 
 // Post 
