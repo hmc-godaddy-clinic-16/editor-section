@@ -130,7 +130,10 @@ export class App extends React.Component {
 
           <div className="feature-header">{localStrings.social}</div>
           <p className="schedule-text">{localStrings.socialTip}</p>
-          <ShareButton/>
+          <ShareButton
+             title={this.props.editor.title} 
+             body={this.props.editor.bodyText}
+             publishDate={this.props.editor.startDate}/>
           <RemoveSection changeMode={this.changeAnnouncementMode}/>
 
         </div>

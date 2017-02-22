@@ -45,6 +45,10 @@ class FacebookButton extends React.Component {
 	}
 
 	render () {
+		console.log("Title: " + this.props.title);
+ 		console.log("Body text: " + this.props.body);
+ 		console.log("Publish Date: " + this.props.date);
+
 		return (
 			<div className="social-media-button">
 				<FacebookLogo logoOff={this.state.logoOff}/>

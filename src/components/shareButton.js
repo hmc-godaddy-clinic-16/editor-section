@@ -1,4 +1,5 @@
 import React from "react";
+import striptags from "striptags";
 import FacebookButton from "./facebookButton.js";
 import TwitterButton from "./twitterButton.js";
 import './css/socialMediaButton.css';
@@ -15,14 +16,24 @@ class ShareButton extends React.Component {
 	}
 
 	render () {
+		// data for cross-posting
+		var publishDate = Math.floor(this.props.publishDate / 1000);
+		var bodyText = striptags(this.props.body);
+
 		var shareButton;
 
 		// enable button when at least one platform is selected
 		if (this.state.facebookSelected || this.state.twitterSelected) {
 			shareButton = (
 				<div>
-				<FacebookButton setParentState={this.setState.bind(this)}/>
-				<TwitterButton setParentState={this.setState.bind(this)}/>
+				<FacebookButton setParentState={this.setState.bind(this)} 
+					title={this.props.title} 
+					body={bodyText} 
+					date={publishDate}/>
+				<TwitterButton setParentState={this.setState.bind(this)} 
+					title={this.props.title} 
+					body={bodyText} 
+					date={publishDate}/>
 				<button type="button" className="share-button enabled">
 					Post to Social Media
 				</button>
@@ -31,8 +42,14 @@ class ShareButton extends React.Component {
 		} else {
 			shareButton = (
 				<div>
-				<FacebookButton setParentState={this.setState.bind(this)}/>
-				<TwitterButton setParentState={this.setState.bind(this)}/>
+				<FacebookButton setParentState={this.setState.bind(this)} 
+					title={this.props.title} 
+					body={bodyText} 
+					date={publishDate}/>
+				<TwitterButton setParentState={this.setState.bind(this)} 
+					title={this.props.title} 
+					body={bodyText} 
+					date={publishDate}/>
 				<button type="button" className="share-button disabled">
 					Post to Social Media
 				</button>
