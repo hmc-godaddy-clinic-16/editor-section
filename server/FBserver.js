@@ -137,8 +137,8 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function (err, user) {
+passport.deserializeUser(function(user, done) {
+    User.findById(user.id, function (err, user) {
       done(err, user);
     });
 });
@@ -216,13 +216,12 @@ var getTwitterUser = function(req, res) {
   });
 }
 
-
 /* Twitter API for our server*/
 
 // Authenticate
 app.get('/login/twitter', passport.authenticate('twitter'));
-app.get('/login/twitter/callback', passport.authenticate('twitter', {successRedirect: '/',
-  failureRedirect: '/'
+app.get('/login/twitter/callback', passport.authenticate('twitter', {successRedirect: 'http://localhost:8080',
+  failureRedirect: 'http://localhost:8080'
 }));
 
 // Post 
