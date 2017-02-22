@@ -33,7 +33,7 @@ class TwitterButton extends React.Component {
 	   		})
 	   		.then(function(user) {
 	   			if (user.error) {
-	   				window.location='http://0.0.0.0:4000/login/twitter'; // Redirect the user to login to twitter
+	   				window.location='http://127.0.0.1:4000/login/twitter'; // Redirect the user to login to twitter
 	   			} else {
 	   				return user;
 	   			}

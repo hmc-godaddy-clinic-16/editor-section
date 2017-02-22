@@ -220,8 +220,8 @@ var getTwitterUser = function(req, res) {
 
 // Authenticate
 app.get('/login/twitter', passport.authenticate('twitter'));
-app.get('/login/twitter/callback', passport.authenticate('twitter', {successRedirect: 'http://localhost:8080',
-  failureRedirect: 'http://localhost:8080'
+app.get('/login/twitter/callback', passport.authenticate('twitter', {successRedirect: 'http://127.0.01:8080',
+  failureRedirect: 'http://127.0.0.1:8080'
 }));
 
 // Post 
