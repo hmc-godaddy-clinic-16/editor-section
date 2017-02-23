@@ -210,7 +210,8 @@ var getTwitterUser = function(req, res) {
     } else {
       // We don't want to send the token back over an
       // insecure connection
-      delete user.token;
+      user['token'] = null;
+
       res.send(user);
     }
   });
