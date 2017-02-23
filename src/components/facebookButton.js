@@ -1,8 +1,9 @@
 import React from "react";
 import './css/socialMediaButton.css';
 import localStrings from './localStrings.json';
-import request from "request";
-
+import fetch from 'isomorphic-fetch';
+import * as constants from './constants.js';
+require('es6-promise').polyfill();
 
 class FacebookButton extends React.Component {
 	constructor(props) {
@@ -16,26 +17,36 @@ class FacebookButton extends React.Component {
 		this.handleToggle = this.handleToggle.bind(this);
 	}
 
+	checkLoggedIn() {
+		console.log("CHECKING LOGGED IN STATUS");
+
+		return fetch( `${constants.SOCIAL_SERVER_URL}/facebook/user`, {
+			method: "GET"
+		})
+			.then(function(response) {
+		  		if (response.status >= 400) {
+		            throw new Error("Bad response from server");
+		        }
+		        return response.json();
+
+	   		})
+	   		.then(function(user) {
+	   			if (user.error) {
+	   				window.location='http://127.0.0.1:4000/login/facebook'; // Redirect the user to login to facebook
+	   			} else {
+	   				return user;
+	   			}
+	   			console.log(user);
+	   		});
+	   		
+	}
+
 	handleToggle() {
-		// if (this.state.logoOff) {
-		// 	request.get(
-		// 	    'http://localhost:4000/login/facebook',
-		// 	    { json: { key: 'value' } },
-		// 	    function (error, response, body) {
-		// 	        if (!error && response.statusCode == 200) {
-		// 	            console.log(body)
-		// 	        }
-		// 	    }
-		// 	);
-
-		// 	console.log("post successful");
-		// }
-
-		window.location='http://0.0.0.0:4000/login/facebook';
-
 		this.setState(prevState => ({
 			logoOff: !prevState.logoOff
 		}));
+
+		this.checkLoggedIn();
 
 		// enable/disable share button depending on toggle button
 		this.props.setParentState(prevState => ({

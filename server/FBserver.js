@@ -21,9 +21,17 @@ var User = mongoose.model('User',
     token: String,
     sharing: String
   })
-  );
+);
 
+User.remove({ platform: 'facebook' }, function (err) {
+  if (err) return handleError(err);
+  // removed!
+});
 
+User.remove({ platform: 'twitter' }, function (err) {
+  if (err) return handleError(err);
+  // removed!
+});
 
 // Create a new Express application.
 var app = express();
@@ -72,20 +80,42 @@ passport.use(new FacebookStrategy({
     clientSecret: config.facebook.clientSecret,
     callbackURL: config.facebook.callbackURL
   },
-  function(accessToken, refreshToken, profile, cb) {
-    // In this example, the user's Facebook profile is supplied as the user
-    // record.  In a production-quality application, the Facebook profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    return cb(null, profile);
-  }));
+  function(accessToken, refreshToken, profile, done) {
+    User.findOne({ platform: 'facebook' }, function(err, user) {
+      if(err) {
+        console.log(err);  // handle errors!
+      }
+      if (!err && user !== null) {
+        done(null, user);
+      } else {
+        user = new User({
+          platform: 'facebook',
+          oauthID: profile.id,
+          name: profile.displayName,
+          created: Date.now(),
+          token: accessToken,
+          sharing: 'true'
+        });
+        user.save(function(err) {
+          if(err) {
+            console.log(err);  // handle errors!
+          } else {
+            console.log("saving user ...");
+            done(null, user);
+          }
+        });
+      }
+
+      return done(null, profile);
+    });
+  }
+));
 
 // Configure Twitter strategy
 passport.use(new TwitterStrategy( {
     consumerKey: config.twitter.consumerKey,
     consumerSecret: config.twitter.consumerSecret,
-    callbackURL: 'http://127.0.0.1:4000/login/twitter/callback'
+    callbackURL: config.twitter.callbackURL
   }, 
  function(token, tokenSecret, profile, done) {
     console.log("Got to the twitter strategy result");
@@ -144,25 +174,67 @@ passport.deserializeUser(function(user, done) {
 });
 
 
+/* Facebook */
+
+var postToFacebook = function(req, res) {
+  // Info sent to us from the front-end
+  var post = req.body;
+
+  // Get the twitter user's info from the db
+  User.findOne({platform: 'facebook'}, function(err, user) {
+      if (!err && user !== null) {
+        // Make request to twitter api
+        // some code goes here
+
+        // on success, send a response to our front end saying so
+        // some code goes here
+
+      } else {
+        // send a response to the front-end saying
+        // that we weren't able to post to twitter
+        res.send({'error':'An error has occurred'});
+      }
+  });
+}
+
+var getFacebookUser = function(req, res) {
+  User.findOne({platform: 'facebook'}, function(err, user) {
+    if (err || user == null) {
+      res.send({'error':'unable to get user' + err});
+    } else {
+      // We don't want to send the token back over an
+      // insecure connection
+      delete user.token;
+      res.send(user);
+    }
+  });
+}
+
+var removeFacebookUser = function(req, res) {
+  User.findOne({ platform: 'facebook' }, function(err, user) {
+      if (!err && user !== null) {
+        user.remove();
+      } else {
+        res.send({'error':'An error has occurred'});
+      }
+    });
+}
 
 
-// Define routes.
+app.get('/login/facebook', passport.authenticate('facebook', {scope: ['publish_pages']}));
 
-// Facebook
-app.get('/login/facebook', 
-  passport.authenticate('facebook'));
+app.get('/login/facebook/callback', passport.authenticate('facebook', {successRedirect: 'http://127.0.0.1:8080',
+  failureRedirect: 'http://127.0.0.1:8080'
+}));
 
-// app.get('/login/facebook/return', 
-//   passport.authenticate('facebook', { failureRedirect: '/login' }),
-//   function(req, res) {
-//     res.redirect('/');
-//   });
+// Post 
+// app.get('/facebook/post', postToFacebook);
 
-// app.get('/profile',
-//   require('connect-ensure-login').ensureLoggedIn(),
-//   function(req, res){
-//     res.render('profile', { user: req.user });
-//   });
+// Get facebook user if already exists
+app.get('/facebook/user', getFacebookUser);
+
+// Remove facebook user (i.e. unlink account)
+app.get('/facebook/remove', removeFacebookUser);
 
 
 /* Twitter */
@@ -233,6 +305,11 @@ app.get('/twitter/user', getTwitterUser);
 
 // Remove twitter user (i.e. unlink account)
 app.get('/twitter/remove', removeTwitterUser);
+
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 
 app.listen(4000);

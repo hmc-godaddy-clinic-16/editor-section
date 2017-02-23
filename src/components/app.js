@@ -20,6 +20,7 @@ import {NAV_EDIT, NAV_LAYOUT, NAV_STYLES} from './constants.js';
 import MockSite from "./mocksite.js";
 import AddSection from "./addsection.js";
 import RemoveSection from "./removesection.js";
+import LogoutButton from "./logoutButton.js";
 
 export class App extends React.Component {
   constructor (props) {
@@ -135,6 +136,7 @@ export class App extends React.Component {
              body={this.props.editor.bodyText}
              publishDate={this.props.editor.startDate}/>
           <RemoveSection changeMode={this.changeAnnouncementMode}/>
+          {/* <LogoutButton/> */}
 
         </div>
         :null}

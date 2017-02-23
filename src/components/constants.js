@@ -18,4 +18,4 @@ export const ADD_BUTTON = 'ADD_BUTTON';
 export const ADD_ICON = 'ADD_ICON';
 
 // URL of the social media server
-export const SOCIAL_SERVER_URL = 'http://localhost:4000';
+export const SOCIAL_SERVER_URL = 'http://127.0.0.1:4000';
