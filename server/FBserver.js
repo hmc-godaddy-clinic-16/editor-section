@@ -23,16 +23,6 @@ var User = mongoose.model('User',
   })
 );
 
-User.remove({ platform: 'facebook' }, function (err) {
-  if (err) return handleError(err);
-  // removed!
-});
-
-User.remove({ platform: 'twitter' }, function (err) {
-  if (err) return handleError(err);
-  // removed!
-});
-
 // Create a new Express application.
 var app = express();
 
@@ -45,6 +35,8 @@ app.set('view engine', 'ejs');
 //app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('body-parser').json());
+
 // Headers
 app.use(function (req, res, next) {
 
@@ -204,7 +196,7 @@ var getFacebookUser = function(req, res) {
     } else {
       // We don't want to send the token back over an
       // insecure connection
-      delete user.token;
+      user['token'] = null;
       res.send(user);
     }
   });
@@ -228,13 +220,14 @@ app.get('/login/facebook/callback', passport.authenticate('facebook', {successRe
 }));
 
 // Post 
-// app.get('/facebook/post', postToFacebook);
+app.put('/facebook/post', postToFacebook);
 
 // Get facebook user if already exists
 app.get('/facebook/user', getFacebookUser);
 
 // Remove facebook user (i.e. unlink account)
 app.get('/facebook/remove', removeFacebookUser);
+
 
 
 /* Twitter */
@@ -257,6 +250,11 @@ var postToTwitter = function(req, res) {
   // Info sent to us from the front-end
   var post = req.body;
 
+  console.log(req);
+
+  console.log("Recieved post");
+  console.log(req.body);
+
   // Get the twitter user's info from the db
   User.findOne({platform: 'twitter'}, function(err, user) {
       if (!err && user !== null) {
@@ -269,7 +267,7 @@ var postToTwitter = function(req, res) {
       } else {
         // send a response to the front-end saying
         // that we weren't able to post to twitter
-        res.send({'error':'An error has occurred'});
+        console.log("An error occured while posting to twitter");
       }
   });
 }
@@ -298,7 +296,7 @@ app.get('/login/twitter/callback', passport.authenticate('twitter', {successRedi
 }));
 
 // Post 
-app.get('/twitter/post', postToTwitter);
+app.put('/twitter/post', postToTwitter);
 
 // Get twitter user if already exists
 app.get('/twitter/user', getTwitterUser);

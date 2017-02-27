@@ -15,6 +15,8 @@ class FacebookButton extends React.Component {
 		};
 
 		this.handleToggle = this.handleToggle.bind(this);
+		this.checkLoggedIn = this.checkLoggedIn.bind(this);
+
 	}
 
 	checkLoggedIn() {
