@@ -23,6 +23,14 @@ var User = mongoose.model('User',
   })
 );
 
+User.remove({platform: 'facebook' }, function (err) {
+  if (err) return handleError(err);
+});
+
+User.remove({platform: 'twitter' }, function (err) {
+  if (err) return handleError(err);
+});
+
 // Create a new Express application.
 var app = express();
 
