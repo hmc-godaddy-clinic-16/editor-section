@@ -58,9 +58,10 @@ class Scheduler extends React.Component
 
             } else { // End never
                 var now = new moment();
-                var d = new Date();
-                d.setDate(d.getDate());
-                this.props.onEdit(d);
+                var minutes = now.format('mm');
+                minutes = (minutes % 5)-5;
+                var starttime = now.subtract(minutes, 'minutes');
+                this.props.onEdit(now.toDate());
                 this.props.onChangePermanent(true);
             }
         }
