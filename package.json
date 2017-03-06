@@ -77,6 +77,7 @@
     "striptags": "^3.0.1",
     "style-loader": "^0.13.1",
     "tls": "0.0.1",
+    "twitter": "^1.7.0",
     "url-loader": "^0.5.7"
   }
 }

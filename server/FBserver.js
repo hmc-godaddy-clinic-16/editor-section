@@ -4,6 +4,8 @@ var config = require('./oauth.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var mongoose = require('mongoose');
+var Twitter = require('twitter');
+
 
 // Connect to the database
 mongoose.connect('mongodb://localhost/announcementdb');
@@ -18,18 +20,19 @@ var User = mongoose.model('User',
     oauthID: Number,
     name: String,
     created: Date,
+    tokenSecret: String,
     token: String,
     sharing: String
   })
 );
 
-User.remove({platform: 'facebook' }, function (err) {
-  if (err) return handleError(err);
-});
+// User.remove({platform: 'facebook' }, function (err) {
+//   if (err) return handleError(err);
+// });
 
-User.remove({platform: 'twitter' }, function (err) {
-  if (err) return handleError(err);
-});
+// User.remove({platform: 'twitter' }, function (err) {
+//   if (err) return handleError(err);
+// });
 
 // Create a new Express application.
 var app = express();
@@ -134,7 +137,8 @@ passport.use(new TwitterStrategy( {
             oauthID: profile.id,
             name: profile.displayName,
             created: Date.now(),
-            token: tokenSecret,
+            tokenSecret: tokenSecret,
+            token: token,
             sharing: 'true'
           });
           user.save(function(err) {
@@ -192,7 +196,6 @@ var postToFacebook = function(req, res) {
       } else {
         // send a response to the front-end saying
         // that we weren't able to post to twitter
-        res.send({'error':'An error has occurred'});
       }
   });
 }
@@ -268,9 +271,31 @@ var postToTwitter = function(req, res) {
       if (!err && user !== null) {
         // Make request to twitter api
         // some code goes here
+        var client = new Twitter({
+            consumer_key: config.twitter.consumerKey,
+            consumer_secret: config.twitter.consumerSecret,
+            access_token_key: user.token,
+            access_token_secret: user.tokenSecret 
+        });
+
+        console.log(user.token);
+        console.log(user.tokenSecret);
+
+        var status = post.title + ': ' + post.body;
+
+        client.post('statuses/update', {status: status}, function(error, tweet, response) {
+            if (error) {
+              console.log("an error occurred while posting to twitter");
+              console.log(error);
+            } else {
+              console.log("Succesfully posted to twitter");
+              res.send("sucess");
+            }
+        });
 
         // on success, send a response to our front end saying so
         // some code goes here
+
 
       } else {
         // send a response to the front-end saying
