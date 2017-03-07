@@ -1,6 +1,8 @@
 import React from "react";
+import './css/content.css';
 
-/* Content renders the title and body. */
+/* Content renders the title and body. 
+   Thin layout only renders the title. */
 class Content extends React.Component {
 	render () {
 		var contentStyle = {
@@ -10,8 +12,7 @@ class Content extends React.Component {
 
 		return (
 			<div style={contentStyle}>
-				<h1 id="title">{this.props.data.title}</h1>
-				<div id="content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
+				<p id="title">{this.props.data.title}</p>
 			</div>
 	)}
 }

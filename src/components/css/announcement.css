@@ -1,8 +1,9 @@
 .announcement {
-	padding: 10px;	
+	padding: 10px;
+	height: 50px;	
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-color: #2B2B2B;
+	background-color: rgb(210, 47, 37); /* GoCentral theme color */
 	list-style-position: inside;
 }
 
