@@ -10,6 +10,10 @@ export const NAV_EDIT = 'NAV_EDIT';
 export const NAV_LAYOUT = 'NAV_LAYOUT';
 export const NAV_STYLES = 'NAV_STYLES';
 
+// layout
+export const THIN_LAYOUT = 'THIN_LAYOUT';
+export const BANNER_LAYOUT = 'BANNER_LAYOUT';
+
 // no start or end date given
 export const INVALID_DATE = 'Invalid Date';
 

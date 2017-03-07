@@ -57,13 +57,13 @@ export class App extends React.Component {
     );
   }
 
-  renderPreview() {
+  renderPreview(layout) {
     // mock mode
     const editor = this.props.editor;
 
     return (
       <div className="col-sm-8 col-height preview">
-        <Announcement data={editor} mode={this.state.announcementMode}/>
+        <Announcement data={editor} mode={this.state.announcementMode} layout={layout}/>
         <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_ICON}/>
         <MockSite></MockSite>
       </div>
@@ -71,7 +71,7 @@ export class App extends React.Component {
   }
 
  
-  renderEditor() {
+  renderEditor(layout) {
     const editor = this.props.editor;
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
 
@@ -92,7 +92,8 @@ export class App extends React.Component {
             <InputBox 
               label={localStrings.title} 
               text={title} 
-              onEdit={this.props.changeTitle}/>
+              onEdit={this.props.changeTitle}
+              layout={layout}/>
 
             {localStrings.body}
             <RichTextEditor 
@@ -153,14 +154,16 @@ export class App extends React.Component {
 
 
   render () {
+    var layout = constants.THIN_LAYOUT;
+
     return (
       <div className="container-fluid">
         <div className="row">
           {this.renderNavBar()}  
         </div>
         <div className="row announcement-container">
-          {this.renderPreview()}
-          {this.renderEditor()}
+          {this.renderPreview(layout)}
+          {this.renderEditor(layout)}
 
         </div>
       </div>
