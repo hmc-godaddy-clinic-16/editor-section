@@ -57,13 +57,13 @@ export class App extends React.Component {
     );
   }
 
-  renderPreview(layout) {
+  renderPreview(layout, theme) {
     // mock mode
     const editor = this.props.editor;
 
     return (
       <div className="col-sm-8 col-height preview">
-        <Announcement data={editor} mode={this.state.announcementMode} layout={layout}/>
+        <Announcement data={editor} mode={this.state.announcementMode} layout={layout} theme={theme}/>
         <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_ICON}/>
         <MockSite></MockSite>
       </div>
@@ -155,6 +155,7 @@ export class App extends React.Component {
 
   render () {
     var layout = constants.THIN_LAYOUT;
+    var theme = constants.LUXE;
 
     return (
       <div className="container-fluid">
@@ -162,7 +163,7 @@ export class App extends React.Component {
           {this.renderNavBar()}  
         </div>
         <div className="row announcement-container">
-          {this.renderPreview(layout)}
+          {this.renderPreview(layout, theme)}
           {this.renderEditor(layout)}
 
         </div>

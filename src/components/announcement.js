@@ -24,6 +24,7 @@ class Announcement extends React.Component {
 
 	render () {
 		var image = this.props.data.imgUrl;
+		var color = this.props.theme.color;
 
 		var announcementStyle;
 
@@ -31,11 +32,13 @@ class Announcement extends React.Component {
 		if (this.props.layout == constants.THIN_LAYOUT) {
 			announcementStyle = {
 				'height': '50px',
-				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')'
+				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
+				'backgroundColor': color
 			};
 		} else {
 			 announcementStyle = {
-				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')'
+				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
+				'backgroundColor': color
 			};
 		}
 
@@ -66,7 +69,7 @@ class Announcement extends React.Component {
 				<div>
 					<a>
 						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-								<Content data={this.props.data} layout={this.props.layout}/>
+								<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
 						</div>
 					</a>
 					<div className="announcementBorder"></div>
@@ -75,7 +78,7 @@ class Announcement extends React.Component {
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
 					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-						<Content data={this.props.data} layout={this.props.layout}/>
+						<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
 						<div className="announcementBorder"></div>
 					</div>
 				);

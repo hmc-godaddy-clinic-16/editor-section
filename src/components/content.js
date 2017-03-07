@@ -6,10 +6,19 @@ import './css/content.css';
    Thin layout only renders the title. */
 class Content extends React.Component {
 	render () {
+		var first = this.props.theme.firstFont;
+		var second = this.props.theme.secondFont;
+		var generic = this.props.theme.genericFont;
+
 		var contentStyle = {
 			'color': 'white',
+			'fontFamily': first + ',' + second + ',' + generic,
 			'textAlign': 'center',
 		};
+
+		var bodyStyle = {
+			'fontFamily': second + ',' + generic
+		}
 
 		var content;
 
@@ -25,7 +34,7 @@ class Content extends React.Component {
 			content = (
 				<div style={contentStyle}>
 					<p id="title">{this.props.data.title}</p>
-					<div id="content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
+					<div style={bodyStyle} id="content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
 				</div>
 			)
 		}
