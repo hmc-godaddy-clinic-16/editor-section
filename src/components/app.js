@@ -155,7 +155,7 @@ export class App extends React.Component {
 
   render () {
     var layout = constants.THIN_LAYOUT;
-    var theme = constants.LUXE;
+    var theme = constants.MODERN;
 
     return (
       <div className="container-fluid">
