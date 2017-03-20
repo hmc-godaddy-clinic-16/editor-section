@@ -16,6 +16,14 @@ class TwitterButton extends React.Component {
 
 		this.handleToggle = this.handleToggle.bind(this);
 		this.checkLoggedIn = this.checkLoggedIn.bind(this);
+		this.componentDidMount = this.componentDidMount.bind(this);
+		this.getSocialState = this.getSocialState.bind(this);
+		this.setSocialState = this.setSocialState.bind(this);
+	}
+
+	componentDidMount() {
+		this.getSocialState();
+		return;
 	}
 
 	checkLoggedIn() {
@@ -42,18 +50,90 @@ class TwitterButton extends React.Component {
 	   		
 	}
 
-	handleToggle() {
-		this.setState(prevState => ({
-			logoOff: !prevState.logoOff
-		}));
+	// On page load, check what state the social media toggle is in
+	// and set our state to that state
+	getSocialState() {
+		return fetch( `${constants.SOCIAL_SERVER_URL}/twitter/gettogglestate`, {
+			method: "GET"
+		})
+			.then(function(response) {
+		  		if (response.status >= 400) {
+		            throw new Error("Bad response from server");
+		        }
+		        return response.json();
 
-		this.checkLoggedIn();
+	   		})
+	   		.then(function(toggle) {
+	   			if (toggle.error) {
+	   				return null;
+	   			} else {
+
+	   				if (toggle.toggleState == 'true') {
+	   					//updateToggle(false);
+	   					this.setState({logoOff: false});
+	   					this.props.setParentState(prevState => ({
+	   						facebookSelected: prevState.facebookSelected,
+	   						twitterSelected: true
+	   					}));
+	   				} else {
+	   					this.setState({logoOff: true});
+	   					this.props.setParentState(prevState => ({
+	   						facebookSelected: prevState.facebookSelected,
+	   						twitterSelected: false
+	   					}));
+	   					//updateToggle(true);
+	   				}
+	   				return toggle;
+	   			}
+	   		}.bind(this));
+
+	}
+
+	// Tell the server that the state of the social media toggle is "off" or "on"
+	setSocialState() {
+		var post = {
+			toggle: !this.state.logoOff
+		}
+		return fetch( `${constants.SOCIAL_SERVER_URL}/twitter/settogglestate`, {  	
+			headers: {
+    				'Accept': 'application/json',
+    				'Content-Type': 'application/json'
+
+    			},
+    			method: "PUT",
+    			body: JSON.stringify(post),
+    		})
+			.then(function(response) {
+		  		if (response.status >= 400) {
+		            throw new Error("Bad response from server");
+		        }
+		        return response.json();
+
+	   		})
+	   		.then(function(response) {
+
+	   			console.log(response);
+	   		});
+	}
+
+	handleToggle() {
 
 		// enable/disable share button depending on toggle button
 		this.props.setParentState(prevState => ({
 			facebookSelected: prevState.facebookSelected,
-			twitterSelected: !prevState.twitterSelected
+			twitterSelected: this.state.logoOff
 		}));
+
+		this.setState(prevState => ({
+			logoOff: !prevState.logoOff
+		}),
+
+		function() {
+			this.setSocialState();
+		});
+
+		this.checkLoggedIn();
+
 	}
 
 	render () {
@@ -62,7 +142,7 @@ class TwitterButton extends React.Component {
 				<TwitterLogo logoOff={this.state.logoOff}/>
 				<TwitterLabel logoOff={this.state.logoOff}/>
 				<label className="toggle">
-					<input type="checkbox" onClick={this.handleToggle}/>
+					<input type="checkbox" checked={!this.state.logoOff} onClick={this.handleToggle}/>
 					<div className="slider"></div>
 				</label>
 			</div>

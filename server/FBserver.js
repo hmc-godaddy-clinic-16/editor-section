@@ -21,18 +21,52 @@ var User = mongoose.model('User',
     name: String,
     created: Date,
     tokenSecret: String,
-    token: String,
-    sharing: String
+    token: String
   })
 );
 
-// User.remove({platform: 'facebook' }, function (err) {
-//   if (err) return handleError(err);
-// });
+// Create a UI toggle state model
+var ToggleState = mongoose.model('ToggleState', 
+  new mongoose.Schema({
+    platform: String,
+    toggleState: String
+  })
+);
 
-// User.remove({platform: 'twitter' }, function (err) {
-//   if (err) return handleError(err);
-// });
+// Set toggle state for each platform if one doesn't already exist
+var setToggleState = function(platform) {
+   ToggleState.findOne({ platform: platform }, function(err, toggleState) {
+      if(err) {
+        console.log(err);        }
+      if (!err && toggleState !== null) {
+        console.log("Toggle state already exists");
+      } else {
+        toggleState = new ToggleState({
+          platform: platform,
+          toggleState: 'false'
+        });
+        toggleState.save(function(err) {
+          if(err) {
+            console.log(err);  // handle errors!
+          } else {
+            console.log("saving toggle state ...");
+          }
+        });
+      }
+      return;
+    });
+}
+
+setToggleState('facebook');
+setToggleState('twitter');
+
+User.remove({platform: 'facebook' }, function (err) {
+  if (err) return handleError(err);
+});
+
+User.remove({platform: 'twitter' }, function (err) {
+  if (err) return handleError(err);
+});
 
 // Create a new Express application.
 var app = express();
@@ -97,7 +131,6 @@ passport.use(new FacebookStrategy({
           name: profile.displayName,
           created: Date.now(),
           token: accessToken,
-          sharing: 'true'
         });
         user.save(function(err) {
           if(err) {
@@ -139,7 +172,6 @@ passport.use(new TwitterStrategy( {
             created: Date.now(),
             tokenSecret: tokenSecret,
             token: token,
-            sharing: 'true'
           });
           user.save(function(err) {
             if(err) {
@@ -223,6 +255,32 @@ var removeFacebookUser = function(req, res) {
     });
 }
 
+var setFacebookToggleState = function(req, res) {
+  ToggleState.findOne({platform: 'facebook'}, function(err, state) {
+    if (!err && state !== null) {
+        console.log(req.body);
+        state.toggleState = req.body.toggle;
+
+        state.save(function(err) {
+          if(err) {
+            console.log(err);  // handle errors!
+          } else {
+            console.log("saving toggle state ...");
+          }
+        });
+    }
+  });
+}
+
+var getFacebookToggleState = function(req, res) {
+  ToggleState.findOne({platform: 'facebook'}, function(err, state) {
+    if (err || state == null) {
+      res.send({'error': 'unable to get toggle state' + err});
+    } else {
+      res.send(state);
+    }
+  });
+}
 
 app.get('/login/facebook', passport.authenticate('facebook', {scope: ['publish_pages']}));
 
@@ -238,6 +296,10 @@ app.get('/facebook/user', getFacebookUser);
 
 // Remove facebook user (i.e. unlink account)
 app.get('/facebook/remove', removeFacebookUser);
+
+// UI toggle state
+app.put('/facebook/settogglestate', setFacebookToggleState);
+app.get('/facebook/gettogglestate', getFacebookToggleState);
 
 
 
@@ -283,6 +345,17 @@ var postToTwitter = function(req, res) {
 
         var status = post.title + ': ' + post.body;
 
+        // If the post title + post body is too long,
+        // just use the title
+        if (status.length > 140) {
+          status = post.title;
+        }
+
+        // If the title alone is too long, crop it
+        if (post.title > 140) {
+          status = status.slice(0, 146) + '...';
+        }
+
         client.post('statuses/update', {status: status}, function(error, tweet, response) {
             if (error) {
               console.log("an error occurred while posting to twitter");
@@ -320,6 +393,33 @@ var getTwitterUser = function(req, res) {
   });
 }
 
+var setTwitterToggleState = function(req, res) {
+  ToggleState.findOne({platform: 'twitter'}, function(err, state) {
+    if (!err && state !== null) {
+        console.log(req.body);
+        state.toggleState = req.body.toggle;
+
+        state.save(function(err) {
+          if(err) {
+            console.log(err);  // handle errors!
+          } else {
+            console.log("saving toggle state ...");
+          }
+        });
+    }
+  });
+}
+
+var getTwitterToggleState = function(req, res) {
+  ToggleState.findOne({platform: 'twitter'}, function(err, state) {
+    if (err || state == null) {
+      res.send({'error': 'unable to get toggle state' + err});
+    } else {
+      res.send(state);
+    }
+  });
+}
+
 /* Twitter API for our server*/
 
 // Authenticate
@@ -342,5 +442,9 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+
+// UI toggle state
+app.put('/twitter/settogglestate', setTwitterToggleState);
+app.get('/twitter/gettogglestate', getTwitterToggleState);
 
 app.listen(4000);
