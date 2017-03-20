@@ -5,7 +5,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var mongoose = require('mongoose');
 var Twitter = require('twitter');
-
+var FB = require('fb');
 
 // Connect to the database
 mongoose.connect('mongodb://localhost/announcementdb');
@@ -119,6 +119,8 @@ passport.use(new FacebookStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({ platform: 'facebook' }, function(err, user) {
+      console.log('facebook token: ' + accessToken);
+      console.log('facebook profile: ' + profile.id);
       if(err) {
         console.log(err);  // handle errors!
       }
@@ -215,19 +217,24 @@ passport.deserializeUser(function(user, done) {
 var postToFacebook = function(req, res) {
   // Info sent to us from the front-end
   var post = req.body;
+  var status = post.title + '\n' + post.body;
 
-  // Get the twitter user's info from the db
+  console.log("Received post for Facebook:" + post);
+
   User.findOne({platform: 'facebook'}, function(err, user) {
       if (!err && user !== null) {
-        // Make request to twitter api
-        // some code goes here
+        FB.setAccessToken(user.token);
 
-        // on success, send a response to our front end saying so
-        // some code goes here
+        FB.api('me/feed', 'post', { message: status }, function (res) {
+          if(!res || res.error) {
+            console.log(!res ? 'FB posting error:' : res.error);
+            return;
+          }
+          console.log('FB posting success! Post Id: ' + res.id);
+        });
 
       } else {
-        // send a response to the front-end saying
-        // that we weren't able to post to twitter
+        console.log("FB posting error: database read error, or user doesn't exist.")
       }
   });
 }
@@ -282,7 +289,7 @@ var getFacebookToggleState = function(req, res) {
   });
 }
 
-app.get('/login/facebook', passport.authenticate('facebook', {scope: ['publish_pages']}));
+app.get('/login/facebook', passport.authenticate('facebook', {scope: ['publish_actions', 'publish_pages', 'manage_pages']}));
 
 app.get('/login/facebook/callback', passport.authenticate('facebook', {successRedirect: 'http://127.0.0.1:8080',
   failureRedirect: 'http://127.0.0.1:8080'
@@ -343,7 +350,7 @@ var postToTwitter = function(req, res) {
         console.log(user.token);
         console.log(user.tokenSecret);
 
-        var status = post.title + ': ' + post.body;
+        var status = post.title + '\n ' + post.body;
 
         // If the post title + post body is too long,
         // just use the title
