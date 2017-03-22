@@ -154,7 +154,7 @@ export class App extends React.Component {
 
 
   render () {
-    var layout = constants.THIN_LAYOUT;
+    var layout = constants.BLOCK_TITLE_LAYOUT;
     var theme = constants.MODERN;
 
     return (

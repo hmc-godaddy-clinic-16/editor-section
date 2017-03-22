@@ -19,7 +19,7 @@ class InputBox extends React.Component
 
     // create input field along with corresponding label
     if (this.props.layout == constants.THIN_LAYOUT) {
-      // character limit
+      // character limit of 50
       inputBox = (
         <div className="input-box">
           <p>{this.props.label}</p>
@@ -31,7 +31,21 @@ class InputBox extends React.Component
           />
         </div>
       );
-    } else {
+    } else if (this.props.layout == constants.BLOCK_TITLE_LAYOUT) {
+      // character limit of 15
+      inputBox = (
+        <div className="input-box">
+          <p>{this.props.label}</p>
+          <input
+            type="text"
+            value={this.props.text}
+            maxLength="15"
+            onChange={this.onChange}
+          />
+        </div>
+      );
+    }
+    else {
       inputBox = (
         <div className="input-box">
           <p>{this.props.label}</p>
