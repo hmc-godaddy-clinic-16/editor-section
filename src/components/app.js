@@ -20,6 +20,7 @@ import {NAV_EDIT, NAV_LAYOUT, NAV_STYLES} from './constants.js';
 import MockSite from "./mocksite.js";
 import AddSection from "./addsection.js";
 import RemoveSection from "./removesection.js";
+import LogoutButton from "./logoutButton.js";
 
 export class App extends React.Component {
   constructor (props) {
@@ -28,7 +29,7 @@ export class App extends React.Component {
     this.changeAnnouncementMode = this.changeAnnouncementMode.bind(this);
     this.state = {
       currentMode: constants.NAV_EDIT,
-      announcementMode: constants.NO_ANNOUNCEMENT
+      announcementMode: constants.EDIT
     };
   }
 
@@ -131,8 +132,12 @@ export class App extends React.Component {
 
           <div className="feature-header">{localStrings.social}</div>
           <p className="schedule-text">{localStrings.socialTip}</p>
-          <ShareButton/>
+          <ShareButton
+             title={this.props.editor.title} 
+             body={this.props.editor.bodyText}
+             publishDate={this.props.editor.startDate}/>
           <RemoveSection changeMode={this.changeAnnouncementMode}/>
+          {/* <LogoutButton/> */}
 
         </div>
         :null}

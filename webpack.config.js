@@ -10,6 +10,9 @@ module.exports = {
     publicPath: '/',
     filename: "[name].js"
   },
+  resolveLoader: {
+    root: path.join(__dirname, 'node_modules')
+  },
   module: {
     loaders: [
       {
@@ -30,9 +33,14 @@ module.exports = {
       },
       {
         test: /\.json$/, 
-        loader: 'json'
+        loader: 'json-loader'
       },
-
     ]
+  },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   }
 };
