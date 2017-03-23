@@ -37,7 +37,7 @@ const store = createStore(
     bodyText: "<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.",
     startDate: new Date(),
     endDate: new Date(),
-    imgUrl: "http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg",
+    imgUrl: "http://i.imgur.com/rq19kfP.jpg",
     link: "http://www.thedonutmanca.com/"
   } 
 }, composeEnhancers(
