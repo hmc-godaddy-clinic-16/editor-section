@@ -1,6 +1,6 @@
 {
 	"announcement": "Announcement",
-	"announcementdesc": "Here you can create an announcement that will begin displaying on your website at a specified time. Create your announcement below, and select when you want it to display on your site. Perfect for announcing sales or special events!",
+	"announcementdesc": "Here you can create an announcement that will begin displaying on your website at a specified time.",
 	"title": "Title",
 	"body": "Body",
 	"start": "Start Date",
