@@ -4,7 +4,7 @@
 }
 
 #block-content-container {
-	display: inline;
+	display: inline-block;
 
 	font-family: 'Oswald', sans-serif;
 	color: white;
@@ -27,10 +27,14 @@
 
 	text-transform: uppercase;
 	text-align: center;
+	letter-spacing: .05em;
 	font-size: 20px;
 }
 
-/* Arrow head */
+/* Arrow head is an empty box with
+   left border as the body. 
+   Top and bottom border hide the left border
+   to create triangle.*/
 #block-title::after {
 	position: absolute;
 	content: ' ';
@@ -45,5 +49,13 @@
 }
 
 #content {
-	font-size: 14px;
+	font-size:14px;
+}
+
+#block-content {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 20px;
+
+	font-size: 16px;
 }

@@ -30,12 +30,14 @@ class Announcement extends React.Component {
 
 		// render different layouts
 		if (this.props.layout == constants.THIN_LAYOUT) {
+			// low height
 			announcementStyle = {
 				'height': '50px',
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};
 		} else if (this.props.layout == constants.BLOCK_TITLE_LAYOUT) {
+			// medium height
 			announcementStyle = {
 				'height': '60px',
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
@@ -43,7 +45,8 @@ class Announcement extends React.Component {
 			};
 		} 
 		else {
-			 announcementStyle = {
+			// extendible height
+			announcementStyle = {
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};

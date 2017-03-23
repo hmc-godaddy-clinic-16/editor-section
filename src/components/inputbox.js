@@ -46,6 +46,7 @@ class InputBox extends React.Component
       );
     }
     else {
+      // no character limit
       inputBox = (
         <div className="input-box">
           <p>{this.props.label}</p>

@@ -44,7 +44,7 @@ class Content extends React.Component {
 			content = (
 				<div id="block-content-container">
 					<div id={blockTitle}>{this.props.data.title}</div>
-					<div style={bodyStyle} id="content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
+					<div style={bodyStyle} id="block-content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
 				</div>
 			)
 		} else {
