@@ -65,6 +65,13 @@ npm install
 ```
 _(wait for all the packages to install)_
 
+Note that after this step, you will be able to compile and run the
+project. However, it is necessary to set up a server-side environment
+through MongoDB to enable data storage/retrieval (see below).
+Additionally, in order to enable social media posting, it will also
+be necessary to run a Facebook server.
+
+ 
 ### Running the code
 Run the command
 ```
@@ -78,7 +85,8 @@ Now, you should be able to edit and live-reload your code.
 
 It's necessary to have a local installation of [MongoDB] to successfully run the 
 server side code locally. See MongoDB's documentation for instructions on
-installation and set up. You'll also need MongoDB to be running in order for this to work. 
+installation and set up at this link: https://docs.mongodb.com/manual/installation/.
+You'll also need MongoDB to be running in order for this to work. 
 
 Once you have MongoDB installed, while in the Server directory of this project,
 run 
@@ -94,11 +102,16 @@ Take note of the value of _id. Because our app does not handle user login or
 authentication, we currently use this value to identify what should be accessed in the 
 database.
 
-In order for the client side code to communicate properly with the , in the file src/constants.js,
+In order for the client side code to communicate properly with the database, in the file src/constants.js,
 change the value of SERVER_URL to http://localhost:3000 and change DEFAULT_ID to the value of ```_id```
 you saw when you visited http://localhost:3000/announcements.
 
 When you run the app, your changes in the editor should now be persistent.
+
+### Setting up the social media server
+
+In order to enable login/posting to Twitter and Facebook, it is necessary to run a local server
+that supports this. 
 
 ### Running unit tests
 Run the tests
