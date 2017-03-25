@@ -93,8 +93,10 @@ run
 ```
 node server.js
 ```
-If you now visit localhost:3000/announcements, you should now see something 
-similar to the following:
+
+
+
+You should see something similar to the following:
 ```
 [{"_id":"583114642a35736e4aacc3ef","gotAnnouncement":false,"title":"BUY ONE DOZEN GET ONE DOZEN FREE","bodyText":"<b>October 13 - October 19</b> <br> 8:00 AM - 10:00 PM <br> Exclusions apply.","startDate":"2016-06-27T09:00:00.000Z","endDate":"2016-11-05T10:00:00.000Z","imgUrl":"http://cdn.jamieoliver.com/recipe-database/oldImages/xtra_med/1235_1_1436889055.jpg","link":"http://www.thedonutmanca.com/"}]
 ```
@@ -111,7 +113,13 @@ When you run the app, your changes in the editor should now be persistent.
 ### Setting up the social media server
 
 In order to enable login/posting to Twitter and Facebook, it is necessary to run a local server
-that supports this. 
+that supports the social media connections. To do so, go to the Server directory and run
+
+ ```
+node SocialMediaServer.js
+```
+
+With this server now running, the functionality for posting to both Facebook and Twitter should now be working.
 
 ### Running unit tests
 Run the tests
