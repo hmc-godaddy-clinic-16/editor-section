@@ -28,15 +28,25 @@ class Announcement extends React.Component {
 
 		var announcementStyle;
 
-		// Set background image
+		// render different layouts
 		if (this.props.layout == constants.THIN_LAYOUT) {
+			// low height
 			announcementStyle = {
 				'height': '50px',
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};
-		} else {
-			 announcementStyle = {
+		} else if (this.props.layout == constants.BLOCK_TITLE_LAYOUT) {
+			// medium height
+			announcementStyle = {
+				'height': '60px',
+				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
+				'backgroundColor': color
+			};
+		} 
+		else {
+			// extendible height
+			announcementStyle = {
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};
