@@ -6,6 +6,8 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var mongoose = require('mongoose');
 var Twitter = require('twitter');
 var FB = require('fb');
+var moment = require('moment');
+
 
 // Connect to the database
 mongoose.connect('mongodb://localhost/announcementdb');
@@ -228,6 +230,7 @@ var postToFacebook = function(req, res) {
   // Info sent to us from the front-end
   var post = req.body;
   var status = post.title + '\n' + post.body;
+  var scheduledTime = post.date;
 
   console.log("Received post for Facebook:" + post);
 
@@ -235,7 +238,13 @@ var postToFacebook = function(req, res) {
     if (!err && user !== null) {
       FB.setAccessToken(user.tokenSecret);
 
-      FB.api(user.pageID + '/feed', 'post', { message: status }, function (res) {
+      var fields = { message: status };
+      if (scheduledTime >= moment().unix() + 620) {
+        fields.published = false;
+        fields.scheduled_publish_time = scheduledTime;
+      }
+
+      FB.api(user.pageID + '/feed', 'post', fields, function (res) {
         if(!res || res.error) {
           console.log(!res ? 'FB posting error:' : res.error);
           return;
