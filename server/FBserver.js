@@ -21,7 +21,8 @@ var User = mongoose.model('User',
     name: String,
     created: Date,
     tokenSecret: String,
-    token: String
+    token: String,
+    pageID: String
   })
 );
 
@@ -119,28 +120,45 @@ passport.use(new FacebookStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({ platform: 'facebook' }, function(err, user) {
-      console.log('facebook token: ' + accessToken);
-      console.log('facebook profile: ' + profile.id);
       if(err) {
         console.log(err);  // handle errors!
       }
       if (!err && user !== null) {
         done(null, user);
       } else {
-        user = new User({
-          platform: 'facebook',
-          oauthID: profile.id,
-          name: profile.displayName,
-          created: Date.now(),
-          token: accessToken,
-        });
-        user.save(function(err) {
-          if(err) {
-            console.log(err);  // handle errors!
-          } else {
-            console.log("saving user ...");
-            done(null, user);
+
+        // Ask for page access token
+        FB.setAccessToken(accessToken);
+
+        FB.api('me/accounts', 'get', {}, function (res) {
+          var pageToken = "";
+          var pageIdentifier = "";
+
+          if(!res || res.error) {
+            console.log(!res ? 'Failed to get page access token:' : res.error);
+            done(res.error);
           }
+          
+          pageToken = res.data[0].access_token;
+          pageIdentifier = res.data[0].id;
+
+          user = new User({
+            platform: 'facebook',
+            oauthID: profile.id,
+            name: profile.displayName,
+            created: Date.now(),
+            tokenSecret: pageToken,
+            token: accessToken,
+            pageID: pageIdentifier
+          });
+          user.save(function(err) {
+            if(err) {
+              console.log(err);  // handle errors!
+            } else {
+              console.log("saving user ...");
+              done(null, user);
+            }
+          });
         });
       }
 
@@ -222,20 +240,20 @@ var postToFacebook = function(req, res) {
   console.log("Received post for Facebook:" + post);
 
   User.findOne({platform: 'facebook'}, function(err, user) {
-      if (!err && user !== null) {
-        FB.setAccessToken(user.token);
+    if (!err && user !== null) {
+      FB.setAccessToken(user.tokenSecret);
 
-        FB.api('me/feed', 'post', { message: status }, function (res) {
-          if(!res || res.error) {
-            console.log(!res ? 'FB posting error:' : res.error);
-            return;
-          }
-          console.log('FB posting success! Post Id: ' + res.id);
-        });
+      FB.api(user.pageID + '/feed', 'post', { message: status }, function (res) {
+        if(!res || res.error) {
+          console.log(!res ? 'FB posting error:' : res.error);
+          return;
+        }
+        console.log('FB posting success! Post Id: ' + res.id);
+      });
 
-      } else {
-        console.log("FB posting error: database read error, or user doesn't exist.")
-      }
+    } else {
+      console.log("FB posting error: database read error, or user doesn't exist.")
+    }
   });
 }
 
