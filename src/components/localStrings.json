@@ -18,6 +18,8 @@
 	"edit": "Edit",
 	"styles": "Styles",
 	"layouts": "Layouts",
+	"bannerLayout": "Banner Layout",
+	"blockTitleLayout": "Block Title Layout",
 	"startnowtext": " Start displaying this announcement now",
 	"makepermanenttext": " Keep displaying this announcement until unchecked"
 }
