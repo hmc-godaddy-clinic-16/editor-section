@@ -155,8 +155,8 @@ export class App extends React.Component {
 
         {this.state.currentMode === NAV_LAYOUT ?
         <div>
-          <Layout changeLayout={this.changeLayout} layout={constants.BANNER_LAYOUT} />
-          <Layout changeLayout={this.changeLayout} layout={constants.BLOCK_TITLE_LAYOUT} />
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BANNER_LAYOUT} theme={this.state.theme}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BLOCK_TITLE_LAYOUT} theme={this.state.theme}/>
         </div>
         :null}
 

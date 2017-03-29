@@ -1,5 +1,7 @@
 .layout-button {
-	margin-bottom: 15px;
+	margin-bottom: 20px;
+	background-color: none;
+	border: none;
 }
 
 .layout-button:focus {
