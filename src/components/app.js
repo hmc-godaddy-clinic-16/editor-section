@@ -13,6 +13,7 @@ import NavigationBar from "./navbar.js";
 import FacebookButton from "./facebookButton.js";
 import TwitterButton from "./twitterButton.js";
 import ShareButton from "./shareButton.js";
+import Layout from "./layout.js";
 import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
@@ -25,11 +26,16 @@ import LogoutButton from "./logoutButton.js";
 export class App extends React.Component {
   constructor (props) {
     super(props);
+
     this.changeMode = this.changeMode.bind(this);
     this.changeAnnouncementMode = this.changeAnnouncementMode.bind(this);
+    this.changeLayout = this.changeLayout.bind(this);
+
     this.state = {
       currentMode: constants.NAV_EDIT,
-      announcementMode: constants.EDIT
+      announcementMode: constants.EDIT,
+      announcementLayout: constants.BANNER_LAYOUT,
+      theme: constants.MODERN
     };
   }
 
@@ -41,6 +47,11 @@ export class App extends React.Component {
   // Announcement display mode
   changeAnnouncementMode(mode){
     this.setState({announcementMode: mode});
+  }
+
+  // Layout toggle
+  changeLayout(layout) {
+    this.setState({announcementLayout: layout});
   }
 
   renderNavBar() {
@@ -58,13 +69,13 @@ export class App extends React.Component {
     );
   }
 
-  renderPreview() {
+  renderPreview(theme) {
     // mock mode
     const editor = this.props.editor;
 
     return (
       <div className="col-sm-8 col-height preview">
-        <Announcement data={editor} mode={this.state.announcementMode}/>
+        <Announcement data={editor} mode={this.state.announcementMode} layout={this.state.announcementLayout} theme={theme}/>
         <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_ICON}/>
         <MockSite></MockSite>
       </div>
@@ -93,7 +104,8 @@ export class App extends React.Component {
             <InputBox 
               label={localStrings.title} 
               text={title} 
-              onEdit={this.props.changeTitle}/>
+              onEdit={this.props.changeTitle}
+              layout={this.state.announcementLayout}/>
 
             {localStrings.body}
             <RichTextEditor 
@@ -142,7 +154,10 @@ export class App extends React.Component {
         :null}
 
         {this.state.currentMode === NAV_LAYOUT ?
-        <h4> "Layout Mode" </h4>
+        <div>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BANNER_LAYOUT} theme={this.state.theme}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BLOCK_TITLE_LAYOUT} theme={this.state.theme}/>
+        </div>
         :null}
 
         {this.state.currentMode === NAV_STYLES ?
@@ -164,9 +179,8 @@ export class App extends React.Component {
           {this.renderNavBar()}  
         </div>
         <div className="row announcement-container">
-          {this.renderPreview()}
-          {this.renderEditor()}
-
+          {this.renderPreview(this.state.theme)}
+          {this.renderEditor(this.state.layout)}
         </div>
       </div>
     )

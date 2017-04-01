@@ -24,10 +24,32 @@ class Announcement extends React.Component {
 
 	render () {
 		var image = this.props.data.imgUrl;
+		var color = this.props.theme.color;
 
-		// Set background image
-		var announcementStyle = {
-			'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')'
+		var announcementStyle;
+
+		// render different layouts
+		if (this.props.layout == constants.THIN_LAYOUT) {
+			// low height
+			announcementStyle = {
+				'height': '50px',
+				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
+				'backgroundColor': color
+			};
+		} else if (this.props.layout == constants.BLOCK_TITLE_LAYOUT) {
+			// medium height
+			announcementStyle = {
+				'height': '60px',
+				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
+				'backgroundColor': color
+			};
+		} 
+		else {
+			// extendible height
+			announcementStyle = {
+				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
+				'backgroundColor': color
+			};
 		}
 
 		// scheduling data
@@ -57,7 +79,7 @@ class Announcement extends React.Component {
 				<div>
 					<a>
 						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-								<Content data={this.props.data} />
+								<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
 						</div>
 					</a>
 					<div className="announcementBorder"></div>
@@ -66,7 +88,7 @@ class Announcement extends React.Component {
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
 					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-						<Content data={this.props.data} />
+						<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
 						<div className="announcementBorder"></div>
 					</div>
 				);
