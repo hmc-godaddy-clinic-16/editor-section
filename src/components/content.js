@@ -42,12 +42,48 @@ class Content extends React.Component {
 
 			// display title (with background) and body
 			content = (
-				<div id="block-content-container">
+				<div id="block-content-container" style={contentStyle}>
 					<div id={blockTitle}>{this.props.data.title}</div>
 					<div style={bodyStyle} id="block-content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
 				</div>
 			)
-		} else {
+		}
+		// Display title and body in arrow layout
+		else if (this.props.layout == constants.ARROW_LAYOUT) {
+			content = (
+				<div className="flexbox" style={contentStyle}>
+					<div className="flexbox-col" id="arrow-title">{this.props.data.title}</div>
+					<div className="flexbox-col" style={bodyStyle}>
+						<div id="triangle"></div>
+						<div id="arrow-content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
+					</div>
+				</div>
+			)
+
+		} 
+		// Display title, body, and image in half and half layout
+		else if (this.props.layout == constants.HALF_LAYOUT) {
+			var image = this.props.image;
+			var backgroundStyle = {
+				'backgroundImage': 'url(' + image + ')'
+			}
+
+			content = (
+				<div className="flexbox" style={contentStyle}>
+					<div className="flexbox-col">
+						<div id="title"> {this.props.data.title}</div>
+						<hr/>
+						<div style={bodyStyle} id="content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
+					</div>
+					<div className="flexbox-col" style={backgroundStyle}>
+						&nbsp;
+					</div>
+				</div>
+			)
+
+		}
+
+		else {
 			// display title and body
 			content = (
 				<div id="content-container" style={contentStyle}>

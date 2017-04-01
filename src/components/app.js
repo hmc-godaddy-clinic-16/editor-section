@@ -157,6 +157,9 @@ export class App extends React.Component {
         <div>
           <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BANNER_LAYOUT} theme={this.state.theme}/>
           <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BLOCK_TITLE_LAYOUT} theme={this.state.theme}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.HALF_LAYOUT} theme={this.state.theme}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.ARROW_LAYOUT} theme={this.state.theme}/>
+
         </div>
         :null}
 
