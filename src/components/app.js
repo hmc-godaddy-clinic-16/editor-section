@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
-        updateBodyText, updateLink, fetchAnnouncement, updateIsPermanent} 
+        updateBodyText, updateLink, fetchAnnouncement, updateIsPermanent, updateTheme} 
         from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
@@ -21,6 +21,7 @@ import MockSite from "./mocksite.js";
 import AddSection from "./addsection.js";
 import RemoveSection from "./removesection.js";
 import LogoutButton from "./logoutButton.js";
+import StylesMode from "./stylesmode.js";
 
 export class App extends React.Component {
   constructor (props) {
@@ -62,6 +63,31 @@ export class App extends React.Component {
     // mock mode
     const editor = this.props.editor;
 
+
+    switch(this.props.editor.theme) {
+      case "Modern":
+          var theme = constants.MODERN;
+          break;
+      case "Trade":
+          var theme = constants.TRADE;
+          break;
+      case "Luxe":
+          var theme = constants.LUXE;
+          break;
+      case "Urban":
+          var theme = constants.URBAN;
+          break;
+      case "Retro":
+          var theme = constants.RETRO;
+          break;
+      case "Craft":
+          var theme = constants.CRAFT;
+          break;
+      // Something went wrong; let's default to MODERN
+      default:
+          var theme = constants.MODERN;
+    }
+
     return (
       <div className="col-sm-8 col-height preview">
         <Announcement data={editor} mode={this.state.announcementMode} layout={layout} theme={theme}/>
@@ -74,7 +100,7 @@ export class App extends React.Component {
  
   renderEditor(layout) {
     const editor = this.props.editor;
-    const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
+    const { isFetching, title, startDate, endDate, imgUrl, bodyText, link, theme} = editor;
 
     var startDateDate = new Date(startDate);
     var endDateDate = new Date(endDate);
@@ -147,7 +173,14 @@ export class App extends React.Component {
         :null}
 
         {this.state.currentMode === NAV_STYLES ?
-        <h4> "Styles Mode" </h4>
+        <div>
+          <div className="section-header">{localStrings.styles}</div>
+          <p className="announcement-desc-text">{localStrings.stylestext}</p>
+          <StylesMode
+             theme={theme}
+             onEdit={this.props.changeTheme}>
+          </StylesMode>
+        </div>
         :null}
 
         {this.state.announcementMode === constants.NO_ANNOUNCEMENT ? 
@@ -159,7 +192,7 @@ export class App extends React.Component {
 
 
   render () {
-    var layout = constants.BLOCK_TITLE_LAYOUT;
+    var layout = constants.THIN_LAYOUT;
     var theme = constants.MODERN;
 
     return (
@@ -187,6 +220,7 @@ App.propTypes = {
     imgUrl: React.PropTypes.string.isRequired,
     bodyText: React.PropTypes.string.isRequired,
     link: React.PropTypes.string.isRequired,
+    theme: React.PropTypes.string.isRequired,
   }).isRequired 
 
 };
@@ -221,6 +255,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeIsPermanent: (isPermanent) => {
       return dispatch(updateIsPermanent(isPermanent))
+    },
+    changeTheme: (theme) => {
+      return dispatch(updateTheme(theme))
     }
   };
 }

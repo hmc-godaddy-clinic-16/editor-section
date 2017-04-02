@@ -64,7 +64,15 @@ export default (state = "", action) => {
 				startDate: new Date(action.json.startDate),
 				endDate: new Date(action.json.endDate),
 				imgUrl: action.json.imgUrl,
-				link: action.json.link
+				link: action.json.link,
+				theme: action.json.theme
+			});
+
+		case constants.UPDATE_THEME:
+			console.log("Updated theme");
+
+			return Object.assign( {}, state, {
+				theme: action.theme
 			});
 	}
 
