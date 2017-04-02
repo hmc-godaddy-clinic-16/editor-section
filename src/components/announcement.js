@@ -43,12 +43,19 @@ class Announcement extends React.Component {
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};
-		} else if (this.props.layout == constants.HALF_LAYOUT || this.props.layout == constants.ARROW_LAYOUT) {
+		} else if (this.props.layout == constants.HALF_LAYOUT ) {
 			announcementStyle = {
 				'backgroundColor': color,
 				'padding': '0px'
 			};
-		} 
+		} else if (this.props.layout == constants.ARROW_LAYOUT) {
+			announcementStyle = {
+				'backgroundColor': color,
+				'padding': '0px',
+				'height': '80px',
+				'overflow': 'hidden'
+			};
+		}
 		else {
 			// extendible height
 			announcementStyle = {

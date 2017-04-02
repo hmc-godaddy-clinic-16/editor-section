@@ -71,6 +71,7 @@
 	display: flex;
 	overflow: hidden;
 	flex-direction: row;
+	height: 80px;
 }
 
 .flexbox .flexbox-col {
