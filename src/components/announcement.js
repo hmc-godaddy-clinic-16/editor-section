@@ -43,7 +43,19 @@ class Announcement extends React.Component {
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};
-		} 
+		} else if (this.props.layout == constants.HALF_LAYOUT ) {
+			announcementStyle = {
+				'backgroundColor': color,
+				'padding': '0px'
+			};
+		} else if (this.props.layout == constants.ARROW_LAYOUT) {
+			announcementStyle = {
+				'backgroundColor': color,
+				'padding': '0px',
+				'height': '80px',
+				'overflow': 'hidden'
+			};
+		}
 		else {
 			// extendible height
 			announcementStyle = {
@@ -79,7 +91,7 @@ class Announcement extends React.Component {
 				<div>
 					<a>
 						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-								<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
+								<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme} image={image}/>
 						</div>
 					</a>
 					<div className="announcementBorder"></div>
@@ -88,7 +100,7 @@ class Announcement extends React.Component {
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
 					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-						<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
+						<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme} image={image}/>
 						<div className="announcementBorder"></div>
 					</div>
 				);

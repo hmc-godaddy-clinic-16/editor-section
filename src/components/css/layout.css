@@ -1,0 +1,10 @@
+.layout-button {
+	margin-bottom: 20px;
+	background-color: none;
+	border: none;
+}
+
+.layout-button:focus {
+	border: 3px solid #00a63f;
+	outline: none;
+}
