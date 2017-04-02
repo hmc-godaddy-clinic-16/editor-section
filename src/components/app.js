@@ -31,6 +31,7 @@ export class App extends React.Component {
     this.changeMode = this.changeMode.bind(this);
     this.changeAnnouncementMode = this.changeAnnouncementMode.bind(this);
     this.changeLayout = this.changeLayout.bind(this);
+    this.setThemeType = this.setThemeType.bind(this);
 
     this.state = {
       currentMode: constants.NAV_EDIT,
@@ -55,6 +56,33 @@ export class App extends React.Component {
     this.setState({announcementLayout: layout});
   }
 
+  setThemeType(theme) {
+        switch(theme) {
+      case "Modern":
+          var themetype = constants.MODERN;
+          break;
+      case "Trade":
+          var themetype = constants.TRADE;
+          break;
+      case "Luxe":
+          var themetype = constants.LUXE;
+          break;
+      case "Urban":
+          var themetype = constants.URBAN;
+          break;
+      case "Retro":
+          var themetype = constants.RETRO;
+          break;
+      case "Craft":
+          var themetype = constants.CRAFT;
+          break;
+      // Something went wrong; let's default to MODERN
+      default:
+          var themetype = constants.MODERN;
+    }
+    return themetype;
+  }
+
   renderNavBar() {
     return (
       <div className="row announcement-navbar">
@@ -75,33 +103,11 @@ export class App extends React.Component {
     const editor = this.props.editor;
 
 
-    switch(this.props.editor.theme) {
-      case "Modern":
-          var theme = constants.MODERN;
-          break;
-      case "Trade":
-          var theme = constants.TRADE;
-          break;
-      case "Luxe":
-          var theme = constants.LUXE;
-          break;
-      case "Urban":
-          var theme = constants.URBAN;
-          break;
-      case "Retro":
-          var theme = constants.RETRO;
-          break;
-      case "Craft":
-          var theme = constants.CRAFT;
-          break;
-      // Something went wrong; let's default to MODERN
-      default:
-          var theme = constants.MODERN;
-    }
+    var themeType = this.setThemeType(this.props.editor.theme);
 
     return (
       <div className="col-sm-8 col-height preview">
-        <Announcement data={editor} mode={this.state.announcementMode} layout={this.state.announcementLayout} theme={theme}/>
+        <Announcement data={editor} mode={this.state.announcementMode} layout={this.state.announcementLayout} theme={themeType}/>
         <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_ICON}/>
         <MockSite></MockSite>
       </div>
@@ -112,7 +118,8 @@ export class App extends React.Component {
   renderEditor() {
     const editor = this.props.editor;
     const { isFetching, title, startDate, endDate, imgUrl, bodyText, link, theme} = editor;
-
+    
+    var themeType = this.setThemeType(this.props.editor.theme);
     var startDateDate = new Date(startDate);
     var endDateDate = new Date(endDate);
     var dateDisplayOptions = { weekday: 'long', year: 'numeric', 
@@ -181,10 +188,13 @@ export class App extends React.Component {
 
         {this.state.currentMode === NAV_LAYOUT ?
         <div>
-          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BANNER_LAYOUT} theme={this.state.theme}/>
-          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BLOCK_TITLE_LAYOUT} theme={this.state.theme}/>
-          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.HALF_LAYOUT} theme={this.state.theme}/>
-          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.ARROW_LAYOUT} theme={this.state.theme}/>
+          <div className="section-header">{localStrings.layouts}</div>
+          <p className="announcement-desc-text">{localStrings.layoutsdesc}</p>
+
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BANNER_LAYOUT} theme={themeType}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BLOCK_TITLE_LAYOUT} theme={themeType}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.HALF_LAYOUT} theme={themeType}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.ARROW_LAYOUT} theme={themeType}/>
 
         </div>
         :null}
@@ -192,7 +202,7 @@ export class App extends React.Component {
         {this.state.currentMode === NAV_STYLES ?
         <div>
           <div className="section-header">{localStrings.styles}</div>
-          <p className="announcement-desc-text">{localStrings.stylestext}</p>
+          <p className="announcement-desc-text">{localStrings.stylesdesc}</p>
           <StylesMode
              theme={theme}
              onEdit={this.props.changeTheme}>
