@@ -99,8 +99,10 @@ class Announcement extends React.Component {
 			);
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
-					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-						<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme} image={image}/>
+					<div>
+						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
+							<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme} image={image}/>
+						</div>
 						<div className="announcementBorder"></div>
 					</div>
 				);
