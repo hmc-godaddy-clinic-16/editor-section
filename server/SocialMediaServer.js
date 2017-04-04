@@ -28,6 +28,15 @@ var User = mongoose.model('User',
   })
 );
 
+// User.remove({platform: 'facebook' }, function (err) {
+//   if (err) return handleError(err);
+// });
+
+// User.remove({platform: 'twitter' }, function (err) {
+//   if (err) return handleError(err);
+// });
+
+
 // Create a UI toggle state model
 var ToggleState = mongoose.model('ToggleState', 
   new mongoose.Schema({
@@ -252,8 +261,11 @@ var postToFacebook = function(req, res) {
         console.log('FB posting success! Post Id: ' + res.id);
       });
 
+    res.send("sucess");
+
     } else {
-      console.log("FB posting error: database read error, or user doesn't exist.")
+      console.log("FB posting error: database read error, or user doesn't exist.");
+      res.send("error");
     }
   });
 }

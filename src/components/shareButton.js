@@ -86,7 +86,6 @@ class ShareButton extends React.Component {
 	}
 
 	handleClick() {
-
 		if (this.state.facebookSelected) {
 			this.postFB();
 		}
