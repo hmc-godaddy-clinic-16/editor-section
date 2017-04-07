@@ -17,7 +17,9 @@
 	"twitter": "Twitter",
 	"edit": "Edit",
 	"styles": "Styles",
+	"stylesdesc": "Choose a style option to change the text and colors of your announcement.",
 	"layouts": "Layouts",
+	"layoutsdesc": "Choose a layout to change the look of your announcement.",
 	"startnowtext": " Start displaying this announcement now",
 	"makepermanenttext": " Keep displaying this announcement until unchecked"
 }

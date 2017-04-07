@@ -13,6 +13,9 @@ export const NAV_STYLES = 'NAV_STYLES';
 // layouts
 export const THIN_LAYOUT = 'THIN_LAYOUT';
 export const BANNER_LAYOUT = 'BANNER_LAYOUT';
+export const BLOCK_TITLE_LAYOUT = 'BLOCK_TITLE_LAYOUT';
+export const HALF_LAYOUT = 'HALF_LAYOUT';
+export const ARROW_LAYOUT = 'ARROW_LAYOUT';
 
 // themes
 export const TRADE = {

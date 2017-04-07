@@ -1,7 +1,124 @@
+#content-container {
+	color: white;
+	text-align: center;
+}
+
+#block-content-container {
+	display: inline-block;
+
+	font-family: 'Oswald', sans-serif;
+	color: white;
+	text-align: left;
+}
+
 #title {
 	font-size: 18px;
 }
 
+#block-title {
+	display: inline-block;
+	background-color: black;
+	background-color: rgba(255,255,255,0.5);
+
+	padding: 4px 7px;
+	position: relative;
+	width: 170px;
+	height: 37px;
+
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: .05em;
+	font-size: 20px;
+}
+
+/* Arrow head is an empty box with
+   left border as the body. 
+   Top and bottom border hide the left border
+   to create triangle.*/
+#block-title::after {
+	position: absolute;
+	content: ' ';
+	width: 0;
+	height: 0;
+	margin-top: -0.64em;
+	top: 13.5px;
+	left: 170px;
+	border-left: 0.65em solid rgba(255, 255, 255, .5);
+	border-top: 0.9em solid transparent;
+	border-bottom: 0.9em solid transparent;
+}
+
 #content {
+	font-size:14px;
+}
+
+#block-content {
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: 6px;
+	margin-left: 20px;
+
+	font-size: 16px;
+}
+
+
+/* -------------------------------------*/
+/* half and half image layout */
+/* -------------------------------------*/
+
+.flexbox {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	overflow: hidden;
+	flex-direction: row;
+	height: 80px;
+}
+
+.flexbox .flexbox-col {
+	text-align: center;
+	color: white;
+	flex: 1;
+	width: 50%;
+}
+
+.flexbox-col #title {
+	padding: 10px 10px 0px 10px;
+}
+
+.flexbox-col #content {
+	padding: 0px 10px 10px 10px;
+}
+
+.flexbox-col hr {
+	width: 75%;
+}
+
+/* -------------------------------------*/
+/* arrow layout */
+/* -------------------------------------*/
+
+#triangle {
+    float: left;
+    content: ' ';
+    width: 0;
+    height: 0;
+    margin-top: 0em;
+    left: 366px;
+    border-left: 0.65em solid rgba(255, 255, 255, .4);
+    border-top: 3em solid transparent;
+    border-bottom: 3em solid transparent;
+}
+
+#arrow-title {	
+	padding: 10px;
+	text-align: center;
+	font-size: 18px;
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+#arrow-content {
+	padding: 10px;
+	text-align: center;
 	font-size: 14px;
 }

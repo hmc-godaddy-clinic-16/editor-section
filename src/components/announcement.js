@@ -28,15 +28,37 @@ class Announcement extends React.Component {
 
 		var announcementStyle;
 
-		// Set background image
+		// render different layouts
 		if (this.props.layout == constants.THIN_LAYOUT) {
+			// low height
 			announcementStyle = {
 				'height': '50px',
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};
-		} else {
-			 announcementStyle = {
+		} else if (this.props.layout == constants.BLOCK_TITLE_LAYOUT) {
+			// medium height
+			announcementStyle = {
+				'height': '60px',
+				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
+				'backgroundColor': color
+			};
+		} else if (this.props.layout == constants.HALF_LAYOUT ) {
+			announcementStyle = {
+				'backgroundColor': color,
+				'padding': '0px'
+			};
+		} else if (this.props.layout == constants.ARROW_LAYOUT) {
+			announcementStyle = {
+				'backgroundColor': color,
+				'padding': '0px',
+				'height': '80px',
+				'overflow': 'hidden'
+			};
+		}
+		else {
+			// extendible height
+			announcementStyle = {
 				'backgroundImage': 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(' + image + ')',
 				'backgroundColor': color
 			};
@@ -69,7 +91,7 @@ class Announcement extends React.Component {
 				<div>
 					<a>
 						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-								<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
+								<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme} image={image}/>
 						</div>
 					</a>
 					<div className="announcementBorder"></div>
@@ -77,8 +99,10 @@ class Announcement extends React.Component {
 			);
 		} else if (displayAnnouncement && this.props.data.link == '') {
 				var announcement = (
-					<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
-						<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme}/>
+					<div>
+						<div style={announcementStyle} className="announcement" onMouseEnter={this.onMouseHover} onMouseLeave={this.onMouseOut}>
+							<Content data={this.props.data} layout={this.props.layout} theme={this.props.theme} image={image}/>
+						</div>
 						<div className="announcementBorder"></div>
 					</div>
 				);

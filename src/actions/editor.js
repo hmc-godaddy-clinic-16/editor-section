@@ -51,6 +51,13 @@ export function updateIsPermanent (isPermanent) {
 	}
 }
 
+export function updateTheme (theme) {
+	return {
+		type: constants.UPDATE_THEME,
+		theme
+	}
+}
+
 // Communication with the RESTful API
 
 export function requestAnnouncement (announcementid) {

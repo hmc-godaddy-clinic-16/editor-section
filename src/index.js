@@ -38,7 +38,8 @@ const store = createStore(
     startDate: new Date(),
     endDate: new Date(),
     imgUrl: "http://i.imgur.com/rq19kfP.jpg",
-    link: "http://www.thedonutmanca.com/"
+    link: "http://www.thedonutmanca.com/",
+    theme: "Modern"
   } 
 }, composeEnhancers(
   applyMiddleware(

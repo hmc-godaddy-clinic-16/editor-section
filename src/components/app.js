@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import {connect} from 'react-redux';
 import InputBox from "./inputbox";
 import {updateTitle, updateStartDate, updateEndDate, updateImageUrl,
-        updateBodyText, updateLink, fetchAnnouncement, updateIsPermanent} 
+        updateBodyText, updateLink, fetchAnnouncement, updateIsPermanent, updateTheme} 
         from "../actions/editor";
 import Scheduler from "./scheduler";
 import RichTextEditor from "./richtexteditor.js";
@@ -13,6 +13,7 @@ import NavigationBar from "./navbar.js";
 import FacebookButton from "./facebookButton.js";
 import TwitterButton from "./twitterButton.js";
 import ShareButton from "./shareButton.js";
+import Layout from "./layout.js";
 import * as constants from './constants.js';
 import './css/app.css';
 import localStrings from './localStrings.json';
@@ -21,15 +22,22 @@ import MockSite from "./mocksite.js";
 import AddSection from "./addsection.js";
 import RemoveSection from "./removesection.js";
 import LogoutButton from "./logoutButton.js";
+import StylesMode from "./stylesmode.js";
 
 export class App extends React.Component {
   constructor (props) {
     super(props);
+
     this.changeMode = this.changeMode.bind(this);
     this.changeAnnouncementMode = this.changeAnnouncementMode.bind(this);
+    this.changeLayout = this.changeLayout.bind(this);
+    this.setThemeType = this.setThemeType.bind(this);
+
     this.state = {
       currentMode: constants.NAV_EDIT,
-      announcementMode: constants.EDIT
+      announcementMode: constants.EDIT,
+      announcementLayout: constants.BANNER_LAYOUT,
+      theme: constants.MODERN
     };
   }
 
@@ -41,6 +49,38 @@ export class App extends React.Component {
   // Announcement display mode
   changeAnnouncementMode(mode){
     this.setState({announcementMode: mode});
+  }
+
+  // Layout toggle
+  changeLayout(layout) {
+    this.setState({announcementLayout: layout});
+  }
+
+  setThemeType(theme) {
+        switch(theme) {
+      case "Modern":
+          var themetype = constants.MODERN;
+          break;
+      case "Trade":
+          var themetype = constants.TRADE;
+          break;
+      case "Luxe":
+          var themetype = constants.LUXE;
+          break;
+      case "Urban":
+          var themetype = constants.URBAN;
+          break;
+      case "Retro":
+          var themetype = constants.RETRO;
+          break;
+      case "Craft":
+          var themetype = constants.CRAFT;
+          break;
+      // Something went wrong; let's default to MODERN
+      default:
+          var themetype = constants.MODERN;
+    }
+    return themetype;
   }
 
   renderNavBar() {
@@ -58,13 +98,16 @@ export class App extends React.Component {
     );
   }
 
-  renderPreview(layout, theme) {
+  renderPreview(theme) {
     // mock mode
     const editor = this.props.editor;
 
+
+    var themeType = this.setThemeType(this.props.editor.theme);
+
     return (
       <div className="col-sm-8 col-height preview">
-        <Announcement data={editor} mode={this.state.announcementMode} layout={layout} theme={theme}/>
+        <Announcement data={editor} mode={this.state.announcementMode} layout={this.state.announcementLayout} theme={themeType}/>
         <AddSection mode={this.state.announcementMode} changeMode={this.changeAnnouncementMode} appearance={constants.ADD_ICON}/>
         <MockSite></MockSite>
       </div>
@@ -72,10 +115,11 @@ export class App extends React.Component {
   }
 
  
-  renderEditor(layout) {
+  renderEditor() {
     const editor = this.props.editor;
-    const { isFetching, title, startDate, endDate, imgUrl, bodyText, link} = editor;
-
+    const { isFetching, title, startDate, endDate, imgUrl, bodyText, link, theme} = editor;
+    
+    var themeType = this.setThemeType(this.props.editor.theme);
     var startDateDate = new Date(startDate);
     var endDateDate = new Date(endDate);
     var dateDisplayOptions = { weekday: 'long', year: 'numeric', 
@@ -94,7 +138,7 @@ export class App extends React.Component {
               label={localStrings.title} 
               text={title} 
               onEdit={this.props.changeTitle}
-              layout={layout}/>
+              layout={this.state.announcementLayout}/>
 
             {localStrings.body}
             <RichTextEditor 
@@ -143,11 +187,27 @@ export class App extends React.Component {
         :null}
 
         {this.state.currentMode === NAV_LAYOUT ?
-        <h4> "Layout Mode" </h4>
+        <div>
+          <div className="section-header">{localStrings.layouts}</div>
+          <p className="announcement-desc-text">{localStrings.layoutsdesc}</p>
+
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BANNER_LAYOUT} theme={themeType}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.BLOCK_TITLE_LAYOUT} theme={themeType}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.HALF_LAYOUT} theme={themeType}/>
+          <Layout data={editor} mode={this.state.announcementMode} changeLayout={this.changeLayout} layout={constants.ARROW_LAYOUT} theme={themeType}/>
+
+        </div>
         :null}
 
         {this.state.currentMode === NAV_STYLES ?
-        <h4> "Styles Mode" </h4>
+        <div>
+          <div className="section-header">{localStrings.styles}</div>
+          <p className="announcement-desc-text">{localStrings.stylesdesc}</p>
+          <StylesMode
+             theme={theme}
+             onEdit={this.props.changeTheme}>
+          </StylesMode>
+        </div>
         :null}
 
         {this.state.announcementMode === constants.NO_ANNOUNCEMENT ? 
@@ -159,18 +219,14 @@ export class App extends React.Component {
 
 
   render () {
-    var layout = constants.THIN_LAYOUT;
-    var theme = constants.MODERN;
-
     return (
       <div className="container-fluid">
         <div className="row">
           {this.renderNavBar()}  
         </div>
         <div className="row announcement-container">
-          {this.renderPreview(layout, theme)}
-          {this.renderEditor(layout)}
-
+          {this.renderPreview(this.state.theme)}
+          {this.renderEditor(this.state.layout)}
         </div>
       </div>
     )
@@ -187,6 +243,7 @@ App.propTypes = {
     imgUrl: React.PropTypes.string.isRequired,
     bodyText: React.PropTypes.string.isRequired,
     link: React.PropTypes.string.isRequired,
+    theme: React.PropTypes.string.isRequired,
   }).isRequired 
 
 };
@@ -221,6 +278,9 @@ function mapDispatchToProps (dispatch) {
     },
     changeIsPermanent: (isPermanent) => {
       return dispatch(updateIsPermanent(isPermanent))
+    },
+    changeTheme: (theme) => {
+      return dispatch(updateTheme(theme))
     }
   };
 }
