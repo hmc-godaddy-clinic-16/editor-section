@@ -14,7 +14,7 @@ export const UPDATE_THEME = 'UPDATE_THEME';
 
 
 // local MongoDB host
-export const DEFAULT_ID = '588b9391c56b5b3a2c4de76c';
+export const DEFAULT_ID = '588b8efc69074b2987764095';
 export const SERVER_URL = 'http://127.0.0.1:3000'; // local host
 
 // export const DEFAULT_ID = '588b9391c56b5b3a2c4de76c';
