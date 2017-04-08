@@ -72,7 +72,6 @@
 	display: flex;
 	overflow: hidden;
 	flex-direction: row;
-	height: 80px;
 }
 
 .flexbox .flexbox-col {
@@ -92,6 +91,8 @@
 
 .flexbox-col hr {
 	width: 75%;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 /* -------------------------------------*/
