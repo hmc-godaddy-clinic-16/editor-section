@@ -1,3 +1,15 @@
+/* scheduler.js
+
+This file contains the code for a scheduler, which is the component
+that goes into the editor section that allows the user to pick a 
+date and time for their announcement. This class is a wrapper that
+contains the individual datetime pickers as well as checkboxes and other
+features that are included within the datetime section on the website.
+
+A start date can be passed in to prevent the user from selecting an
+end date before the state date.
+*/
+
 import React from 'react';
 import moment from 'moment';
 import Datetime from 'react-datetime';
@@ -5,12 +17,7 @@ import DateTimePicker from './datetimepicker.js';
 import localStrings from './localStrings.json';
 import './css/scheduler.css';
 
-// Scheduler provides a UI for picking a date and time 
-// Relies on the third party node module react-datetitme to provide the date
-// and time picking
-// The "same" parameter passed in via props determines which version of 
-// the date time picker is displayed.
-// If the date should be after a certain date, a startDate is passed in
+
 class Scheduler extends React.Component 
 {
       constructor(props) {

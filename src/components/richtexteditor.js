@@ -1,3 +1,12 @@
+/* richtexteditor.js
+
+This file contains the code for creating a rich text editor.
+This is used for entering the announcement body in the announcement editor.
+This uses DraftJs and exports the data as HTML.
+
+*/
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Editor, EditorState, RichUtils} from 'draft-js';

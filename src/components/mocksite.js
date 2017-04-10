@@ -1,3 +1,12 @@
+/* mocksite.js
+
+This file provides the code that generates a "mock" site to be displayed
+under the announcement. Because this project merely lets the user create
+an announcement, the mocksite provides the context for what the rest of
+a website created using GoCentral may look like.
+
+*/
+
 import React from 'react';
 import './css/mocksite.css';
 

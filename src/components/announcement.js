@@ -1,3 +1,18 @@
+/* announcement.js
+
+This file contains the code for the announcement that will be displayed in the
+preview area of the screen and eventually be displayed on the published website.
+
+Currently four different website layouts are available - the THIN_LAYOUT,
+BLOCK_TITLE_LAYOUT, HALF_LAYOUT, and ARROW_LAYOUT.
+
+This file also handles the logic for determining whether the announcement should
+be displayed based on the start and end date that were specified. Though it will
+always be displayed 
+
+*/
+
+
 import React from "react";
 import Content from "./content.js";
 import * as constants from './constants.js';
@@ -64,15 +79,15 @@ class Announcement extends React.Component {
 			};
 		}
 
-		// scheduling data
+		// Get the scheduling data
 		var start = new Date(this.props.data.startDate);
 		var end = new Date(this.props.data.endDate);
 		var current = new Date();
 		var isPermanent = this.props.data.isPermanent;
 		var displayAnnouncement = false;
 
-		// display announcement on edit mode, when no dates specified,
-		// and when the current date falls within the scheduled date
+		// Display the announcement if it is in edit mode, if the announement has been displayed
+		// as permanent, or if it is within the date range specified by the user.
 		if ( 
 			this.props.mode != constants.NO_ANNOUNCEMENT && (
 			this.props.mode == constants.EDIT  || 
@@ -84,8 +99,8 @@ class Announcement extends React.Component {
 			displayAnnouncement = true;
 		} 
 
-		// show announcement depending on scheduled date and mode
-		// and when no start and no end is given
+		// If a link has been specified, change the behavior of the announcement
+		// so that it creates a shadow on hover.
 		if (displayAnnouncement && this.props.data.link != '') {
 			var announcement = (
 				<div>

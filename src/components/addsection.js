@@ -1,3 +1,10 @@
+/* addsection.js
+
+This file allows for an interface so that the user can choose to add
+an announcement when viewing just the mock site. Mostly used for demo purposes.
+
+*/
+
 import React from 'react';
 import './css/addsection.css';
 import * as constants from './constants.js';

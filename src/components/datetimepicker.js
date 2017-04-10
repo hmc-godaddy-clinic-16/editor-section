@@ -1,3 +1,15 @@
+/* datetimepicker.js
+
+This provides a certain style of datetime picker, either for
+choosing a date or for choosing a time. What gets displayed
+depends on the props that are passed in. These datetimepicker
+components are used within the wrapper "scheduler.js", that 
+wraps the entire datetime picking section on the editor.
+
+Relies on the third-party module react-datetime to select dates.
+
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import moment from 'moment';
@@ -34,12 +46,6 @@ class DateTimePicker extends React.Component
 		this.setState({datetime: nextProps.datetime});
 	}
 
-	// Close the picker on click elsewhere
-	// handleClick = e => {
-	// 	if (!ReactDOM.findDOMNode(this).contains(e.target)) {
-	// 		this.hidePicker();
-	// 	}
-	// }
 
 	onChange(event) {
 		
