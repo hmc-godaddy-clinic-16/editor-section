@@ -1,3 +1,10 @@
+/* removesection.js
+
+This file allows for an interface so that the user can choose to remove
+an announcement and go back to viewing just the mocksite. Mostly used for demo purposes.
+
+*/
+
 import React from 'react';
 import './css/removesection.css';
 import * as constants from './constants.js';
