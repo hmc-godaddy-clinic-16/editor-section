@@ -11,6 +11,7 @@
 [React-Datetime]: https://github.com/YouCanBookMe/react-datetime
 [MomentJS]: http://momentjs.com/
 [Bootstrap]: http://getbootstrap.com/
+[React-Dropdown]: https://github.com/fraserxu/react-dropdown
 [package.json]: https://github.com/hmc-godaddy-clinic-16/editor-section/blob/master/package.json
 
 # GoDaddy Clinic
@@ -41,7 +42,6 @@ Here are the major technologies we used:
    + [Mocha] - Testing 
    + [Express] - Server and API
    + [MongoDB] - Persistent storage
-   + [Passport] - Allows for facebook authentication
 
 Additional dependencies: 
    + [DraftJS] - Provides text editing capabilities
