@@ -36,14 +36,17 @@ class Content extends React.Component {
 			// do not render background for empty title
 			if (this.props.data.title == '') {
 				var blockTitle = "title";
+				var blockTitleArrow = "no-arrow"
 			} else {
 				var blockTitle = "block-title"
+				var blockTitleArrow = "block-title-arrow"
 			}
 
 			// display title (with background) and body
 			content = (
 				<div id="block-content-container" style={contentStyle}>
 					<div id={blockTitle}>{this.props.data.title}</div>
+					<div id={blockTitleArrow}>&nbsp;</div>
 					<div style={bodyStyle} id="block-content" span dangerouslySetInnerHTML={{ __html: this.props.data.bodyText}} />
 				</div>
 			)
