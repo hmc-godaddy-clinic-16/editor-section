@@ -22,7 +22,7 @@ class MockSite extends React.Component {
 			<div className="mocksite">
 				<div className="mockheader"> 
 					<div className="mocknav">
-						<div className="col-1 mocknavtitle">Mr. Dough's Donuts</div>
+						<div className="col-1 mocknavtitle">Mr. Dough's Doughnuts</div>
 						<div className="col-1">Home&nbsp;&nbsp;&nbsp;&nbsp;Shop&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;Cart</div>
 					</div>
 					<h1 className="mocktitle">MR. DOUGH'S DOUGHNUTS</h1>
@@ -32,7 +32,7 @@ class MockSite extends React.Component {
 				<div className="mockabout"> 
 					<h3>ABOUT US</h3>
 					<hr/>
-					<p>Mr. Dough's doughnuts is a local doughnut establishment run by Mr. Dough and his friendly staff. We have the most delicious donuts around and a huge selection of flavors to select from. We're always happy to take large orders for events of all varieities. </p>
+					<p>Mr. Dough's doughnuts is a local doughnut establishment run by Mr. Dough and his friendly staff. We have the most delicious donuts around and a huge selection of flavors to select from. We're always happy to take large orders for events of all varieties. </p>
 					<h4>Flavors</h4>
 					<hr/>
 					<p> Our selection of donuts includes, but is not limited to, Lemon Cream, Apple Fritter, Cinnamon, Sugar, Custard, Vanilla Sprinkles, Double Chocolate, Powdered, Maple, Strawberry Jelly, Chocolate Sprinkles, Chocolate Long John, Boston Cream, Chocolate Glazed, and Glazed! </p>
