@@ -102,7 +102,6 @@ export class App extends React.Component {
     // mock mode
     const editor = this.props.editor;
 
-
     var themeType = this.setThemeType(this.props.editor.theme);
 
     return (
