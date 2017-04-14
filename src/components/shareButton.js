@@ -5,6 +5,9 @@ import TwitterButton from "./twitterButton.js";
 import './css/socialMediaButton.css';
 import * as constants from "./constants.js";
 
+/* The share button component renders the share button in the UI 
+ * and makes calls to our api to post to social media */
+
 class ShareButton extends React.Component {
 	constructor(props) {
 		super(props);

@@ -5,6 +5,10 @@ import fetch from 'isomorphic-fetch';
 import * as constants from './constants.js';
 require('es6-promise').polyfill();
 
+/* The twitter button component creates the Twitter sharing on/off slider 
+ * in the UI. It also handles checking the logged in status of the 
+ * user on our server. */
+
 class TwitterButton extends React.Component {
 	constructor(props) {
 		super(props);
@@ -27,7 +31,6 @@ class TwitterButton extends React.Component {
 	}
 
 	checkLoggedIn() {
-		console.log("CHECKING LOGGED IN STATUS");
 
 		return fetch( `${constants.SOCIAL_SERVER_URL}/twitter/user`, {
 			method: "GET"

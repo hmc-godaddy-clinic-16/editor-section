@@ -5,6 +5,10 @@ import fetch from 'isomorphic-fetch';
 import * as constants from './constants.js';
 require('es6-promise').polyfill();
 
+/* The facebook button component creates the Twitter sharing on/off slider 
+ * in the UI. It also handles checking the logged in status of the 
+ * user on our server. */
+
 class FacebookButton extends React.Component {
 	constructor(props) {
 		super(props);

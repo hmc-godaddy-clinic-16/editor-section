@@ -1,3 +1,6 @@
+/* This file provides an API for storing user-entered data
+ * in a MongoDB instance */
+
 // Not using ES6 syntax currently
 // Run this file by running node server.js 
 // Requires that mongodb be properly installed and running locally to work

@@ -7,6 +7,11 @@ var mongoose = require('mongoose');
 var Twitter = require('twitter');
 var FB = require('fb');
 
+/* This server provides an API for communicating with 
+ * Twitter and Facebook's third part APIs. It handles
+ * posting and storage of authentication information.
+ */
+
 // Connect to the database
 mongoose.connect('mongodb://localhost/announcementdb');
 console.log("Connected to the database");
