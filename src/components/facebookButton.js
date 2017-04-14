@@ -128,16 +128,17 @@ class FacebookButton extends React.Component {
 			twitterSelected: prevState.twitterSelected
 		}));
 
+		if (this.state.logoOff) {
+			this.checkLoggedIn();
+		}
+
 		this.setState(prevState => ({
 			logoOff: !prevState.logoOff
 		}),
 
 		function() {
 			this.setSocialState();
-		}
-		);
-
-		this.checkLoggedIn();
+		});
 	}
 
 	render () {

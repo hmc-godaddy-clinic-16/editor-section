@@ -6,6 +6,8 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var mongoose = require('mongoose');
 var Twitter = require('twitter');
 var FB = require('fb');
+var moment = require('moment');
+
 
 /* This server provides an API for communicating with 
  * Twitter and Facebook's third part APIs. It handles
@@ -26,9 +28,11 @@ var User = mongoose.model('User',
     name: String,
     created: Date,
     tokenSecret: String,
-    token: String
+    token: String,
+    pageID: String
   })
 );
+
 
 // Create a UI toggle state model
 var ToggleState = mongoose.model('ToggleState', 
@@ -64,14 +68,6 @@ var setToggleState = function(platform) {
 
 setToggleState('facebook');
 setToggleState('twitter');
-
-User.remove({platform: 'facebook' }, function (err) {
-  if (err) return handleError(err);
-});
-
-User.remove({platform: 'twitter' }, function (err) {
-  if (err) return handleError(err);
-});
 
 // Create a new Express application.
 var app = express();
@@ -124,28 +120,45 @@ passport.use(new FacebookStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({ platform: 'facebook' }, function(err, user) {
-      console.log('facebook token: ' + accessToken);
-      console.log('facebook profile: ' + profile.id);
       if(err) {
         console.log(err);  // handle errors!
       }
       if (!err && user !== null) {
         done(null, user);
       } else {
-        user = new User({
-          platform: 'facebook',
-          oauthID: profile.id,
-          name: profile.displayName,
-          created: Date.now(),
-          token: accessToken,
-        });
-        user.save(function(err) {
-          if(err) {
-            console.log(err);  // handle errors!
-          } else {
-            console.log("saving user ...");
-            done(null, user);
+
+        // Ask for page access token
+        FB.setAccessToken(accessToken);
+
+        FB.api('me/accounts', 'get', {}, function (res) {
+          var pageToken = "";
+          var pageIdentifier = "";
+
+          if(!res || res.error) {
+            console.log(!res ? 'Failed to get page access token:' : res.error);
+            done(res.error);
           }
+          
+          pageToken = res.data[0].access_token;
+          pageIdentifier = res.data[0].id;
+
+          user = new User({
+            platform: 'facebook',
+            oauthID: profile.id,
+            name: profile.displayName,
+            created: Date.now(),
+            tokenSecret: pageToken,
+            token: accessToken,
+            pageID: pageIdentifier
+          });
+          user.save(function(err) {
+            if(err) {
+              console.log(err);  // handle errors!
+            } else {
+              console.log("saving user ...");
+              done(null, user);
+            }
+          });
         });
       }
 
@@ -223,24 +236,34 @@ var postToFacebook = function(req, res) {
   // Info sent to us from the front-end
   var post = req.body;
   var status = post.title + '\n' + post.body;
+  var scheduledTime = post.date;
 
   console.log("Received post for Facebook:" + post);
 
   User.findOne({platform: 'facebook'}, function(err, user) {
-      if (!err && user !== null) {
-        FB.setAccessToken(user.token);
+    if (!err && user !== null) {
+      FB.setAccessToken(user.tokenSecret);
 
-        FB.api('me/feed', 'post', { message: status }, function (res) {
-          if(!res || res.error) {
-            console.log(!res ? 'FB posting error:' : res.error);
-            return;
-          }
-          console.log('FB posting success! Post Id: ' + res.id);
-        });
-
-      } else {
-        console.log("FB posting error: database read error, or user doesn't exist.")
+      var fields = { message: status };
+      if (scheduledTime >= moment().unix() + 620) {
+        fields.published = false;
+        fields.scheduled_publish_time = scheduledTime;
       }
+
+      FB.api(user.pageID + '/feed', 'post', fields, function (res) {
+        if(!res || res.error) {
+          console.log(!res ? 'FB posting error:' : res.error);
+          return;
+        }
+        console.log('FB posting success! Post Id: ' + res.id);
+      });
+
+    res.send("sucess");
+
+    } else {
+      console.log("FB posting error: database read error, or user doesn't exist.");
+      res.send("error");
+    }
   });
 }
 
@@ -268,10 +291,14 @@ var removeFacebookUser = function(req, res) {
 }
 
 var setFacebookToggleState = function(req, res) {
-  ToggleState.findOne({platform: 'facebook'}, function(err, state) {
+  setToggleState('facebook', req.body.toggle);
+}
+
+var setToggleState = function(platformString, newState) {
+  ToggleState.findOne({platform: platformString}, function(err, state) {
     if (!err && state !== null) {
-        console.log(req.body);
-        state.toggleState = req.body.toggle;
+        console.log(newState);
+        state.toggleState = newState;
 
         state.save(function(err) {
           if(err) {
@@ -406,20 +433,7 @@ var getTwitterUser = function(req, res) {
 }
 
 var setTwitterToggleState = function(req, res) {
-  ToggleState.findOne({platform: 'twitter'}, function(err, state) {
-    if (!err && state !== null) {
-        console.log(req.body);
-        state.toggleState = req.body.toggle;
-
-        state.save(function(err) {
-          if(err) {
-            console.log(err);  // handle errors!
-          } else {
-            console.log("saving toggle state ...");
-          }
-        });
-    }
-  });
+  setToggleState('twitter', req.body.toggle);
 }
 
 var getTwitterToggleState = function(req, res) {
