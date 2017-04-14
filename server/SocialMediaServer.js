@@ -28,14 +28,6 @@ var User = mongoose.model('User',
   })
 );
 
-// User.remove({platform: 'facebook' }, function (err) {
-//   if (err) return handleError(err);
-// });
-
-// User.remove({platform: 'twitter' }, function (err) {
-//   if (err) return handleError(err);
-// });
-
 
 // Create a UI toggle state model
 var ToggleState = mongoose.model('ToggleState', 
@@ -294,10 +286,14 @@ var removeFacebookUser = function(req, res) {
 }
 
 var setFacebookToggleState = function(req, res) {
-  ToggleState.findOne({platform: 'facebook'}, function(err, state) {
+  setToggleState('facebook', req.body.toggle);
+}
+
+var setToggleState = function(platformString, newState) {
+  ToggleState.findOne({platform: platformString}, function(err, state) {
     if (!err && state !== null) {
-        console.log(req.body);
-        state.toggleState = req.body.toggle;
+        console.log(newState);
+        state.toggleState = newState;
 
         state.save(function(err) {
           if(err) {
@@ -432,20 +428,7 @@ var getTwitterUser = function(req, res) {
 }
 
 var setTwitterToggleState = function(req, res) {
-  ToggleState.findOne({platform: 'twitter'}, function(err, state) {
-    if (!err && state !== null) {
-        console.log(req.body);
-        state.toggleState = req.body.toggle;
-
-        state.save(function(err) {
-          if(err) {
-            console.log(err);  // handle errors!
-          } else {
-            console.log("saving toggle state ...");
-          }
-        });
-    }
-  });
+  setToggleState('twitter', req.body.toggle);
 }
 
 var getTwitterToggleState = function(req, res) {

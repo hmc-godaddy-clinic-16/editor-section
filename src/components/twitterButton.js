@@ -124,6 +124,10 @@ class TwitterButton extends React.Component {
 			twitterSelected: this.state.logoOff
 		}));
 
+		if (this.state.logoOff) {
+			this.checkLoggedIn();
+		}
+
 		this.setState(prevState => ({
 			logoOff: !prevState.logoOff
 		}),
@@ -131,8 +135,6 @@ class TwitterButton extends React.Component {
 		function() {
 			this.setSocialState();
 		});
-
-		this.checkLoggedIn();
 
 	}
 
