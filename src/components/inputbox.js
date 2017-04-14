@@ -1,8 +1,14 @@
+/* inputbox.js
+
+InputBox is a component representing a text input field
+in the editor panel.
+
+*/ 
+
 import React from "react";
 import * as constants from './constants.js';
 import './css/inputbox.css';
 
-/* InputBox is a basic text input field. */
 class InputBox extends React.Component
 {
   constructor(props) {

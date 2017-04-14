@@ -1,13 +1,17 @@
+/* twitterButton.js
+
+The TwitterButton component creates the Twitter sharing on/off slider
+in the editor panel. It also handles checking the logged in status of the
+user on the application's server.
+
+*/
+
 import React from "react";
 import './css/socialMediaButton.css';
 import localStrings from './localStrings.json';
 import fetch from 'isomorphic-fetch';
 import * as constants from './constants.js';
 require('es6-promise').polyfill();
-
-/* The twitter button component creates the Twitter sharing on/off slider 
- * in the UI. It also handles checking the logged in status of the 
- * user on our server. */
 
 class TwitterButton extends React.Component {
 	constructor(props) {

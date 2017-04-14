@@ -1,5 +1,4 @@
-/*
-stylesmode.js
+/* stylesmode.js
 
 This class renders the content for the Styles tab of the Navbar.
 It uses react-dropdown to create a dropdown menu that

@@ -1,3 +1,11 @@
+/* facebookButton.js
+
+The FacebookButton component creates the Facebook sharing on/off slider 
+in the editor panel. It also handles checking the logged in status of the 
+user on the application's server.
+
+*/
+
 import React from "react";
 import './css/socialMediaButton.css';
 import localStrings from './localStrings.json';

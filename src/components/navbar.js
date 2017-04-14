@@ -1,3 +1,12 @@
+/* navbar.js
+
+Navbar is a component respresenting the navigation bar
+at the top of the application. 
+
+The navigation bar includes 3 tabs: edit, layouts, and styles.
+
+*/
+
 import React from 'react';
 import './css/navbar.css';
 import localStrings from './localStrings.json';

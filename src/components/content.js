@@ -1,9 +1,13 @@
+/* content.js
+
+Content renders the title and body of the announcement. 
+
+*/
+
 import React from "react";
 import * as constants from './constants.js';
 import './css/content.css';
 
-/* Content renders the title and body. 
-   Thin layout only renders the title. */
 class Content extends React.Component {
 	render () {
 		// get theme typefaces

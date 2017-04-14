@@ -1,3 +1,10 @@
+/* layout.js
+
+Layout is a component representing a single announcement layout
+within the "Layouts" tab in the navigation bar.
+
+*/
+
 import React from "react";
 import Announcement from "./announcement.js";
 import * as constants from './constants.js';

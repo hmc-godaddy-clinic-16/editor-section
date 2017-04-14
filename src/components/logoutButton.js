@@ -1,3 +1,10 @@
+/* logoutButton.js
+
+LogoutButton is a component representing a button allowing
+the user to log out of their social media account.
+
+*/
+
 import React from 'react';
 import './css/removesection.css';
 import * as constants from './constants.js';

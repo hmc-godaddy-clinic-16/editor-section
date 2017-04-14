@@ -1,12 +1,17 @@
+/* shareButton.js
+
+The ShareButton component renders the share button in the
+editor panel and makes calls to the application's API to
+post to social media.
+
+*/
+
 import React from "react";
 import striptags from "striptags";
 import FacebookButton from "./facebookButton.js";
 import TwitterButton from "./twitterButton.js";
 import './css/socialMediaButton.css';
 import * as constants from "./constants.js";
-
-/* The share button component renders the share button in the UI 
- * and makes calls to our api to post to social media */
 
 class ShareButton extends React.Component {
 	constructor(props) {
