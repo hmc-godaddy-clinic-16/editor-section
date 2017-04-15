@@ -1,3 +1,8 @@
+/* This server provides an API for communicating with 
+ * Twitter and Facebook's third part APIs. It handles
+ * posting and storage of authentication information.
+ */
+
 var express = require('express');
 var passport = require('passport');
 var config = require('./oauth.js');
@@ -8,11 +13,6 @@ var Twitter = require('twitter');
 var FB = require('fb');
 var moment = require('moment');
 
-
-/* This server provides an API for communicating with 
- * Twitter and Facebook's third part APIs. It handles
- * posting and storage of authentication information.
- */
 
 // Connect to the database
 mongoose.connect('mongodb://localhost/announcementdb');

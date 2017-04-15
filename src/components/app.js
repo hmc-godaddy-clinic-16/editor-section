@@ -1,3 +1,10 @@
+/* app.js
+
+This is the main file of our web contents. It contains the preview panel and
+the editor section. 
+
+*/
+
 import React from 'react';
 import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.css'
